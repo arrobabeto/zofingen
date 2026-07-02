@@ -1,0 +1,87 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Rule Naming and Organization
+
+## Purpose
+Define consistent naming and organization patterns for rules to improve discoverability and maintainability.
+
+## File Structure
+```
+rules/V2/
+├── 00-meta/          # Meta rules about rules
+├── 10-architecture/  # High-level architecture decisions
+├── 20-code-quality/  # Code quality and style
+├── 30-patterns/      # Design patterns and implementations
+└── 40-guidelines/    # General principles and practices
+```
+
+## Naming Conventions
+
+### Files
+- Use kebab-case for all file names
+- Use `.mdc` extension for all rule files
+- Prefix with number for ordering (e.g., `00-`, `01-`, etc.)
+- Use descriptive, action-oriented names
+
+Examples:
+```
+✅ 00-naming.mdc
+✅ 01-error-handling.mdc
+❌ errorHandling.mdc
+❌ Error_Handling.mdc
+```
+
+### Rule Titles
+- Use Title Case for main rule titles
+- Use sentence case for sections
+- Be concise but descriptive
+
+Examples:
+```
+✅ # Error Handling Standards
+✅ ## When to apply
+❌ # ERROR HANDLING STANDARDS
+❌ ## When To Apply
+```
+
+## Tags
+Each rule should include relevant tags for better searchability:
+
+```markdown
+Tags: #category #specific-topic #related-concept
+```
+
+Example:
+```markdown
+Tags: #error-handling #typescript #validation
+```
+
+## Cross-References
+Link related rules using relative paths:
+
+```markdown
+Related:
+- [Type Safety](mdc:../20-code-quality/type-safety.mdc)
+- [Error Patterns](mdc:../30-patterns/error-patterns.mdc)
+```
+
+## Machine-Readable Metadata
+Include a YAML frontmatter section for Cursor LLM:
+
+```yaml
+---
+priority: 1-5
+applies_to: ["*.ts", "*.vue"]
+triggers:
+  - "error handling"
+  - "try catch"
+related_rules:
+  - "type-safety"
+  - "validation"
+---
+```
+
+Tags: #meta #organization #naming #structure

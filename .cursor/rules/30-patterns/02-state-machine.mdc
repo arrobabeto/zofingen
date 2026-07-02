@@ -1,0 +1,243 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+ ---
+priority: 2
+applies_to: ["*.ts", "*.tsx", "*.vue"]
+triggers:
+  - "state machine"
+  - "state management"
+  - "mode switching"
+  - "behavior changes"
+related_rules:
+  - "prefer-oop"
+  - "keep-it-simple"
+  - "composition"
+---
+
+# State Machine Pattern
+
+## Purpose
+Implement clean and maintainable state-dependent behavior changes using the State pattern from automata theory, allowing objects to alter their behavior when their internal state changes.
+
+## When to Apply
+- Managing multiple modes of operation (e.g., edit, view, delete modes)
+- Handling complex state-dependent behaviors
+- When if-else chains for state handling become unwieldy
+- When state transitions need to be explicitly defined
+- In interactive applications with multiple tools or modes
+
+## When Not to Apply
+- Simple boolean flags are sufficient
+- Only 2-3 states with simple transitions
+- When using a full state management solution like Vuex/Pinia
+- When state changes don't affect behavior significantly
+
+## Guidelines
+
+### Basic Implementation
+1. Define a state interface with all possible actions
+2. Create concrete state classes for each state
+3. Implement a context class that manages states
+4. Use composition to delegate behavior to current state
+
+### State Interface
+```typescript
+interface IState {
+  onEnter?(): void
+  onExit?(): void
+  handleAction(data: ActionData): void
+}
+```
+
+### State Implementation
+```typescript
+class ConcreteState implements IState {
+  onEnter() {
+    // Setup for this state
+  }
+  
+  onExit() {
+    // Cleanup before state change
+  }
+  
+  handleAction(data: ActionData) {
+    // State-specific behavior
+  }
+}
+```
+
+### Context Class
+```typescript
+class Context {
+  private states: Record<string, IState>
+  private currentState: IState
+  
+  setState(newState: string) {
+    this.currentState?.onExit?.()
+    this.currentState = this.states[newState]
+    this.currentState?.onEnter?.()
+  }
+  
+  handleAction(data: ActionData) {
+    this.currentState.handleAction(data)
+  }
+}
+```
+
+## Examples
+
+### Good Example: Drawing Tool States
+```typescript
+interface IToolState {
+  onMouseDown(x: number, y: number): void
+  onMouseMove(x: number, y: number): void
+  onMouseUp(x: number, y: number): void
+}
+
+class SelectTool implements IToolState {
+  onMouseDown(x: number, y: number) {
+    // Start selection
+  }
+  onMouseMove(x: number, y: number) {
+    // Update selection
+  }
+  onMouseUp(x: number, y: number) {
+    // Finish selection
+  }
+}
+
+class DrawingCanvas {
+  private tools = {
+    select: new SelectTool(),
+    draw: new DrawTool(),
+    erase: new EraseTool()
+  }
+  private currentTool: IToolState
+
+  setTool(tool: keyof typeof this.tools) {
+    this.currentTool = this.tools[tool]
+  }
+}
+```
+
+### Bad Example: Using Flags
+```typescript
+// BAD: Hard to maintain and extend
+class DrawingCanvas {
+  private isSelecting = false
+  private isDrawing = false
+  private isErasing = false
+
+  onMouseDown(x: number, y: number) {
+    if (this.isSelecting) {
+      // Selection logic
+    } else if (this.isDrawing) {
+      // Drawing logic
+    } else if (this.isErasing) {
+      // Erasing logic
+    }
+  }
+}
+```
+
+
+
+## More Exapmles
+
+to create a state machine in code, start with an interface.
+it should describe what events a state should handle.
+then create implementations for each state with its behaviour.
+
+on the actual system, define the list of states and current state.
+a method `setState()` should allow switching.
+now, event handling can be deferred to the active state.
+
+in this example, a click event should select or erase an element,
+depending on the currently active state.
+this approach scales well, as you can easily create more states.
+if you put each state into a separate file,
+you can also keep things neatly organized.
+
+```ts
+interface IState {
+  onClick(x: number, y: number)
+}
+
+class SelectState implements IState {
+  onClick(x: number, y: number) {
+    console.log(`select element at pos:	${x}/${y}`)
+    // ...
+  }
+}
+
+class EraseState implements IState {
+  onClick(x: number, y: number) {
+    console.log(`erase element at pos:	${x}/${y}`)
+    // ...
+  }
+}
+
+class Cursor {
+  private states = {
+    select: new SelectState(),
+    erase: new EraseState(),
+  }
+
+  private currentState: IState = this.states.select
+
+  setState(state: keyof Cursor["states"]) {
+    this.currentState = this.states[state]
+  }
+
+  onClick(x: number, y: number) {
+    this.currentState.onClick(x, y)
+  }
+}
+
+const cursor = new Cursor()
+cursor.setState("erase") // change state
+cursor.onClick(10, 20) // handle events
+cursor.setState("select") // rinse and repeat...
+cursor.onClick(30, 40)
+```
+
+
+## Common Pitfalls
+- Not using interfaces for states
+- Mixing state logic with business logic
+- Forgetting to handle state transitions
+- Not considering state initialization
+- Keeping state-specific data in context class
+
+## Advanced Features
+- State transition validation
+- Entry/exit hooks
+- State history tracking
+- Composite states
+- Hierarchical state machines
+
+## Migration Guide
+1. Identify state-dependent code
+2. Extract state interface
+3. Create state classes
+4. Implement context class
+5. Replace conditionals with state pattern
+6. Add transition logic
+7. Test each state independently
+
+## Validation
+- Each state is properly encapsulated
+- State transitions are explicit
+- No state-specific logic in context
+- Clear separation of concerns
+- States are easily testable
+
+## Related Patterns
+- Strategy Pattern
+- Command Pattern
+- Observer Pattern
+
+Tags: #pattern #state-machine #oop #typescript #behavior

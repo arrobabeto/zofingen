@@ -1,0 +1,21 @@
+#!/usr/bin/env sh
+
+# init
+. "$(dirname -- "$0")/_/husky.sh"
+
+# prevent main branch commits
+branch="$(git rev-parse --abbrev-ref HEAD)"
+if [ "$branch" = "main" ]; then
+  echo "error: tried to commit directly to main branch"
+  exit 1
+fi
+
+## lint
+npm run pretty-quick
+npm run eslint
+npm run typecheck
+
+## finish
+echo
+echo '✅ everything okay'
+echo
