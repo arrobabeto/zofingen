@@ -1,0 +1,184 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+ ---
+priority: 1
+applies_to: ["*.ts", "*.tsx", "*.vue", "*.js", "*.jsx"]
+triggers:
+  - "naming"
+  - "variable names"
+  - "function names"
+  - "method names"
+  - "class names"
+  - "interface names"
+  - "type names"
+related_rules:
+  - "keep-it-simple"
+  - "do-not-over-engineer"
+---
+
+# Do Not Lie
+
+## Purpose
+Ensure code clarity and prevent misunderstandings by using truthful, accurate, and descriptive names for all code elements. Code is read more often than it is written, so names should clearly reflect their purpose and behavior.
+
+## When to Apply
+- When naming any code element (variables, functions, classes, etc.)
+- When creating interfaces or types
+- When writing documentation
+- When defining API endpoints
+- When creating error messages
+- When writing comments
+
+## When Not to Apply
+- For temporary variables in very small scopes (e.g., loop counters)
+- For widely accepted abbreviations (e.g., 'id', 'url', 'html')
+- When the context makes the meaning absolutely clear
+
+## Guidelines
+
+### Variable Naming
+1. **Be Specific**
+   - Use type-specific names
+   - Include units when relevant
+   - Indicate state or status
+
+2. **Be Accurate**
+   - Name should match the content
+   - Use proper pluralization
+   - Reflect the actual type
+
+3. **Be Complete**
+   - Avoid abbreviations
+   - Include context when needed
+   - Use proper prefixes/suffixes
+
+### Function Naming
+1. **Behavior Description**
+   - Use action verbs
+   - Indicate side effects
+   - Match return type
+
+2. **Promise Naming**
+   - Use async verb forms
+   - Indicate async nature
+   - Match resolution type
+
+3. **Event Handlers**
+   - Use 'handle' prefix
+   - Indicate trigger
+   - Match event type
+
+## Examples
+
+### Good: Variable Naming
+```typescript
+// GOOD: Names match their contents
+const userId = 'f84026c1-0ad2-4ca8-a34c-ab1de85230d7'
+const userEmail = 'user@example.com'
+const isUserActive = true
+const lastLoginDate = new Date()
+const numberOfAttempts = 3
+const priceInCents = 1999
+
+// BAD: Misleading names
+const user = 'f84026c1-0ad2-4ca8-a34c-ab1de85230d7' // This is just an ID
+const email = true // This is a boolean, not an email
+const date = 'yesterday' // This is a string, not a Date
+const count = null // Undefined state not reflected in name
+```
+
+### Good: Function Naming
+```typescript
+// GOOD: Names match their behavior
+async function fetchUserProfile(userId: string): Promise<UserProfile> {
+  return api.get(`/users/${userId}`)
+}
+
+function calculateTotalPrice(items: CartItem[]): number {
+  return items.reduce((sum, item) => sum + item.price, 0)
+}
+
+function handleUserClick(event: MouseEvent): void {
+  // Handle click event
+}
+
+// BAD: Misleading function names
+function isValid(input: string) { // Lies about its behavior
+  if (!input.match(someRule)) {
+    redirect('/home') // Side effect not indicated in name
+  }
+}
+
+async function getUser() { // Unclear if it returns a user or userId
+  return 'f84026c1-0ad2-4ca8-a34c-ab1de85230d7'
+}
+
+function processData(data: unknown) { // Too vague
+  // What kind of processing?
+}
+```
+
+### Good: Class and Interface Naming
+```typescript
+// GOOD: Clear and accurate names
+interface UserRepository {
+  findById(id: string): Promise<User>
+  save(user: User): Promise<void>
+  delete(id: string): Promise<void>
+}
+
+class LocalStorageUserRepository implements UserRepository {
+  // Implementation
+}
+
+// BAD: Misleading or vague names
+interface Handler { // Too vague
+  process(): void // What does it handle?
+}
+
+class Manager { // Too generic
+  // What does it manage?
+}
+```
+
+## Common Pitfalls
+- Using generic names (data, info, thing)
+- Incorrect type implications (using plural for single items)
+- Hidden side effects in function names
+- Inconsistent naming patterns
+- Outdated names after refactoring
+- Missing context in shared code
+
+## Migration Guide
+1. Identify misleading names
+2. Map actual behavior/content
+3. Choose accurate descriptors
+4. Update related documentation
+5. Update test descriptions
+6. Review for consistency
+7. Update API contracts
+
+## Validation
+Ask these questions about each name:
+- Does it accurately describe the content/behavior?
+- Would another developer be misled?
+- Is the type clearly indicated?
+- Are side effects obvious?
+- Is sufficient context provided?
+- Is it consistent with codebase patterns?
+
+## Related Concepts
+- Clean Code
+- Self-Documenting Code
+- Code Readability
+- Maintainability
+- Domain-Driven Design
+
+## External Resources
+- [Clean Code: Meaningful Names](mdc:https:/www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882)
+- [TypeScript Naming Conventions](mdc:https:/www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html)
+
+Tags: #naming #clean-code #best-practices #readability #maintainability

@@ -1,0 +1,15 @@
+.idea
+.vscode
+.DS_Store
+tmp
+node_modules
+*.log*
+.nuxt
+.nitro
+.cache
+.output
+.env
+dist
+playwright-report
+test-results
+.cursor/mcp.json

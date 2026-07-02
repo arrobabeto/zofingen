@@ -1,0 +1,238 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+ ---
+priority: 2
+applies_to: ["*.ts", "*.tsx", "*.vue"]
+triggers:
+  - "strategy pattern"
+  - "interface implementation"
+  - "polymorphism"
+  - "interchangeable algorithms"
+  - "runtime behavior"
+related_rules:
+  - "prefer-oop"
+  - "keep-it-simple"
+  - "do-not-over-engineer"
+---
+
+# Strategy Pattern
+
+## Purpose
+Enable runtime behavior switching by encapsulating different algorithms or implementations behind a common interface, promoting code reusability and maintainability while adhering to the Open/Closed principle.
+
+## When to Apply
+- When different variants of an algorithm are needed
+- When behavior needs to change at runtime
+- When conditional logic is becoming complex
+- When multiple classes differ only in their behavior
+- When you need to hide complex implementation details
+
+## When Not to Apply
+- For simple conditional logic
+- When behavior rarely changes
+- When there are only a few simple variations
+- When the interface would be too complex
+- When performance is critical (due to abstraction overhead)
+
+## Guidelines
+
+### Interface Design
+1. **Keep It Focused**
+   - Single responsibility
+   - Clear method names
+   - Minimal required methods
+
+2. **Type Safety**
+   - Use TypeScript interfaces
+   - Define clear method signatures
+   - Document expected behavior
+
+3. **Implementation**
+   - Each strategy in separate file
+   - Clear naming convention
+   - Proper error handling
+
+### Strategy Selection
+1. **Runtime Selection**
+   - Clear factory methods
+   - Configuration-based selection
+   - Dependency injection ready
+
+2. **Default Strategy**
+   - Provide sensible default
+   - Document default behavior
+   - Easy override mechanism
+
+## Examples
+
+### Good: File Storage Strategy
+```typescript
+// IStorageStrategy.ts
+interface IStorageStrategy {
+  save(data: unknown): Promise<void>
+  load(): Promise<unknown>
+  delete(): Promise<void>
+}
+
+// LocalStorageStrategy.ts
+class LocalStorageStrategy implements IStorageStrategy {
+  constructor(private key: string) {}
+
+  async save(data: unknown): Promise<void> {
+    localStorage.setItem(this.key, JSON.stringify(data))
+  }
+
+  async load(): Promise<unknown> {
+    return JSON.parse(localStorage.getItem(this.key) || 'null')
+  }
+
+  async delete(): Promise<void> {
+    localStorage.removeItem(this.key)
+  }
+}
+
+// IndexedDBStrategy.ts
+class IndexedDBStrategy implements IStorageStrategy {
+  constructor(private dbName: string, private storeName: string) {}
+
+  async save(data: unknown): Promise<void> {
+    const db = await this.openDB()
+    const tx = db.transaction(this.storeName, 'readwrite')
+    await tx.objectStore(this.storeName).put(data)
+  }
+
+  async load(): Promise<unknown> {
+    const db = await this.openDB()
+    const tx = db.transaction(this.storeName, 'readonly')
+    return tx.objectStore(this.storeName).get('data')
+  }
+
+  async delete(): Promise<void> {
+    const db = await this.openDB()
+    const tx = db.transaction(this.storeName, 'readwrite')
+    await tx.objectStore(this.storeName).delete('data')
+  }
+
+  private async openDB(): Promise<IDBDatabase> {
+    // Implementation details...
+  }
+}
+
+// Usage
+class DataManager {
+  constructor(private storage: IStorageStrategy) {}
+
+  async saveData(data: unknown): Promise<void> {
+    await this.storage.save(data)
+  }
+
+  async loadData(): Promise<unknown> {
+    return this.storage.load()
+  }
+}
+
+// Client code
+const localManager = new DataManager(new LocalStorageStrategy('user-data'))
+const dbManager = new DataManager(new IndexedDBStrategy('app-db', 'user-store'))
+```
+
+### Good: Authentication Strategy
+```typescript
+interface IAuthStrategy {
+  login(credentials: unknown): Promise<User>
+  logout(): Promise<void>
+  verify(): Promise<boolean>
+}
+
+class EmailAuthStrategy implements IAuthStrategy {
+  async login(credentials: EmailCredentials): Promise<User> {
+    // Email/password authentication
+  }
+  // ... other methods
+}
+
+class OAuth2Strategy implements IAuthStrategy {
+  async login(credentials: OAuthCredentials): Promise<User> {
+    // OAuth2 flow
+  }
+  // ... other methods
+}
+
+class AuthService {
+  constructor(private strategy: IAuthStrategy) {}
+
+  setStrategy(strategy: IAuthStrategy): void {
+    this.strategy = strategy
+  }
+
+  async authenticate(credentials: unknown): Promise<User> {
+    return this.strategy.login(credentials)
+  }
+}
+```
+
+### Bad: Overcomplicating Simple Logic
+```typescript
+// BAD: Strategy pattern is overkill here
+interface IGreetingStrategy {
+  greet(name: string): string
+}
+
+class FormalGreeting implements IGreetingStrategy {
+  greet(name: string): string {
+    return `Hello, ${name}`
+  }
+}
+
+class CasualGreeting implements IGreetingStrategy {
+  greet(name: string): string {
+    return `Hi ${name}!`
+  }
+}
+
+// GOOD: Simple function is sufficient
+function greet(name: string, isFormal = false): string {
+  return isFormal ? `Hello, ${name}` : `Hi ${name}!`
+}
+```
+
+## Common Pitfalls
+- Over-engineering simple problems
+- Creating too complex interfaces
+- Not considering performance implications
+- Tight coupling to concrete strategies
+- Missing error handling
+- Inconsistent interface implementations
+
+## Migration Guide
+1. Identify varying behaviors
+2. Extract common interface
+3. Implement concrete strategies
+4. Create strategy context
+5. Refactor client code
+6. Add tests for each strategy
+7. Document usage patterns
+
+## Validation
+- Interface is focused and clear
+- Strategies are properly isolated
+- Error handling is consistent
+- Performance impact is acceptable
+- Testing is comprehensive
+- Documentation is complete
+
+## Related Concepts
+- Factory Pattern
+- Dependency Injection
+- Template Method Pattern
+- Command Pattern
+- Bridge Pattern
+
+## External Resources
+- [Design Patterns: Strategy](mdc:https:/refactoring.guru/design-patterns/strategy)
+- [TypeScript Design Patterns](mdc:https:/www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html)
+
+Tags: #pattern #strategy #typescript #oop #design-patterns

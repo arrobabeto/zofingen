@@ -1,0 +1,227 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+ ---
+title: Composition Pattern
+description: Breaking down large components into manageable sub-components
+category: patterns
+order: 4
+tags:
+  - vue
+  - components
+  - organization
+  - maintainability
+---
+
+# Composition Pattern
+
+## Overview
+
+As applications grow in complexity, individual files can become unmanageable due to their size and complexity. The composition pattern addresses this by breaking down large components into smaller, more focused sub-components.
+
+## Key Principles
+
+### File Size Guidelines
+
+1. **Optimal Size**: 60-100 lines of code
+   - This is the target range for most files
+   - Promotes readability and maintainability
+   - Makes code reviews more efficient
+
+2. **Acceptable Size**: 100-150 lines of code
+   - Should be an exception rather than the rule
+   - Consider refactoring if approaching this size
+
+3. **Maximum Size**: 150+ lines of code
+   - Requires explicit approval
+   - Strong indication that refactoring is needed
+   - Should be extremely rare
+
+### When to Apply
+
+- Don't start with composition immediately
+- Keep code in one file until clear patterns emerge
+- Split when you start to see natural "seams" in the code
+- Consider splitting when a component has multiple distinct responsibilities
+
+## Implementation
+
+### Vue Component Example
+
+Consider a dashboard page that displays multiple widgets:
+
+```vue
+<!-- BAD: Everything in one file -->
+<template>
+  <main>
+    <section>
+      <h2>Profile</h2>
+      <div class="profile-content">
+        <img :src="user.avatar" alt="Profile picture">
+        <h3>{{ user.name }}</h3>
+        <p>{{ user.bio }}</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Billing</h2>
+      <div class="billing-content">
+        <p>Current Plan: {{ plan.name }}</p>
+        <p>Next Payment: {{ plan.nextPayment }}</p>
+        <button @click="upgradePlan">Upgrade</button>
+      </div>
+    </section>
+
+    <section>
+      <h2>Notifications</h2>
+      <div class="notifications-list">
+        <div v-for="notification in notifications" :key="notification.id">
+          <p>{{ notification.message }}</p>
+          <button @click="markAsRead(notification)">Mark as read</button>
+        </div>
+      </div>
+    </section>
+  </main>
+</template>
+```
+
+### Better Approach: Using Composition
+
+Break down the large component into smaller, focused components:
+
+```vue
+<!-- Dashboard.vue -->
+<script setup lang="ts">
+import ProfileWidget from './_ProfileWidget.vue'
+import BillingWidget from './_BillingWidget.vue'
+import NotificationsWidget from './_NotificationsWidget.vue'
+</script>
+
+<template>
+  <main>
+    <ProfileWidget />
+    <BillingWidget />
+    <NotificationsWidget />
+  </main>
+</template>
+```
+
+```vue
+<!-- _ProfileWidget.vue -->
+<script setup lang="ts">
+defineProps<{
+  user: {
+    avatar: string
+    name: string
+    bio: string
+  }
+}>()
+</script>
+
+<template>
+  <section>
+    <h2>Profile</h2>
+    <div class="profile-content">
+      <img :src="user.avatar" alt="Profile picture">
+      <h3>{{ user.name }}</h3>
+      <p>{{ user.bio }}</p>
+    </div>
+  </section>
+</template>
+```
+
+### Naming Conventions
+
+1. **Local Components**
+   - Prefix with underscore (_) to indicate non-reusable components
+   - Example: `_ProfileWidget.vue`
+   - Use relative imports
+
+2. **Reusable Components**
+   - No prefix for globally reusable components
+   - Example: `Button.vue`, `Card.vue`
+   - Usually imported from a components directory
+
+## Benefits
+
+1. **Improved Maintainability**
+   - Each component has a single responsibility
+   - Easier to understand and modify
+   - Better separation of concerns
+
+2. **Enhanced Readability**
+   - Smaller files are easier to read
+   - Clear component boundaries
+   - Self-documenting code structure
+
+3. **Better Testing**
+   - Smaller components are easier to test
+   - Isolated functionality
+   - Clear input/output boundaries
+
+4. **Easier Collaboration**
+   - Team members can work on different components
+   - Reduced merge conflicts
+   - Clear ownership of code
+
+## Anti-patterns
+
+1. **Premature Composition**
+   - Breaking down components before patterns emerge
+   - Creating unnecessary abstractions
+   - Over-engineering simple solutions
+
+2. **Excessive Nesting**
+   - Too many levels of component hierarchy
+   - Complex prop drilling
+   - Difficult to follow data flow
+
+3. **Wrong Abstraction Level**
+   - Breaking down components at the wrong boundaries
+   - Missing natural "seams" in the code
+   - Creating artificial separations
+
+## When Not to Use
+
+1. **Simple Components**
+   - Components under 60 lines
+   - Single responsibility already achieved
+   - No clear separation points
+
+2. **Tightly Coupled Logic**
+   - When splitting would create more complexity
+   - When components share too much state
+   - When the overhead outweighs the benefits
+
+## Related Patterns
+
+- **Container/Presentational Pattern**
+  - Often used alongside composition
+  - Separates data management from presentation
+
+- **Prop Drilling Alternatives**
+  - Consider provide/inject for deep component trees
+  - Use state management for widely shared state
+
+## Migration Strategy
+
+1. **Identify Candidates**
+   - Look for files over 100 lines
+   - Find natural groupings of functionality
+   - Identify repeated patterns
+
+2. **Plan the Split**
+   - Define component boundaries
+   - Identify shared state and props
+   - Plan the component hierarchy
+
+3. **Implement Gradually**
+   - Split one section at a time
+   - Test each split thoroughly
+   - Maintain backwards compatibility
+
+## Summary
+
+The composition pattern is a powerful tool for managing complexity in Vue applications. By breaking down large components into smaller, focused pieces, we create more maintainable and understandable code. Remember to apply this pattern judiciously, waiting for natural patterns to emerge rather than forcing premature abstractions.

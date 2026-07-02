@@ -1,0 +1,141 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+ ---
+priority: 1
+applies_to: ["*"]
+triggers:
+  - "complexity"
+  - "simplification"
+  - "refactoring"
+  - "clever code"
+related_rules:
+  - "do-not-over-engineer"
+  - "prefer-vanilla"
+---
+
+# Keep It Simple
+
+## Purpose
+Maintain code clarity and maintainability by favoring simple, straightforward solutions over clever or complex implementations. Remember: complexity is the enemy of reliability.
+
+## When to Apply
+- Writing new code
+- Refactoring existing code
+- Reviewing pull requests
+- Making architectural decisions
+- Choosing between multiple solutions
+
+## When Not to Apply
+- Performance-critical code where optimization is necessary
+- Complex business requirements that can't be simplified
+- When simplification would sacrifice required functionality
+- When dealing with inherently complex algorithms
+
+## Guidelines
+
+### Code Writing
+1. Use straightforward, obvious solutions
+2. Favor readability over cleverness
+3. Write for maintainability
+4. Keep functions focused and small
+5. Use descriptive names
+
+### Decision Making
+1. Choose the simplest solution that meets requirements
+2. Avoid premature optimization
+3. Question complexity - is it really needed?
+4. Consider maintenance cost
+5. Think about other developers
+
+## Examples
+
+### Control Flow
+
+```typescript
+// BAD: Clever but hard to understand
+Array.from({ length: 100 }, (_, i) => i + 1)
+  .filter(n => n % 2 === 0)
+  .map(n => n * 2)
+  .forEach(n => console.log(n))
+
+// GOOD: Clear and straightforward
+for (let i = 1; i <= 100; i++) {
+  if (i % 2 === 0) {
+    console.log(i * 2)
+  }
+}
+```
+
+### Data Transformation
+
+```typescript
+// BAD: Overly complex
+const result = data.reduce((acc, curr) => ({
+  ...acc,
+  [curr.id]: {
+    ...curr,
+    processed: true
+  }
+}), {})
+
+// GOOD: Simple and clear
+const result = {}
+for (const item of data) {
+  result[item.id] = {
+    ...item,
+    processed: true
+  }
+}
+```
+
+### Error Handling
+
+```typescript
+// BAD: Trying to be too clever
+const handleError = (fn) => (...args) => 
+  Promise.resolve(fn(...args)).catch(console.error)
+
+// GOOD: Explicit and clear
+async function processData(data) {
+  try {
+    const result = await processFunction(data)
+    return result
+  } catch (error) {
+    console.error('Failed to process data:', error)
+    throw error
+  }
+}
+```
+
+## Common Pitfalls
+- Over-using modern JavaScript features just because they exist
+- Creating abstractions too early
+- Writing "clever" code that's hard to understand
+- Choosing complex solutions when simple ones would work
+- Premature optimization
+
+## Migration Guide
+1. Identify overly complex code
+2. List the actual requirements
+3. Consider simpler alternatives
+4. Refactor gradually
+5. Validate that functionality is preserved
+
+## Validation
+Ask these questions:
+- Could a junior developer understand this?
+- Is this the simplest way to solve the problem?
+- Are we using complexity where simplicity would suffice?
+- Will this be easy to maintain?
+- Is the code self-documenting?
+
+## Related Concepts
+- KISS (Keep It Simple, Stupid)
+- YAGNI (You Aren't Gonna Need It)
+- DRY (Don't Repeat Yourself)
+- Single Responsibility Principle
+
+Tags: #guidelines #simplicity #maintainability #readability #best-practices
