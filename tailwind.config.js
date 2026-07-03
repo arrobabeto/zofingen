@@ -11,7 +11,8 @@ const tailwind = {
   theme: {
     fontFamily: {
       sans: ["Inter var", "sans-serif"],
-      serif: ["Merriweather", "serif"],
+      serif: ['"PT Serif"', "Georgia", "serif"],
+      display: ['"Fraunces"', "Georgia", "serif"],
     },
     colors: ({ colors }) => ({
       transparent: "transparent",
@@ -23,6 +24,14 @@ const tailwind = {
         ['400']: "#67e8f9",
         ['500']: "#06b6d4",
         ['600']: "#0e7490",
+      },
+      // Zofingen Treuhand brand palette (from Figma design system)
+      brand: {
+        blue: "#012068",
+        blue2: "#1B426B",
+        light: "#9CB4CB",
+        card: "#C4D2E0",
+        grey: "#7A7A7A",
       },
     }),
     maxWidth: ({ theme, breakpoints }) => ({

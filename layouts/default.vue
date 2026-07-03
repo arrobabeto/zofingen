@@ -5,7 +5,7 @@
 
 <template>
   <div
-    class="flex min-h-[100dvh] flex-col bg-gradient-to-b from-[#faf1e3] to-[#e4f1ff] text-[#010101] dark:from-[#2b5876] dark:to-[#16222a] dark:text-[#fefefe]"
+    class="flex min-h-[100dvh] flex-col bg-white font-serif text-brand-blue"
   >
     <Navigation />
     <div class="flex-grow">
