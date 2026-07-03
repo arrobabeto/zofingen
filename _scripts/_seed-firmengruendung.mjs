@@ -21,7 +21,7 @@ const URL = env.ORBITYPE_API_SQL_URL
 const KEY = env.ORBITYPE_API_SQL_KEY
 const img = (name) => `/img/firmengruendung/${name}`
 const CTA = "Jetzt Kontakt aufnehmen"
-const CTA_HREF = "#kontakt"
+const CTA_HREF = "/kontakt"
 
 const sections = [
   {
@@ -148,23 +148,28 @@ const keywords = [
   "Treuhand",
 ]
 
-async function run() {
+async function sql(query, bindings) {
   const res = await fetch(URL, {
     method: "POST",
     headers: { "X-API-KEY": KEY, "Content-Type": "application/json" },
-    body: JSON.stringify({
-      sql: "INSERT INTO pages (title, slug, sections, keywords) VALUES (:title::json, :slug, :sections::json, :keywords::json) RETURNING id, slug",
-      bindings: {
-        title: JSON.stringify(title),
-        sections: JSON.stringify(sections),
-        keywords: JSON.stringify(keywords),
-        slug: "firmengruendung",
-      },
-    }),
+    body: JSON.stringify({ sql: query, bindings }),
   })
   const text = await res.text()
-  console.log("status:", res.status)
-  console.log("result:", text)
+  console.log("status:", res.status, "->", text)
+  return res
+}
+
+async function run() {
+  await sql("DELETE FROM pages WHERE slug = :slug", { slug: "firmengruendung" })
+  await sql(
+    "INSERT INTO pages (title, slug, sections, keywords) VALUES (:title::json, :slug, :sections::json, :keywords::json) RETURNING id, slug",
+    {
+      title: JSON.stringify(title),
+      sections: JSON.stringify(sections),
+      keywords: JSON.stringify(keywords),
+      slug: "firmengruendung",
+    },
+  )
 }
 
 run()

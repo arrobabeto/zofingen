@@ -54,7 +54,12 @@
     <div
       class="mx-auto flex max-w-[1225px] items-center justify-center gap-6 px-6 py-5 font-display text-[18px]"
     >
-      <a href="#" class="flex items-center gap-2 text-black transition hover:opacity-70">
+      <a
+        href="https://portalv2.bayo.ch/zofingentreuhand/auth/signin"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex items-center gap-2 text-black transition hover:opacity-70"
+      >
         <img
           src="/logo_black_font_without_bordero.webp"
           alt="BAYO"

@@ -20,6 +20,8 @@ const env = Object.fromEntries(
 const URL = env.ORBITYPE_API_SQL_URL
 const KEY = env.ORBITYPE_API_SQL_KEY
 const img = (name) => `/img/home/${name}`
+const CALENDLY_30 = "https://calendly.com/ph-bally/30min"
+const RECHNER = "/rechner"
 
 const sections = [
   {
@@ -27,7 +29,7 @@ const sections = [
     subtitle: "Effizient, persönlich und zuverlässig",
     body: "Zofingen Treuhand AG bietet Ihnen massgeschneiderte Treuhanddienstleistungen wie digitale Buchhaltung, Lohnbuchhaltung und Steuerberatung für KMUs. Mit unserer Kombination aus persönlicher Betreuung und digitaler Effizienz entlasten wir Sie bei administrativen Aufgaben und optimieren Ihre Finanzprozesse.",
     ctaLabel: "Beratungsgespräch vereinbaren",
-    ctaHref: "#kontakt",
+    ctaHref: CALENDLY_30,
     image: img("hero-bg.png"),
     _orbi: { component: "SectionHero" },
   },
@@ -70,7 +72,7 @@ const sections = [
     title: "Berechnen Sie Ihre monatlichen\nBuchhaltungskosten",
     body: "Möchten Sie Ihre Lohnabrechnung optimieren und von unserem professionellen Service profitieren? Buchen Sie jetzt Ihr persönliches Beratungsgespräch und machen Sie sich die Expertise von Zofingen Treuhand AG zu Nutze.",
     ctaLabel: "Zum Preisrechner",
-    ctaHref: "#preisrechner",
+    ctaHref: RECHNER,
     _orbi: { component: "SectionCalculator" },
   },
   {
@@ -144,7 +146,7 @@ const sections = [
       },
     ],
     ctaLabel: "Jetzt kennenlernen",
-    ctaHref: "#kontakt",
+    ctaHref: CALENDLY_30,
     _orbi: { component: "SectionProcess" },
   },
   {
@@ -223,7 +225,7 @@ const sections = [
       "Unvollständige oder falsche Deklarationen bei Steuererklärungen und Abgaben können zu unnötigen Zahlungen führen.",
     ],
     ctaLabel: "Jetzt kennenlernen",
-    ctaHref: "#kontakt",
+    ctaHref: CALENDLY_30,
     _orbi: { component: "SectionReliability" },
   },
   {
@@ -281,7 +283,7 @@ const sections = [
     title: "Beratungsgespräch buchen",
     body: "Erfahren Sie, wie unsere Treuhandlösungen für KMUs in der Schweiz Ihnen Zeit und Nerven sparen. Buchen Sie jetzt Ihre kostenlose Erstberatung und erleben Sie, wie wir Ihre Finanzprozesse optimieren und Sie rechtlich absichern.",
     ctaLabel: "Jetzt kennenlernen",
-    ctaHref: "#kontakt",
+    ctaHref: CALENDLY_30,
     _orbi: { component: "SectionCta" },
   },
 ]

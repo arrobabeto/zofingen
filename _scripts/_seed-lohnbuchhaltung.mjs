@@ -21,7 +21,7 @@ const URL = env.ORBITYPE_API_SQL_URL
 const KEY = env.ORBITYPE_API_SQL_KEY
 const img = (name) => `/img/lohnbuchhaltung/${name}`
 const CTA = "Jetzt Kontakt aufnehmen"
-const CTA_HREF = "#kontakt"
+const CTA_HREF = "/kontakt"
 
 const sections = [
   {
