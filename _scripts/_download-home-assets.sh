@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(dirname "$0")/.."
+OUT="public/img/home"
+mkdir -p "$OUT"
+MCP="https://www.figma.com/api/mcp/asset"
+
+dl() { # url filename
+  curl -s -o "$OUT/$2" -w "%{http_code} $2\n" "$1"
+}
+
+# Figma MCP assets (id -> filename)
+dl "$MCP/47ba58b0-e6a7-450d-9f21-a4929886b44d" "logo.png"
+dl "$MCP/b6efd153-51ee-4591-bedf-8421331fd67a" "logo-treuhand.png"
+dl "$MCP/48dc87f8-9958-4f97-ae15-8033b8de6be4" "loesungen.jpg"
+dl "$MCP/19dc27b9-69d7-4c8d-ad9f-0c323d3d2965" "cert-bilanz.png"
+dl "$MCP/e3f5fa52-aa25-4b11-ac7a-17208f76b9a6" "cert-top2025.png"
+dl "$MCP/69004649-6619-4d20-9d2e-1eb9f9586ecb" "cert-urkunde.png"
+dl "$MCP/d00243a6-e1e1-4dca-ba6c-e19052980734" "owner-bg.jpg"
+dl "$MCP/a62609e1-e217-4bca-995c-d68b1611bb00" "philippe-round.png"
+dl "$MCP/0741eb49-7cab-43dd-a8fb-20d082695132" "badge-steuerexperten.png"
+dl "$MCP/7b4a8a11-58af-4e52-b7c2-c75c9442cf01" "service-1.jpg"
+dl "$MCP/36ceb565-1c04-40a6-9fe9-839a50b6c69a" "service-2.jpg"
+dl "$MCP/768ed11f-f0c3-4501-a518-8da5d87c024b" "service-3.jpg"
+dl "$MCP/9a4d3df1-247f-4d84-994a-0febfe43c4ee" "service-4.jpg"
+dl "$MCP/173d7ac2-e98a-470c-95a1-f7cdb8afc3a2" "service-5.jpg"
+dl "$MCP/07d40411-08e6-46b5-a5de-4653198a18cf" "service-6.jpg"
+dl "$MCP/35ef1f3c-50ae-4dd3-814e-61ae99b1a0de" "article-1.jpg"
+dl "$MCP/ee707485-22a7-4dc5-8572-397fdafbd2c5" "article-2.jpg"
+dl "$MCP/83373bdf-efce-47d7-b4cb-07ab94b5018c" "article-3.jpg"
+dl "$MCP/43cbfe29-9ab7-4c3e-8539-ffdb922dce8c" "article-4.jpg"
+dl "$MCP/95af47b3-8016-40fb-ab43-79e2785680ac" "article-6.jpg"
+dl "$MCP/f7b889ec-0336-4e23-9cb8-5aa6b92cbca6" "testimonial-side.jpg"
+dl "$MCP/17e1e0f0-6923-4ea1-b937-55c252da0603" "team-philippe.png"
+dl "$MCP/8494fa30-414e-4c21-9b4b-1576984f9f35" "team-kateryna.png"
+dl "$MCP/ef513d73-d604-4506-a3a8-9fd2ed775af7" "team-daniela.png"
+dl "$MCP/8d5bf3d3-be54-4d28-acda-93dae7372ded" "team-emre.png"
+dl "$MCP/f928132b-999a-4013-b64d-4d3efb8111dc" "team-aengi.png"
+dl "$MCP/476a211c-9335-4112-8768-5c87dfbc5eb2" "team-andrea.png"
+dl "$MCP/cedc0859-36ca-4d86-adff-59b23ca696da" "partner-1.png"
+dl "$MCP/3cd6b8b4-31cb-4a90-962d-8a8d009e82f0" "partner-2.png"
+dl "$MCP/fb885d1e-6f36-42a5-987a-e23c14b7cd16" "partner-3.png"
+dl "$MCP/37228ccb-1758-489e-82c5-981e7574f47d" "partner-4a.png"
+dl "$MCP/5a6c5fd0-0a92-4781-85cd-eb86327f7287" "partner-4b.png"
+dl "$MCP/1ec4259d-aedb-4b1f-ae08-c06c7be1a2dd" "partner-5.png"
+dl "$MCP/ee945ef6-ffda-4472-b2b9-e69c87a5c870" "partner-6.png"
+dl "$MCP/2a714866-8283-46d0-981a-46e9c312400f" "bexio-platinum.png"
+dl "$MCP/8cca7756-bddc-4361-84bd-cdf494d896bb" "stamp.png"
+dl "$MCP/1c6d8f6f-cb7a-4115-b36b-21c49fe158b2" "check-circle.png"
+
+# Rendered nodes (image fills not exported by MCP)
+dl "https://figma-alpha-api.s3.us-west-2.amazonaws.com/images/8ba7e520-743c-4cbe-8d9a-3abd0fb642bf" "hero-bg.png"
+dl "https://figma-alpha-api.s3.us-west-2.amazonaws.com/images/4b7b32bb-a3e1-4c29-9d12-9aad35824df0" "about-box.png"
+dl "https://figma-alpha-api.s3.us-west-2.amazonaws.com/images/b687ef9e-0368-457a-b393-802c8b695780" "problems-side.png"
+
+echo "done"

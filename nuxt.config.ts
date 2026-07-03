@@ -1,7 +1,15 @@
+import { fileURLToPath } from "node:url"
 import type { NuxtConfig } from "nuxt/config"
 import { defineNuxtConfig } from "nuxt/config"
 
 const gtmId = process.env.NUXT_PUBLIC_GTM_ID ?? ""
+
+// @nuxtjs/i18n@8 imports the removed `getActiveHead` export from unhead v2.
+// Alias the exact bare "unhead" specifier to a superset shim so the client
+// bundle resolves it and hydration no longer crashes.
+const unheadShim = fileURLToPath(
+  new URL("./shims/unhead-compat.mjs", import.meta.url),
+)
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -28,6 +36,11 @@ export default defineNuxtConfig({
   },
   image: {
     domains: ["localhost", "s3.eu-central-2.amazonaws.com"],
+  },
+  vite: {
+    resolve: {
+      alias: [{ find: /^unhead$/, replacement: unheadShim }],
+    },
   },
   i18n: {
     defaultLocale: "en",
