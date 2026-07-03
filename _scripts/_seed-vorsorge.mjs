@@ -21,7 +21,7 @@ const URL = env.ORBITYPE_API_SQL_URL
 const KEY = env.ORBITYPE_API_SQL_KEY
 const img = (name) => `/img/vorsorge/${name}`
 const CTA = "Beratungsgespräch vereinbaren"
-const CTA_HREF = "#kontakt"
+const CTA_HREF = "https://calendly.com/ph-bally/30min"
 
 const sections = [
   {
