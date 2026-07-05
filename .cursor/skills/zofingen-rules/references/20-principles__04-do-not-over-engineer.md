@@ -1,0 +1,227 @@
+# Do Not Over-Engineer
+
+## Purpose
+Maintain code simplicity and clarity by solving problems with the minimum necessary complexity, avoiding premature optimizations and unnecessary abstractions that can lead to maintenance difficulties.
+
+## When to Apply
+- When designing solutions
+- When considering abstractions
+- When implementing features
+- When optimizing code
+- When refactoring
+- When choosing dependencies
+
+## When Not to Apply
+- When complexity is inherent to the problem
+- When performance requirements demand it
+- When future requirements are certain
+- When standards mandate specific patterns
+- When team conventions require it
+
+## Guidelines
+
+### Solution Design
+1. **Start Simple**
+   - Solve the immediate problem
+   - Avoid future speculation
+   - Use existing patterns
+   - Keep it maintainable
+
+2. **Evaluate Complexity**
+   - Question each abstraction
+   - Consider maintenance cost
+   - Measure performance impact
+   - Assess learning curve
+
+3. **Use Existing Solutions**
+   - Check existing components
+   - Review current patterns
+   - Leverage built-in features
+   - Consider standard libraries
+
+## Examples
+
+### Good: Simple State Management
+```typescript
+// GOOD: Simple reactive state
+class UserSettings {
+  private storage = reactive({
+    theme: 'light',
+    fontSize: 14,
+    notifications: true
+  })
+
+  get theme() { return this.storage.theme }
+  set theme(value: string) {
+    this.storage.theme = value
+    this.save()
+  }
+
+  private save() {
+    localStorage.setItem('settings', JSON.stringify(this.storage))
+  }
+}
+
+// BAD: Over-engineered state management
+interface ISettingsState {
+  theme: string
+  fontSize: number
+  notifications: boolean
+}
+
+interface ISettingsAction {
+  type: string
+  payload: unknown
+}
+
+class SettingsReducer {
+  private state: ISettingsState
+  private actions: Map<string, (state: ISettingsState, payload: unknown) => void>
+  private subscribers: Set<(state: ISettingsState) => void>
+
+  dispatch(action: ISettingsAction): void {
+    const handler = this.actions.get(action.type)
+    if (handler) {
+      handler(this.state, action.payload)
+      this.notify()
+    }
+  }
+  // ... more complexity
+}
+```
+
+### Good: Simple Feature Implementation
+```typescript
+// GOOD: Direct solution
+function formatPrice(amount: number, currency = 'USD'): string {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency
+  }).format(amount)
+}
+
+// BAD: Over-engineered solution
+interface IPriceFormatter {
+  format(amount: number): string
+}
+
+class USDPriceFormatter implements IPriceFormatter {
+  format(amount: number): string {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD'
+    }).format(amount)
+  }
+}
+
+class EURPriceFormatter implements IPriceFormatter {
+  format(amount: number): string {
+    return new Intl.NumberFormat('de-DE', {
+      style: 'currency',
+      currency: 'EUR'
+    }).format(amount)
+  }
+}
+
+class PriceFormatterFactory {
+  static getFormatter(currency: string): IPriceFormatter {
+    switch (currency) {
+      case 'USD': return new USDPriceFormatter()
+      case 'EUR': return new EURPriceFormatter()
+      default: throw new Error('Unsupported currency')
+    }
+  }
+}
+```
+
+### Good: Component Design
+```vue
+<!-- GOOD: Simple component -->
+<script setup lang="ts">
+const props = defineProps<{
+  user: User
+  onUpdate: (user: User) => void
+}>()
+
+function handleSubmit() {
+  props.onUpdate(props.user)
+}
+</script>
+
+<template>
+  <form @submit.prevent="handleSubmit">
+    <input v-model="user.name">
+    <button type="submit">Update</button>
+  </form>
+</template>
+
+<!-- BAD: Over-engineered component -->
+<script setup lang="ts">
+interface IFormStrategy {
+  validate(): boolean
+  transform(): unknown
+  submit(): Promise<void>
+}
+
+class UserFormStrategy implements IFormStrategy {
+  constructor(private user: User, private onUpdate: (user: User) => void) {}
+  
+  validate(): boolean {
+    // Complex validation logic
+  }
+  
+  transform(): unknown {
+    // Unnecessary data transformation
+  }
+  
+  async submit(): Promise<void> {
+    if (this.validate()) {
+      const data = this.transform()
+      await this.onUpdate(data as User)
+    }
+  }
+}
+// ... more complexity
+</script>
+```
+
+## Common Pitfalls
+- Premature abstraction
+- Unnecessary patterns
+- Excessive configuration
+- Speculative features
+- Complex inheritance
+- Over-optimization
+- Framework abuse
+
+## Migration Guide
+1. Identify complexity
+2. Map actual requirements
+3. Remove unused features
+4. Simplify abstractions
+5. Reduce configuration
+6. Remove speculation
+7. Document decisions
+
+## Validation
+Ask these questions:
+- Is this the simplest solution?
+- Do we need this abstraction?
+- Is the complexity justified?
+- Can we remove anything?
+- Is it easy to understand?
+- Is it maintainable?
+
+## Related Concepts
+- YAGNI (You Aren't Gonna Need It)
+- KISS (Keep It Simple, Stupid)
+- DRY (Don't Repeat Yourself)
+- Single Responsibility
+- Premature Optimization
+
+## External Resources
+- [YAGNI](../https:/martinfowler.com/bliki/Yagni.html)
+- [Keep It Simple](../https:/en.wikipedia.org/wiki/KISS_principle)
+- [Clean Code](../https:/www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882)
+
+Tags: #simplicity #best-practices #architecture #maintainability #clean-code

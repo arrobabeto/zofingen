@@ -18,6 +18,7 @@
     "typecheck": "nuxi typecheck .",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
+    "sync:agent": "node _scripts/sync-agent-docs.mjs",
     "pretty-quick": "pretty-quick --staged"
   },
   "devDependencies": {

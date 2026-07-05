@@ -1,24 +1,26 @@
-# Orbitype Headless CMS Template
+# Zofingen Treuhand
 
-Production-ready Nuxt starter for Orbitype-powered websites with section-driven pages, i18n (`en` + `de`), and server-rendered SEO metadata.
+Marketing website for **Zofingen Treuhand AG** — Treuhand, tax advisory, and KMU services in Zofingen, Switzerland.
 
-## Developer workflow (Figma → Cursor → Orbitype)
+Built with **Nuxt 3**, **Vue 3**, **TypeScript**, and **Tailwind CSS**. Content is section-driven and bilingual (`de` / `en`), with server-rendered SEO metadata.
 
-Typical flow for a new page or section:
+## Stack
 
-1. **Figma** — Design layout, typography, and section structure.
-2. **Inside Cursor** — Figma MCP (inspect frames), build `components/sections/Section*.vue`, publish `sections` JSON via Orbitype MCP (`sql_crud_execute`).
-3. **Orbitype Intelligence** — Content operations in the Orbitype app (edit sections, review pages, manage CMS data).
+| Layer | Technology |
+|-------|------------|
+| Framework | Nuxt 3, Vue 3 Composition API |
+| Styling | Tailwind CSS |
+| i18n | `@nuxtjs/i18n` |
+| Content | PostgreSQL via headless CMS (see [Orbitype](#orbitype-cms) below) |
+| Testing | Playwright |
+| Deploy | Vercel |
 
-Until the SQL API returns real rows, the welcome screen (`SectionWelcome`) explains setup and shows this CMS guide.
-
-Full system reference for agents: [`.cursor/rules/10-architecture/03-orbitype-cms.mdc`](.cursor/rules/10-architecture/03-orbitype-cms.mdc). The onboarding welcome screen (`SectionWelcome`) repeats the workflow and CMS guide when `ORBITYPE_MOCK=true`, SQL env is missing, the API errors, or no CMS rows exist. Official Orbitype docs: [API Authentication](https://www.orbitype.com/docs/oQSPNY).
-
-## 3-minute start
+## Quick start
 
 ```bash
 npm ci
 npm run setup
+cp .env.example .env   # then fill in values
 npm run dev
 ```
 
@@ -27,237 +29,85 @@ Open:
 - `http://localhost:3000/`
 - `http://localhost:3000/de`
 
-## Local CMS modes
+For frontend-only work without a live CMS connection, set `ORBITYPE_MOCK=true` in `.env`.
 
-Use one of these modes depending on your goal:
+## Project structure
 
-### Mock mode (frontend work, no CMS dependency)
+```
+pages/                    # Routes (generic CMS pages + blog detail)
+components/sections/      # Section components (SectionHero, SectionFaq, …)
+layouts/components/       # Navigation, Footer
+server/api/               # Nitro API handlers
+_scripts/                 # Setup, page seeds, WordPress import
+agent/                    # Agent skills (Cursor + Claude Code)
+public/img/               # Static assets per page/slug
+```
+
+### Routing
+
+| Route | Purpose |
+|-------|---------|
+| `/` / `/{slug}` | CMS marketing pages (`home`, `kmu`, `kontakt`, `artikel`, …) |
+| `/posts/{id}/{slug}` | Blog article detail (Artikel) |
+| `/de/...` | German locale prefix |
+
+### Key pages
+
+Service pages, company info, resources, and lead flows — for example: Home, KMU, Firmengründung, Jahresabschluss, Lohnbuchhaltung, Steuern Privat, Vorsorge, Immobilien, Über uns, Kontakt, FAQ, Artikel (blog listing), Quiz, Ressourcen, Links.
+
+## Content workflow
+
+### Marketing pages
+
+1. Design in Figma.
+2. Implement or extend `components/sections/Section*.vue`.
+3. Seed content via `_scripts/_seed-{slug}.mjs` or CMS SQL.
+4. Verify at `/{slug}`.
 
 ```bash
-ORBITYPE_MOCK=true npm run dev
+node _scripts/_seed-home.mjs
+node _scripts/_seed-kmu.mjs
+# … see _scripts/_seed-*.mjs
 ```
 
-When `ORBITYPE_MOCK=true`, the app always serves the built-in welcome page from `server/api/pages/index.get.ts`.
+### Blog (Artikel)
 
-### Live Orbitype mode
+Blog posts live in the `posts` table with a fixed detail template (hero, TOC, body, related articles).
 
-Set environment variables in `.env`:
+**Import from legacy WordPress** (one-shot):
 
 ```bash
-ORBITYPE_API_SQL_URL="https://core.orbitype.com/api/sql/v1"
-ORBITYPE_API_SQL_KEY="your-api-key"
-NUXT_PUBLIC_SITE_URL="https://your-client-domain.com"
-NUXT_PUBLIC_GTM_ID=""
+node _scripts/_import-posts-from-wordpress.mjs
 ```
 
-Then run:
+Requires `WP_API_*` vars in `.env`. Downloads featured images to `public/img/artikel/wp/`, replaces all posts, and refreshes `/artikel`.
+
+**Refresh listing after post changes:**
 
 ```bash
-npm run dev
+node _scripts/_seed-artikel.mjs
 ```
 
-If the SQL API is missing, invalid, or returns no rows, the same welcome/onboarding page is shown until CMS content is available.
+Agent skill reference: `agent/skills/publish-blog/SKILL.md` (sync with `npm run sync:agent`).
 
-## How the CMS works
+## Development
 
-This repository is a Nuxt marketing frontend that reads page content from PostgreSQL through internal API routes and the Orbitype SQL API.
+### Scripts
 
-Official Orbitype API and MCP docs: [Orbitype Docs - API Authentication](https://www.orbitype.com/docs/oQSPNY)
-
-### Request flow
-
-1. User opens a URL (for example `/`, `/platform`, `/docs/...`).
-2. A Nuxt page in `pages/*` handles the route.
-3. The page calls an internal endpoint in `server/api/*`.
-4. The endpoint posts SQL to `ORBITYPE_API_SQL_URL` with `X-API-KEY: ORBITYPE_API_SQL_KEY` (see `server/api/pages/index.get.ts` and sibling handlers).
-5. The database row is returned with a `sections` JSON array.
-6. `components/sections/AnySection.vue` renders each section.
-
-### Multiple websites in one setup
-
-Orbitype supports multiple sites via separate connector-scoped API keys:
-
-- One API key is scoped to one connector.
-- Each connector can point to a different database/schema or content scope.
-- In Cursor, define multiple MCP servers in `.cursor/mcp.json` (production site, marketing site, local, and so on).
-
-Same section system and rendering code; different data per connector/key.
-
-### Important files
-
-| Area | Path |
-|------|------|
-| Generic pages | `pages/[[slug]].vue` → `server/api/pages/index.get.ts` |
-| Detail routes | `pages/platform/[slug].vue`, `pages/solutions/[slug].vue`, `pages/vs/[slug].vue` |
-| Posts / docs | `pages/posts/[id]/[[slug]].vue`, `pages/docs/[id]/[[slug]].vue` |
-| API handlers | `server/api/*` |
-| Section renderer | `components/sections/AnySection.vue` |
-| Section type | `types/util/Section.d.ts` |
-| Welcome fallback | `server/api/pages/index.get.ts` |
-
-### Sections system
-
-Each row includes metadata (`title`, `lead`, `keywords`, …) and `sections` (JSON array). Every section must include `_orbi.component` and should follow **key order for the CMS admin UI**:
-
-1. **First key** — human-readable (`title`, `name`, `label`, …). The CMS uses this as the list label. Do not use `img` first (URLs are hard to skim).
-2. **Middle keys** — section props (`content`, `variant`, …).
-3. **Last key** — `_orbi` (component binding).
-
-```json
-{
-  "title": { "en": "Feature callout", "de": "Feature-Highlight" },
-  "content": { "en": "<p>...</p>", "de": "<p>...</p>" },
-  "_orbi": { "component": "SectionFeatureCallout" }
-}
+```bash
+npm run dev          # Dev server
+npm run build        # Production build
+npm run preview      # Preview production build
+npm run typecheck    # TypeScript check
+npm run eslint       # Lint
+npm run test:e2e     # Playwright smoke tests
+npm run sync:agent   # Sync Cursor + Claude agent skills
 ```
 
-`AnySection.vue` auto-loads all `components/sections/*.vue`. `_orbi.component` must match the Vue file name (for example `SectionFeatureCallout.vue` → `"SectionFeatureCallout"`). No registration file is needed.
-
-Localized fields use `en` and `de` keys with `useTranslate()`.
-
-### Cursor MCP for content editing
-
-Create or update `.cursor/mcp.json`:
-
-```json
-{
-  "mcpServers": {
-    "orbitype-sql-prod-website": {
-      "url": "https://core.orbitype.com/api/mcp/v1",
-      "headers": {
-        "X-API-KEY": "${env:ORBITYPE_SQL_API_KEY_PROD_WEBSITE}"
-      }
-    },
-    "orbitype-sql-prod-marketing": {
-      "url": "https://core.orbitype.com/api/mcp/v1",
-      "headers": {
-        "X-API-KEY": "${env:ORBITYPE_SQL_API_KEY_PROD_MARKETING}"
-      }
-    },
-    "orbitype-s3-public-prod": {
-      "url": "https://core.orbitype.com/api/mcp/v1",
-      "headers": {
-        "X-API-KEY": "${env:ORBITYPE_S3_PUBLIC_API_KEY_PROD}"
-      }
-    }
-  }
-}
-```
-
-Recommended first call in each Cursor session: `orbitype_get_context`, then `sql_readonly_query` for reads and `sql_crud_execute` for writes.
-
-### Example: add a new section
-
-**1. Create** `components/sections/SectionFeatureCallout.vue` (see existing sections for `I18nString` props and `SafeHtml` usage).
-
-**2. Append to a page** (for example `home`):
-
-```sql
-UPDATE pages
-SET sections = (
-  COALESCE(sections, '[]'::json)::jsonb
-  || jsonb_build_array(
-    jsonb_build_object(
-      'title', jsonb_build_object(
-        'en', '<p>Why teams switch to Orbitype</p>',
-        'de', '<p>Warum Teams zu Orbitype wechseln</p>'
-      ),
-      'content', jsonb_build_object(
-        'en', '<p>Run CRM, outreach, and automation in one place.</p>',
-        'de', '<p>CRM, Outreach und Automatisierung an einem Ort.</p>'
-      ),
-      'variant', 'highlight',
-      '_orbi', jsonb_build_object('component', 'SectionFeatureCallout')
-    )
-  )
-)::json
-WHERE slug = 'home';
-```
-
-**3. Verify**
-
-```sql
-SELECT slug, sections FROM pages WHERE slug = 'home';
-```
-
-Open `/` and confirm the section appears.
-
-**Insert at a specific position** (second section, index `1`):
-
-```sql
-UPDATE pages
-SET sections = jsonb_insert(
-  COALESCE(sections, '[]'::json)::jsonb,
-  '{1}',
-  jsonb_build_object(
-    'title', jsonb_build_object('en', 'Inserted section', 'de', 'Eingefuegter Abschnitt'),
-    'content', jsonb_build_object('en', '<p>Inserted by SQL.</p>', 'de', '<p>Per SQL eingefuegt.</p>'),
-    '_orbi', jsonb_build_object('component', 'SectionFeatureCallout')
-  ),
-  false
-)::json
-WHERE slug = 'home';
-```
-
-### Safe content workflow
-
-1. Read current data with `sql_readonly_query`.
-2. Save a backup copy of the current `sections` JSON.
-3. Apply updates with `sql_crud_execute`.
-4. Re-read the row and verify JSON.
-5. Open the target URL and confirm rendering and SEO.
-
-### Common pitfalls
-
-- `_orbi` not last, or no human-readable first key (CMS list becomes hard to scan).
-- Component name mismatch between `_orbi.component` and the `.vue` file name.
-- Missing required section props.
-- Invalid `sections` shape (must stay an array of objects).
-- Missing `en` / `de` on localized fields.
-- Editing the wrong connector — run `orbitype_get_context` first.
-
-### Quick SQL snippets
-
-```sql
-SELECT id, slug, updated_at FROM pages ORDER BY updated_at DESC;
-
-SELECT section->'_orbi'->>'component' AS component_name
-FROM pages, json_array_elements(sections) AS section
-WHERE slug = 'home';
-
-SELECT p.slug
-FROM pages p, json_array_elements(p.sections) AS section
-WHERE section->'_orbi'->>'component' = 'SectionFeatureCallout';
-```
-
-For AI-assisted edits in this repo, see `.cursor/rules/10-architecture/03-orbitype-cms.mdc`.
-
-## What to edit first
-
-1. **Branding and shell layout**
-   - `layouts/components/Navigation.vue`
-   - `layouts/components/Footer.vue`
-   - `app.vue`
-2. **Welcome/fallback content**
-   - `server/api/pages/index.get.ts`
-   - `components/sections/SectionWelcome.vue`
-3. **Page rendering**
-   - `pages/[[slug]].vue`
-   - `components/sections/AnySection.vue`
-4. **Styles**
-   - `assets/css/style.css`
-
-## End-to-end smoke checks
-
-First-time Playwright browser install:
+### First-time Playwright setup
 
 ```bash
 npx playwright install
-```
-
-Run smoke tests:
-
-```bash
 npm run test:e2e
 ```
 
@@ -267,22 +117,86 @@ Optional custom base URL:
 PLAYWRIGHT_BASE_URL=http://127.0.0.1:3001 npm run test:e2e
 ```
 
-Current smoke coverage:
+### Environment variables
 
-- homepage render on `/`
-- locale route render on `/de`
-- first welcome step expand/collapse behavior
+Copy `.env.example` to `.env`. Never commit `.env` — it may contain API keys and credentials.
+
+Main groups:
+
+- **Site** — `NUXT_PUBLIC_SITE_URL`, branding, GTM
+- **CMS** — `ORBITYPE_API_SQL_URL`, `ORBITYPE_API_SQL_KEY`, `ORBITYPE_MOCK`
+- **Figma** — `FIGMA_API_KEY`, `FIGMA_FILE_KEY` (design workflow)
+- **WordPress** — `WP_API_URL`, `WP_API_USERNAME`, `WP_API_PASSWORD` (blog import only)
+
+### Agent documentation
+
+Dual IDE support (Cursor + Claude Code):
+
+- [`CLAUDE.md`](CLAUDE.md) — always-on context for Claude Code
+- [`agent/README.md`](agent/README.md) — skills, sync workflow
+- `.cursor/rules/` — Cursor project rules
+
+## Git workflow
+
+- **`develop`** — active development branch
+- **`main`** — production; changes land via pull request
 
 ## Common issues
 
-- **Home page does not load CMS content**
-  - Check `.env` values for `ORBITYPE_API_SQL_URL` and `ORBITYPE_API_SQL_KEY`.
-  - Ensure the SQL connector/project is enabled on the Orbitype side for this key.
-  - If you want local-only mode, set `ORBITYPE_MOCK=true`.
-- **`/de` shows unexpected content**
-  - Verify `@nuxtjs/i18n` is enabled in `nuxt.config.ts`.
-  - Ensure route resolution is handled through `pages/[[slug]].vue`.
-- **Playwright test fails because browser is missing**
-  - Run `npx playwright install` once.
-- **Port 3000 is already taken**
-  - Start on another port: `npx nuxi dev --port 3001`.
+- **Page shows welcome/onboarding instead of content**
+  - Check CMS env vars in `.env`, or use `ORBITYPE_MOCK=true` for local UI work.
+- **`/de` locale issues**
+  - i18n is configured in `nuxt.config.ts`; routes resolve through `pages/[[slug]].vue`.
+- **Blog listing links broken**
+  - Run `node _scripts/_seed-artikel.mjs` after importing or publishing posts.
+- **Port 3000 in use**
+  - `npx nuxi dev --port 3001`
+- **Playwright browser missing**
+  - `npx playwright install`
+
+---
+
+## Orbitype CMS
+
+Content is stored in PostgreSQL and edited through **Orbitype**, a headless CMS. The Nuxt app reads pages and posts via internal API routes that query the Orbitype SQL API.
+
+This is an implementation detail — day-to-day work happens in Vue sections, seed scripts, and Figma. Orbitype matters when adding or changing CMS data directly.
+
+### How it works (short)
+
+1. User opens a URL.
+2. Nuxt page calls `server/api/*`.
+3. Handler queries the database; row includes a `sections` JSON array.
+4. `components/sections/AnySection.vue` renders each section by `_orbi.component`.
+
+### Sections contract
+
+Each section object should have a human-readable field first (`title`, `name`, …), props in the middle, and `_orbi` last:
+
+```json
+{
+  "title": { "en": "…", "de": "…" },
+  "content": { "en": "<p>…</p>", "de": "<p>…</p>" },
+  "_orbi": { "component": "SectionFeatureCards" }
+}
+```
+
+Localized fields use `en` / `de` and render with `useTranslate()`.
+
+### Live CMS mode
+
+Set in `.env` (see `.env.example`):
+
+```bash
+ORBITYPE_MOCK=false
+ORBITYPE_API_SQL_URL="https://core.orbitype.com/api/sql/v1"
+ORBITYPE_API_SQL_KEY="your-api-key"
+```
+
+MCP config for Cursor / Claude is generated from `agent/mcp.template.json` via `npm run sync:agent`.
+
+### Further reference
+
+- Agent rule: [`.cursor/rules/10-architecture/03-orbitype-cms.mdc`](.cursor/rules/10-architecture/03-orbitype-cms.mdc)
+- Skill: [`agent/skills/orbitype-cms/SKILL.md`](agent/skills/orbitype-cms/SKILL.md)
+- Official docs: [Orbitype API Authentication](https://www.orbitype.com/docs/oQSPNY)
