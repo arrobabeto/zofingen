@@ -4,6 +4,7 @@
 import { readFileSync } from "node:fs"
 import { fileURLToPath } from "node:url"
 import { dirname, join } from "node:path"
+import { HERO_VIDEO } from "./_wordpress-videos.mjs"
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..")
 const env = Object.fromEntries(
@@ -32,6 +33,7 @@ const sections = [
     ctaLabel: CTA,
     ctaHref: CTA_HREF,
     image: img("hero-bg.png"),
+    video: HERO_VIDEO,
     align: "left",
     _orbi: { component: "SectionHero" },
   },
@@ -114,6 +116,7 @@ const sections = [
   },
   {
     background: img("cta-bg.png"),
+    video: HERO_VIDEO,
     title: "Bereit loszulegen?",
     body: "Nach vielen Jahren Tätigkeit für Kanton und Gemeinden, habe ich es mir zur Aufgabe gemacht, meine Expertise direkt und persönlich in den Dienst von Menschen und Unternehmen zu stellen.\n\nMit dem Fokus auf die Zukunft biete ich Ihnen eine massgeschneiderte Treuhandberatung, die auf persönlicher Betreuung basiert – von Mensch zu Mensch.",
     ctaLabel: CTA,

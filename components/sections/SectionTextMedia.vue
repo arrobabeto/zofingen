@@ -5,6 +5,7 @@
     title?: string
     body: string
     image: string
+    video?: string
     reverse?: boolean
     ctaLabel?: string
     ctaHref?: string
@@ -38,7 +39,16 @@
         />
       </div>
       <div class="w-full shrink-0 lg:h-[413px] lg:w-[582px]">
+        <video
+          v-if="video"
+          :src="video"
+          :poster="image"
+          controls
+          playsinline
+          class="h-[260px] w-full rounded-[10px] object-cover lg:h-full"
+        />
         <img
+          v-else
           :src="image"
           alt=""
           class="h-[260px] w-full rounded-[10px] object-cover lg:h-full"

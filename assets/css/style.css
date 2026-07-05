@@ -68,7 +68,15 @@ th {
   cursor: not-allowed;
 }
 
-/* scrollbar */
+/* video background overlay (steel blue tint on autoplay heroes) */
+/******************************************************************************/
+@layer components {
+  .video-bg-overlay {
+    background-color: rgb(144, 186, 221);
+    opacity: 0.61;
+  }
+}
+
 /******************************************************************************/
 ::-webkit-scrollbar {
   @apply w-4;
