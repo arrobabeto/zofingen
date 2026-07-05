@@ -5,6 +5,7 @@
     title: string
     body: string
     image?: string
+    video?: string
     divider?: boolean
   }>()
 </script>
@@ -19,7 +20,19 @@
         {{ body }}
       </div>
       <div
-        v-if="image"
+        v-if="video"
+        class="w-full overflow-hidden rounded-[10px] border-[1.5px] border-brand-blue"
+      >
+        <video
+          :src="video"
+          :poster="image"
+          controls
+          playsinline
+          class="h-[561px] w-full object-cover"
+        />
+      </div>
+      <div
+        v-else-if="image"
         class="w-full overflow-hidden rounded-[10px] border-[1.5px] border-brand-blue"
       >
         <img

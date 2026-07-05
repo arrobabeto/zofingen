@@ -4,6 +4,11 @@
 import { readFileSync } from "node:fs"
 import { fileURLToPath } from "node:url"
 import { dirname, join } from "node:path"
+import {
+  HERO_VIDEO,
+  CORPORATE_VIDEO,
+  RELIABILITY_VIDEO,
+} from "./_wordpress-videos.mjs"
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..")
 const env = Object.fromEntries(
@@ -31,6 +36,7 @@ const sections = [
     ctaLabel: "Beratungsgespräch vereinbaren",
     ctaHref: CALENDLY_30,
     image: img("hero-bg.png"),
+    video: HERO_VIDEO,
     _orbi: { component: "SectionHero" },
   },
   {
@@ -66,6 +72,7 @@ const sections = [
     title: "Zofingen Treuhand AG",
     body: "Bei der Zofingen Treuhand AG setzen wir auf absolute Verlässlichkeit und persönliche Betreuung. Unser Single Point of Contact-Modell reduziert Ihren administrativen Aufwand, indem Sie eine zentrale Anlaufstelle für all Ihre Anliegen haben. Von der Buchhaltung bis zur Steueroptimierung – wir stehen an Ihrer Seite.\n\nUnsere Dienstleistungen werden präzise und individuell auf Ihre Bedürfnisse abgestimmt, sodass Sie sich stressfrei auf das Wachstum Ihres Unternehmens konzentrieren können. Mehr Zeit, weniger Sorgen – dafür stehen wir.",
     image: img("about-box.png"),
+    video: CORPORATE_VIDEO,
     _orbi: { component: "SectionCentered" },
   },
   {
@@ -77,6 +84,7 @@ const sections = [
   },
   {
     background: img("owner-bg.jpg"),
+    video: HERO_VIDEO,
     photo: img("philippe-round.png"),
     name: "Inhaber Philippe Bally",
     quote: "Wir können den Wind nicht ändern, aber die Segel anders setzen.",
@@ -215,6 +223,7 @@ const sections = [
   },
   {
     image: img("problems-side.png"),
+    video: RELIABILITY_VIDEO,
     titleTop: "Unsere Zuverlässigkeit -\nfür Ihre Zufriedenheit.",
     titleItalic: "Gemeinsam «steuern» wir\nSie in eine sichere Zukunft.",
     items: [

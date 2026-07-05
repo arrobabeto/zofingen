@@ -41,6 +41,8 @@ server/api/               # Nitro API handlers
 _scripts/                 # Setup, page seeds, WordPress import
 agent/                    # Agent skills (Cursor + Claude Code)
 public/img/               # Static assets per page/slug
+public/videos/wp/         # Optimized WordPress videos
+public/downloads/         # Merkblätter PDFs and documents
 ```
 
 ### Routing
@@ -89,6 +91,54 @@ node _scripts/_seed-artikel.mjs
 ```
 
 Agent skill reference: `agent/skills/publish-blog/SKILL.md` (sync with `npm run sync:agent`).
+
+### Videos (WordPress → optimized local assets)
+
+Background and embed videos from the legacy WordPress site are stored in `public/videos/wp/`. Raw downloads go to a **temp folder** (`_scripts/_tmp/wp-videos/`, gitignored), are optimized with **ffmpeg**, then saved to `public/videos/wp/` and temp is deleted.
+
+**Prerequisite:** [ffmpeg](https://ffmpeg.org/) (`brew install ffmpeg`)
+
+**Download and optimize all videos** (from manifest in `_scripts/_wordpress-videos.mjs`):
+
+```bash
+node _scripts/_download-wordpress-videos.mjs
+```
+
+**Adding a new video later:**
+
+1. Add an entry to `WP_VIDEOS` in [`_scripts/_wordpress-videos.mjs`](_scripts/_wordpress-videos.mjs) with:
+   - `filename` — output basename (keep WP name for traceability)
+   - `url` — full WordPress `wp-content/uploads/...` URL
+   - `profile` — `"background"` (autoplay hero: no audio, max 1080p) or `"controls"` (embed with controls: max 720p)
+2. Export a constant (e.g. `MY_VIDEO = vid("filename.mp4")`) if used in seeds.
+3. Run `node _scripts/_download-wordpress-videos.mjs`.
+4. Wire `video` prop in the relevant `_scripts/_seed-*.mjs` and ensure the section component supports it (`SectionHero`, `SectionCentered`, `SectionTextMedia`, `SectionReliability`).
+5. Re-seed affected pages and verify:
+
+```bash
+node _scripts/_verify-wordpress-videos.mjs
+```
+
+**Optimization profiles:**
+
+| Profile | Use case | ffmpeg settings |
+|---------|----------|-----------------|
+| `background` | Hero / autoplay loops | No audio, max 1920px, CRF 28 |
+| `controls` | Playable embeds | AAC 128k, max 1280px, CRF 26 |
+
+Both profiles use H.264 + `faststart` for web streaming.
+
+### Documents (Merkblätter)
+
+Download and wire PDF/DOC/XLS from WordPress `/merkblaetter` → `/ressourcen`:
+
+```bash
+node _scripts/_download-merkblaetter-docs.mjs
+node _scripts/_seed-ressourcen.mjs
+node _scripts/_verify-merkblaetter-docs.mjs
+```
+
+Files live in `public/downloads/merkblaetter/`.
 
 ## Development
 

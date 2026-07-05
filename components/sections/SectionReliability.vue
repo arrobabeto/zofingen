@@ -1,8 +1,10 @@
 <script setup lang="ts">
   import CheckCircle from "./_CheckCircle.vue"
+  import VideoBackgroundOverlay from "./_VideoBackgroundOverlay.vue"
 
   defineProps<{
     image: string
+    video?: string
     titleTop: string
     titleItalic: string
     items: string[]
@@ -16,11 +18,23 @@
     <div
       class="mx-auto flex max-w-[1200px] flex-col items-center gap-12 lg:flex-row lg:gap-[62px]"
     >
-      <div class="w-full shrink-0 lg:h-[790px] lg:w-[479px]">
+      <div class="relative w-full shrink-0 overflow-hidden rounded-[10px] lg:h-[790px] lg:w-[479px]">
+        <video
+          v-if="video"
+          :src="video"
+          :poster="image"
+          autoplay
+          muted
+          loop
+          playsinline
+          class="h-[320px] w-full object-cover lg:h-full"
+        />
+        <VideoBackgroundOverlay v-if="video" />
         <img
+          v-else
           :src="image"
           alt=""
-          class="h-[320px] w-full rounded-[10px] object-cover lg:h-full"
+          class="h-[320px] w-full object-cover lg:h-full"
         />
       </div>
 

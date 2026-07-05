@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import SectionButton from "./_SectionButton.vue"
+  import VideoBackgroundOverlay from "./_VideoBackgroundOverlay.vue"
 
   withDefaults(
     defineProps<{
@@ -9,6 +10,7 @@
       ctaLabel?: string
       ctaHref?: string
       image: string
+      video?: string
       align?: "left" | "right"
       compact?: boolean
     }>(),
@@ -18,11 +20,23 @@
 
 <template>
   <section class="relative w-full overflow-hidden bg-brand-card">
+    <video
+      v-if="video"
+      :src="video"
+      :poster="image"
+      autoplay
+      muted
+      loop
+      playsinline
+      class="pointer-events-none absolute inset-0 h-full w-full object-cover"
+    />
     <img
+      v-else
       :src="image"
       alt=""
       class="pointer-events-none absolute inset-0 h-full w-full object-cover"
     />
+    <VideoBackgroundOverlay v-if="video" />
     <div
       class="absolute inset-0"
       :class="
