@@ -1,16 +1,18 @@
 <script setup lang="ts">
   import { showError, useSeoMeta } from "#app"
   import { useHead, useI18n, useRoute, useRuntimeConfig } from "#imports"
+  import { computed } from "vue"
   import { useTranslate } from "~/composables/useTranslate"
+  import { useArticleToc } from "~/composables/useArticleToc"
   import { useCanonicalLinks } from "~/composables/useCanonicalLinks"
   import { fn } from "~/functions/fn"
   import type { IPost } from "~/types/dto/IPost"
-  import type { IComment } from "~/types/dto/IComment"
-  import { dt } from "~/functions/dt"
-  import InputV from "~/components/common/InputV.vue"
-  import ButtonV from "~/components/common/ButtonV.vue"
-  import { reactive } from "vue"
-  import SafeHtml from "~/components/common/SafeHtml.vue"
+  import type { I18nString } from "~/types/util/I18nString"
+  import SectionPageHero from "~/components/sections/SectionPageHero.vue"
+  import SectionArtikelHeader from "~/components/sections/SectionArtikelHeader.vue"
+  import SectionArtikelToc from "~/components/sections/SectionArtikelToc.vue"
+  import SectionArtikelContent from "~/components/sections/SectionArtikelContent.vue"
+  import SectionArtikelRelated from "~/components/sections/SectionArtikelRelated.vue"
   import { generateOGImageUrl } from "~/utils/ogImageGenerator"
 
   const t = useTranslate()
@@ -19,41 +21,20 @@
 
   const route = useRoute()
   const id = route.params["id"]
-  const commentsEnabled = config.public.commentsEnabled
 
   const post: IPost = await $fetch("/api/posts", { query: { id } })
   if (!post)
     throw showError({ statusCode: 404, statusMessage: "Post not found" })
-  const localizedLead = t(post.lead as any)
-  const plainLead = fn.removeHtml(localizedLead)
 
-  const comments = reactive<IComment[]>([])
-  if (commentsEnabled) {
-    const rows = await $fetch<IComment[]>("/api/comments", {
-      query: { post_id: id },
-    })
-    comments.push(...rows)
-  }
+  const contentSection = post.sections?.find(
+    (s) => s._orbi?.component === "SectionArtikelContent",
+  )
+  const contentSource =
+    (contentSection?.content as I18nString | undefined) ?? post.lead
+  const rawContentHtml = t(contentSource)
+  const { enrichedHtml, items: tocItems } = useArticleToc(rawContentHtml)
 
-  const newComment = reactive<Partial<IComment>>({
-    text: "",
-    post_id: id,
-  })
-
-  async function onSubmit() {
-    if (!commentsEnabled) return
-
-    try {
-      const resp: IComment = await $fetch("/api/comments", {
-        method: "POST",
-        body: newComment,
-      })
-      newComment.text = ""
-      comments.unshift(resp)
-    } catch (e) {
-      alert(e)
-    }
-  }
+  const plainLead = fn.removeHtml(t(post.lead))
 
   const isGermanPage = route.path === "/de" || route.path.startsWith("/de/")
   const enPath = route.path.startsWith("/de/")
@@ -64,6 +45,7 @@
   const canonicalUrl = `${config.public.siteUrl}${canonicalPath}`
   const title = t(post.title)
   const description = fn.truncateText(plainLead, 160)
+  const heroImage = computed(() => post.img || "/img/artikel/hero-bg.png")
   const ogImage = config.public.ogImageEnabled
     ? generateOGImageUrl({
         title,
@@ -139,47 +121,11 @@
 </script>
 
 <template>
-  <main class="max-w-3xl mx-auto w-full space-y-5 p-4 sm:py-8">
-    <NuxtLinkLocale
-      to="/posts"
-      class="inline-flex items-center rounded-lg border border-[#e0e0e0] bg-[#fefefe] px-3 py-1.5 text-sm text-[#010101] hover:bg-[#f6f6f6] dark:border-[#282a36] dark:bg-[#191a22] dark:text-[#fefefe] dark:hover:bg-[#22232b]"
-    >
-      ← back
-    </NuxtLinkLocale>
-
-    <article
-      class="rounded-2xl border border-[#e0e0e0] bg-[#fefefe]/95 p-5 shadow-sm dark:border-[#282a36] dark:bg-[#191a22]/95"
-    >
-      <h1
-        class="text-2xl font-semibold leading-tight text-[#010101] dark:text-[#fefefe]"
-      >
-        {{ t(post.title) }}
-      </h1>
-      <time class="mt-2 block text-xs text-[#4e4e4e] dark:text-[#cbcbcb]">
-        {{ dt.toLocal(post.created_at) }}
-      </time>
-      <div class="prose prose-sm dark:prose-invert mt-4 max-w-none">
-        <SafeHtml :html="localizedLead" />
-      </div>
-    </article>
-
-    <ul
-      v-if="commentsEnabled"
-      class="space-y-2 rounded-2xl border border-[#e0e0e0] bg-[#fefefe]/95 p-4 dark:border-[#282a36] dark:bg-[#191a22]/95"
-    >
-      <li v-for="c of comments" :key="c.id">
-        <p class="text-sm text-[#010101] dark:text-[#fefefe]">{{ c.text }}</p>
-      </li>
-    </ul>
-
-    <form v-if="commentsEnabled" @submit.prevent="onSubmit" class="flex gap-2">
-      <InputV
-        v-model="newComment.text"
-        placeholder="new comment"
-        required
-        class="grow"
-      />
-      <ButtonV submit>Send</ButtonV>
-    </form>
+  <main>
+    <SectionPageHero title="Artikel" :image="heroImage" />
+    <SectionArtikelHeader :title="post.title" :date="post.created_at" />
+    <SectionArtikelToc :items="tocItems" />
+    <SectionArtikelContent :html="enrichedHtml" />
+    <SectionArtikelRelated :exclude-id="post.id" />
   </main>
 </template>
