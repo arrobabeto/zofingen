@@ -34,29 +34,68 @@ const sections = [
       {
         title: "Arbeitshilfen / Merkblätter Steuern",
         items: [
-          { label: "Merkblatt Unterlagen Private Steuererklärung Deutsch" },
-          { label: "Checkliste Dokumente Steuererklärung Englisch" },
-          { label: "Checkliste Unterlagen für Grundstückgewinnsteuer" },
-          { label: "Fristerstreckungsgesuch private Steuern" },
-          { label: "Faktenblatt Steuern Kanton Aargau" },
-          { label: "Faktenblatt Immobilien und Liegenschaften Kanton Aargau" },
+          {
+            label: "Merkblatt Unterlagen Private Steuererklärung Deutsch",
+            href: "/downloads/merkblaetter/Merkblatt-Unterlagen-Private-Steuererklarung-Deutsch.pdf",
+          },
+          {
+            label: "Checkliste Dokumente Steuererklärung Englisch",
+            href: "/downloads/merkblaetter/Checkliste-Dokumente-Steuererklarung-Englisch.pdf",
+          },
+          {
+            label: "Checkliste Unterlagen für Grundstückgewinnsteuer",
+            href: "/downloads/merkblaetter/Checkliste-Unterlagen-fur-Grundstuckgewinnsteuer.pdf",
+          },
+          {
+            label: "Fristerstreckungsgesuch private Steuern",
+            href: "/downloads/merkblaetter/Fristerstreckungsgesuch-private-Steuern.doc",
+          },
+          {
+            label: "Faktenblatt Steuern Kanton Aargau",
+            href: "/downloads/merkblaetter/Faktenblatt-Steuern-Kanton-Aargau.pdf",
+          },
+          {
+            label: "Faktenblatt Immobilien und Liegenschaften Kanton Aargau",
+            href: "/downloads/merkblaetter/Faktenblatt-Immobilien-und-Liegenschaften-Kanton-Aargau.pdf",
+          },
         ],
       },
       {
         title: "Arbeitshilfen Buchhaltung / Rechnungswesen",
         items: [
-          { label: "Checkliste Belege für Jahresabschluss" },
-          { label: "Vorlageliste Excel Unterlagen Jahresabschluss" },
-          { label: "Unterlagen Belege Nachweise für Revision" },
+          {
+            label: "Checkliste Belege für Jahresabschluss",
+            href: "/downloads/merkblaetter/Checkliste-Belege-fur-Jahresabschluss.pdf",
+          },
+          {
+            label: "Vorlageliste Excel Unterlagen Jahresabschluss",
+            href: "/downloads/merkblaetter/Vorlageliste-Excel-Unterlagen-Jahresabschluss.xls",
+          },
+          {
+            label: "Unterlagen Belege Nachweise für Revision",
+            href: "/downloads/merkblaetter/Unterlagen-Belege-Nachweise-fur-Revision.pdf",
+          },
         ],
       },
       {
         title: "Arbeitshilfen Lohn & Personal",
         items: [
-          { label: "Sozialversicherungsbeiträge- und Leistungen 2021" },
-          { label: "Personalstammblatt neue Mitarbeiter Deutsch" },
-          { label: "Personalstammblatt neue Mitarbeiter Englisch" },
-          { label: "Merkblatt für austretende Mitarbeiter" },
+          {
+            label: "Sozialversicherungsbeiträge- und Leistungen 2025",
+            href: "/downloads/merkblaetter/Sozialversicherungsbeitrage-und-Leistungen-2021-15.31.11.pdf",
+          },
+          {
+            label: "Personalstammblatt neue Mitarbeiter Deutsch",
+            href: "/downloads/merkblaetter/Personalstammblatt-neue-Mitarbeiter-Deutsch.pdf",
+          },
+          {
+            label: "Personalstammblatt neue Mitarbeiter Englisch",
+            href: "/downloads/merkblaetter/Personalstammblatt-neue-Mitarbeiter-Englisch.pdf",
+          },
+          {
+            label: "Merkblatt für austretende Mitarbeiter",
+            href: "/downloads/merkblaetter/Merkblatt-fur-austretende-Mitarbeiter.pdf",
+          },
         ],
       },
     ],
