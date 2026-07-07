@@ -31,7 +31,7 @@ const sections = [
     _orbi: { component: "SectionHero" },
   },
   {
-    map: img("map.png"),
+    map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1353.1456362371514!2d7.943856908940439!3d47.28910729434361!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479025e3fadc0e09%3A0x4ba232eb87d62197!2sZofingen%20Treuhand%20AG!5e0!3m2!1sen!2smx!4v1783410053211!5m2!1sen!2smx",
     office: "Kirchplatz 4 4800 Zofingen",
     phone: "062 745 70 30",
     email: "kontakt@zofingen-treuhand.ch",
