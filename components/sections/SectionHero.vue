@@ -9,6 +9,7 @@
       body?: string
       ctaLabel?: string
       ctaHref?: string
+      ctaSize?: "fit" | "medium" | "block" | "narrow"
       image: string
       video?: string
       align?: "left" | "right"
@@ -70,7 +71,12 @@
         >
           {{ body }}
         </p>
-        <SectionButton v-if="ctaLabel" :label="ctaLabel" :href="ctaHref" />
+        <SectionButton
+          v-if="ctaLabel"
+          :label="ctaLabel"
+          :href="ctaHref"
+          :size="ctaSize"
+        />
       </div>
     </div>
   </section>

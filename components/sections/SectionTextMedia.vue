@@ -9,6 +9,7 @@
     reverse?: boolean
     ctaLabel?: string
     ctaHref?: string
+    ctaSize?: "fit" | "medium" | "block" | "narrow"
   }>()
 </script>
 
@@ -36,6 +37,7 @@
           v-if="ctaLabel"
           :label="ctaLabel"
           :href="ctaHref"
+          :size="ctaSize"
         />
       </div>
       <div class="w-full shrink-0 lg:h-[413px] lg:w-[582px]">

@@ -32,6 +32,7 @@ const sections = [
     body: "Von der Wahl der Rechtsform bis zur Handelsregistereintragung – Wir begleiten Sie auf dem Weg in die Selbständigkeit.",
     ctaLabel: CTA,
     ctaHref: CTA_HREF,
+    ctaSize: "medium",
     image: img("hero-bg.png"),
     video: HERO_VIDEO,
     _orbi: { component: "SectionHero" },
@@ -104,6 +105,7 @@ const sections = [
     reverse: true,
     ctaLabel: CTA,
     ctaHref: CTA_HREF,
+    ctaSize: "medium",
     _orbi: { component: "SectionTextMedia" },
   },
   {

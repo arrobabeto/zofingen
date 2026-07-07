@@ -239,10 +239,92 @@ const sections = [
   },
   {
     title: "Erfahrungen unserer Kunden",
-    quote:
-      "Sehr zu empfehlen, sehr hilfreich! Flexibel, persönlich, kundenfreundlich und noch mehr. Wir geben für solche Dienstleistungen gerne Geld aus. Als kleineres KMU schätzen wir die Zofingen Treuhand AG als kompetenten und zeitgemässen Partner. Auch das auf individuelle Bedürfnisse eingegangen wird. So erhalten wir für unsere Anliegen die optimale Unterstützung. Es hat sich gelohnt! Danke an Philippe und sein Team.",
-    author: "Kevin Zacher",
-    role: "Kunde",
+    items: [
+      {
+        quote:
+          "Sehr zu empfehlen, sehr hilfreich! Flexibel, persönlich, kundenfreundlich und noch mehr. Wir geben für solche Dienstleistungen gerne Geld aus. Als kleineres KMU schätzen wir die Zofingen Treuhand AG als kompetenten und zeitgemässen Partner. Auch das auf individuelle Bedürfnisse eingegangen wird. So erhalten wir für unsere Anliegen die optimale Unterstützung. Es hat sich gelohnt! Danke an Philippe und sein Team.",
+        author: "Kevin Zacher",
+        role: "Kunde",
+      },
+      {
+        quote:
+          "Die Zofingen Treuhand AG bietet wirklich einen erstklassigen Service. Unter der Leitung von Herrn Bally vereint sich hier Professionalität, Engagement und vor allem fachliche Kompetenz. Auch komplexe Tax-Fragen wurden effizient und mit Sachverstand einer schnellen Klärung zugeführt. Besonders hervorzuheben ist auch die ausgezeichnete Kommunikation zwischen der Treuhand AG und ihren Klienten. Definitiv empfehlenswert!",
+        author: "AC",
+        role: "Kunde",
+      },
+      {
+        quote:
+          "Ich wurde sehr nett empfangen und meine Fragen wurden prompt und kompetent beantwortet. Die Zofingen Treuhand AG hat mir verschiedene Möglichkeiten und Varianten für die effizientere Gestaltung unserer Buchhaltungsprozesse erklären und aufzeigen können. Es wird mit modernen Software-Lösungen gearbeitet. Sehr angenehme Zusammenarbeit und ich schätze insbesondere das steuerliche Fachwissen, die Flexibilität sowie den persönlichen Kontakt mit Philippe Bally und seinem Team.",
+        author: "Meier Thomas",
+        role: "Kunde",
+      },
+      {
+        quote:
+          "Der Inhaber berät mich seit Jahren äusserst kompetent in allen Fragen zu Steuern, Buchhaltung und Jahresabschluss sowohl Privat wie auch für meinen Verein und meine GmbH. Er geht sehr gut auf die individuellen Gegebenheiten und Bedürfnisse ein, hat ein Gespür für sinnvolle und zielführende Lösungen und unterstützt auch tatkräftig bei der Umsetzung. Ich kann die Firma vorbehaltlos empfehlen.",
+        author: "Oliver Bally",
+        role: "Kunde",
+      },
+      {
+        quote:
+          "Die Beratung von Zofingen-Treuhand AG ist super - kompetent - fachsicher - persönlich - alles was man sich wünscht. Ich kann Herr Bally nur empfehlen und bin dankbar für seine wertvolle Arbeit.",
+        author: "Marianne Mõckli",
+        role: "Kunde",
+      },
+      {
+        quote:
+          "Tadellose und effiziente Arbeit. Die Arbeit der Zofingen Treuhand ist kompetent und führt rasch zu den Ziel Vorstellungen. Diese Firma kann nur empfohlen werden!",
+        author: "Silvio Dragonetti",
+        role: "Kunde",
+      },
+      {
+        quote:
+          "Ich bin sehr dankbar für die Zofingen Treuhand. Ihre Kompetenz hat meine Erwartungen übertroffen, sehr hilfsbereit, freundlich, sympathisch und nehmen mir alles soweit ab, dass ich mich voll und ganz auf mein Business und meine Stärken konzentrieren kann. Danke, dass es euch gibt.",
+        author: "Terezija Stagljar",
+        role: "Kunde",
+      },
+      {
+        quote:
+          "Absolut kompetente Beratung in Steuerfragen. Prompte Erledigung meiner Steuererklärung vor Ort in Zofingen. Philippe Bally ist zudem ein sehr herzlicher und humorvoller Gesprächspartner.",
+        author: "Urs K.",
+        role: "Kunde",
+      },
+      {
+        quote:
+          "Ein Treuhandbüro, das diesen Namen verdient! Kompetent, schnell, tolle Beratung und Hilfeleistung. Hervorragende Dienstleistungen.",
+        author: "Sönneli Sönneli",
+        role: "Kunde",
+      },
+      {
+        quote:
+          "Sehr geehrter Herr Bally Bin mit Ihren Leistungen sehr zufrieden. Die Erreichbarkeit und Ihren persönlichen kontakt ist sehr Hoch. Weiter so und freue mich auf weitere Zusammenarbeit. Gruss",
+        author: "Stephan Frikart",
+        role: "Kunde",
+      },
+      {
+        quote:
+          "Bin begeistert über die professionelle Arbeit.Es war für mich eine erleichterung,eifach alles zu übergeben.Ich kann es nur Empfehlen",
+        author: "Edith Frank",
+        role: "Kunde",
+      },
+      {
+        quote:
+          "Sehr sehr gute, verlässliche, professionelle und fachkompetente Zusammenarbeit, Beratung und Betreuung in jeglicher Hinsicht. Auf weitere erfolgreiche Zusammenarbeit in der Zukunft.",
+        author: "Mehmet Öztürk",
+        role: "Kunde",
+      },
+      {
+        quote:
+          "Fundiertes Wissen, Kompetenz, individuelle Beratung und promptes Umsetzen. Vollstes Vertrauen!",
+        author: "KL",
+        role: "Kunde",
+      },
+      {
+        quote:
+          "Ich bin sehr zufrieden mit der Zofingen Treuhand AG. Schnell, unkompliziert und sehr persönlich. Hier ist man an der richtigen Adresse. Sei es für die Buchhaltung, Treuhand oder Weiterentwicklung und Optimierung fürs Unternehmen. Persönliche Ziele & Wünsche werden berücksichtigt. Ich kann die Zofingen Treuhand AG wärmstens weiterempfehlen und gebe sehr gerne 5 Sterne. Danke an Phillippe Bally und sein Team. beste Grüsse Stefan Müller",
+        author: "Stefan Müller",
+        role: "Kunde",
+      },
+    ],
     image: img("testimonial-side.jpg"),
     _orbi: { component: "SectionTestimonials" },
   },

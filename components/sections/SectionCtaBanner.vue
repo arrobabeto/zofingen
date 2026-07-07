@@ -10,6 +10,7 @@
     body: string
     ctaLabel: string
     ctaHref?: string
+    ctaSize?: "fit" | "medium" | "block" | "narrow"
   }>()
 </script>
 
@@ -45,7 +46,11 @@
           >
             {{ body }}
           </p>
-          <SectionButton :label="ctaLabel" :href="ctaHref" />
+          <SectionButton
+            :label="ctaLabel"
+            :href="ctaHref"
+            :size="ctaSize ?? 'fit'"
+          />
         </div>
       </div>
     </div>
