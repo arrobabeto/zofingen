@@ -80,6 +80,7 @@ const sections = [
         description:
           "Aengi ist die erste Ansprechperson für unsere Steuererklärungskunden. Sie stellt sicher, dass die Steuererklärungen vollständig vorbereitet und sämtliche Fristen eingehalten werden. Ebenfalls unterstützt sie unseren Fachspezialist Buchhaltung bei der korrekten Erfassung der Buchhaltungen.",
         image: img("aengi.png"),
+        stamp: img("stamp.png"),
       },
       {
         name: "Andrea Bally",

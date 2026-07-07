@@ -7,7 +7,13 @@
     subtitle: string
     intro: string
     bullets?: { bold: string; text: string }[]
-    members: { name: string; role: string; description: string; image: string }[]
+    members: {
+      name: string
+      role: string
+      description: string
+      image: string
+      stamp?: string
+    }[]
   }>()
 </script>
 
@@ -34,12 +40,13 @@
       </div>
 
       <div
-        class="grid max-w-[1105px] grid-cols-1 justify-items-center gap-x-[60px] gap-y-10 sm:grid-cols-2 lg:grid-cols-3"
+        class="grid max-w-[1105px] grid-cols-1 justify-items-center gap-x-[60px] gap-y-10 overflow-visible sm:grid-cols-2 lg:grid-cols-3"
       >
         <div
           v-for="(m, i) of members"
           :key="i"
-          class="relative flex h-full w-[273px] flex-col items-center"
+          class="relative flex h-full w-[273px] flex-col items-center overflow-visible"
+          :class="m.stamp && 'mb-10'"
         >
           <div
             class="absolute left-0 right-0 top-[132px] bottom-0 rounded-[10px] bg-brand-light/60"
@@ -67,6 +74,13 @@
               </p>
             </div>
           </div>
+
+          <img
+            v-if="m.stamp"
+            :src="m.stamp"
+            alt=""
+            class="absolute -bottom-10 -right-10 z-[2] h-[88px] w-[88px]"
+          />
         </div>
       </div>
     </div>

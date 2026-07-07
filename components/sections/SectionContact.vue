@@ -10,7 +10,7 @@
 </script>
 
 <template>
-  <section class="w-full px-6 pb-24 lg:px-[100px]">
+  <section class="w-full px-6 pb-24 pt-[60px] lg:px-[100px]">
     <div
       class="mx-auto flex max-w-[1200px] flex-col overflow-hidden rounded-[10px] bg-white shadow-[0px_0px_60px_30px_rgba(0,0,0,0.03)] lg:flex-row"
     >
@@ -72,7 +72,16 @@
           </div>
         </div>
 
-        <img :src="map" alt="" class="h-[311px] w-full object-cover" />
+        <div class="h-[311px] w-full shrink-0">
+          <iframe
+            :src="map"
+            title="Zofingen Treuhand AG Standort"
+            class="h-full w-full border-0"
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+          />
+        </div>
       </div>
 
       <!-- Right: form -->
