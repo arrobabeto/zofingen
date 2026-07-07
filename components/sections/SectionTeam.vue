@@ -8,7 +8,6 @@
     intro: string
     bullets?: { bold: string; text: string }[]
     members: { name: string; role: string; description: string; image: string }[]
-    round?: boolean
   }>()
 </script>
 
@@ -34,32 +33,39 @@
         </div>
       </div>
 
-      <div class="flex max-w-[1105px] flex-wrap justify-center gap-x-[60px] gap-y-10">
+      <div
+        class="grid max-w-[1105px] grid-cols-1 justify-items-center gap-x-[60px] gap-y-10 sm:grid-cols-2 lg:grid-cols-3"
+      >
         <div
           v-for="(m, i) of members"
           :key="i"
-          class="relative flex min-h-[740px] w-[273px] flex-col items-center"
+          class="relative flex h-full w-[273px] flex-col items-center"
         >
           <div
-            class="absolute left-0 right-0 top-[132px] h-[600px] rounded-[10px] bg-brand-light/60"
-          />
-          <img
-            :src="m.image"
-            alt=""
-            class="relative z-[1] h-[273px] w-[273px] object-cover"
-            :class="round ? 'rounded-full' : ''"
+            class="absolute left-0 right-0 top-[132px] bottom-0 rounded-[10px] bg-brand-light/60"
           />
           <div
-            class="relative z-[1] mt-4 flex flex-col items-center gap-[15px] px-2 text-center text-brand-blue"
+            class="relative z-[1] h-[273px] w-[273px] shrink-0 overflow-hidden rounded-full bg-white"
           >
-            <p class="font-serif text-[24px] font-bold">{{ m.name }}</p>
-            <p class="whitespace-pre-line font-serif text-[16px] font-bold leading-[25px]">
-              {{ m.role }}
-            </p>
-            <span class="block h-px w-[123px] bg-brand-blue" />
-            <p class="font-serif text-[16px] leading-[25px]">
-              {{ m.description }}
-            </p>
+            <img
+              :src="m.image"
+              alt=""
+              class="h-full w-full object-cover object-top"
+            />
+          </div>
+          <div
+            class="relative z-[1] mt-4 w-full px-2 pb-5 text-center text-brand-blue"
+          >
+            <div class="flex flex-col items-center gap-[15px]">
+              <p class="font-serif text-[24px] font-bold">{{ m.name }}</p>
+              <p class="whitespace-pre-line font-serif text-[16px] font-bold leading-[25px]">
+                {{ m.role }}
+              </p>
+              <span class="block h-px w-[123px] bg-brand-blue" />
+              <p class="font-serif text-[16px] leading-[25px]">
+                {{ m.description }}
+              </p>
+            </div>
           </div>
         </div>
       </div>

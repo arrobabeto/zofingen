@@ -83,7 +83,7 @@
               :label="plan.ctaLabel"
               :href="plan.ctaHref"
               :invert="plan.featured"
-              class="w-[273px] max-w-full"
+              size="medium"
             />
           </div>
 

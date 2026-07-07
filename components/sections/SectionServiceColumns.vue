@@ -22,7 +22,7 @@
       <img
         :src="image"
         alt=""
-        class="h-[391px] w-full max-w-[993px] rounded-[10px] object-cover"
+        class="h-[430px] w-full max-w-[993px] rounded-[10px] object-cover object-top sm:h-[450px] lg:h-[470px]"
       />
 
       <div class="flex w-full flex-wrap items-stretch justify-center gap-9">
