@@ -27,25 +27,37 @@
         <div
           v-for="(step, i) of steps"
           :key="i"
-          class="relative flex min-h-[277px] w-[376px] max-w-full flex-col gap-6 overflow-hidden rounded-[10px] border border-brand-blue px-[40px] py-[32px]"
+          class="relative mx-auto w-full max-w-[376px] pb-[69px]"
         >
-          <p class="font-serif text-[24px] font-bold text-brand-blue">
-            {{ step.title }}
-          </p>
-          <ul
-            class="list-disc space-y-0 pl-6 font-serif text-[18px] leading-[25px] text-brand-blue"
+          <div
+            class="relative flex h-[277px] flex-col gap-6 rounded-[10px] border border-brand-blue px-8 pb-8 pt-8"
           >
-            <li v-for="(it, j) of step.items" :key="j">{{ it }}</li>
-          </ul>
-          <span
-            class="pointer-events-none absolute -bottom-2 right-4 bg-brand-card px-1 font-serif text-[110px] font-bold leading-none text-brand-blue"
+            <p class="font-serif text-[24px] font-bold leading-normal text-brand-blue">
+              {{ step.title }}
+            </p>
+            <ul
+              class="list-disc space-y-0 pl-6 font-serif text-[18px] leading-[25px] text-brand-blue"
+            >
+              <li v-for="(it, j) of step.items" :key="j">{{ it }}</li>
+            </ul>
+          </div>
+
+          <div
+            class="pointer-events-none absolute right-[-27px] top-[144px] h-[202px] w-[103px]"
           >
-            {{ i + 1 }}
-          </span>
+            <div
+              class="absolute bottom-0 right-0 h-[122px] w-[103px] bg-brand-card"
+            />
+            <span
+              class="absolute left-1/2 top-[calc(50%-10px)] -translate-x-1/2 -translate-y-1/2 font-serif text-[128px] font-bold leading-[58px] text-brand-blue"
+            >
+              {{ i + 1 }}
+            </span>
+          </div>
         </div>
       </div>
 
-      <SectionButton :label="ctaLabel" :href="ctaHref" />
+      <SectionButton :label="ctaLabel" :href="ctaHref" size="medium" />
     </div>
   </section>
 </template>
