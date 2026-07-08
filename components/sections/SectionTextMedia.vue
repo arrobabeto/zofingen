@@ -26,7 +26,7 @@
           >
             {{ title }}
           </h2>
-          <span class="block h-[4px] w-[67px] bg-brand-blue" />
+          <span class="block h-[4px] w-[67px] bg-brand-light" />
         </template>
         <div
           class="whitespace-pre-line font-serif text-[18px] leading-[25px] text-brand-blue"

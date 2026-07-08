@@ -48,7 +48,7 @@
             <div
               class="flex h-[67px] w-[67px] items-center justify-center rounded-full border-2 border-brand-light bg-brand-card"
             >
-              <CheckCircle />
+              <CheckCircle class="text-brand-blue" />
             </div>
 
             <div class="flex justify-start">

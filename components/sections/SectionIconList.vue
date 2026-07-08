@@ -23,7 +23,7 @@
           :key="i"
           class="flex items-start gap-9"
         >
-          <CheckCircle class="mt-1" />
+          <CheckCircle class="mt-1 text-brand-light" />
           <div class="flex flex-col gap-4">
             <p class="font-serif text-[24px] font-bold text-brand-blue">
               {{ it.title }}

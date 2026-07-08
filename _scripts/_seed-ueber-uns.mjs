@@ -48,7 +48,7 @@ const sections = [
     members: [
       {
         name: "Philippe Bally",
-        role: "Dipl. Treuhänder &\nSteuerexperte",
+        role: "Dipl. Treuhänder & Steuerexperte",
         description:
           "Mit über 20 Jahren Erfahrung in der Steuerberatung führt Philippe unser Team. Seine Expertise liegt in der Erstellung und Optimierung der Steuerstrategien für KMU’s sowie in der Vertretung der Kunden vor Steuerbehörden.",
         image: img("philippe.png"),
@@ -69,14 +69,14 @@ const sections = [
       },
       {
         name: "Emre Duman",
-        role: "Fachspezialist\nBuchhaltung",
+        role: "Fachspezialist Buchhaltung",
         description:
           "Emre führt Ausbildungskurse unserer Cloud-Software durch und er ist unser Garant für die vollständige und richtige Verbuchung von umfangreichen Kundenbuchhaltungen. Er stellt sicher, dass die Buchhaltungsprozesse reibungslos, effizient und nach höchsten Qualitätsstandards ablaufen.",
         image: img("emre.png"),
       },
       {
         name: "Aengi Kuoni",
-        role: "Fachfrau\nSteuern",
+        role: "Fachfrau Steuern",
         description:
           "Aengi ist die erste Ansprechperson für unsere Steuererklärungskunden. Sie stellt sicher, dass die Steuererklärungen vollständig vorbereitet und sämtliche Fristen eingehalten werden. Ebenfalls unterstützt sie unseren Fachspezialist Buchhaltung bei der korrekten Erfassung der Buchhaltungen.",
         image: img("aengi.png"),
@@ -84,7 +84,7 @@ const sections = [
       },
       {
         name: "Andrea Bally",
-        role: "Fachfrau\nSozialversicherungen",
+        role: "Fachfrau Sozialversicherungen",
         description:
           "Andrea ist Ihre Ansprechpartnerin in allen Fragen rund um Löhne, Sozialversicherungen und Vorsorge und sorgt dafür, dass eine rechtlich korrekte und transparente Abrechnung gewährleistet ist. Dabei unterstützt sie Sie kompetent und zuverlässig bei administrativen Anliegen.",
         image: img("andrea.png"),
