@@ -27,7 +27,7 @@ export default defineNuxtConfig({
   },
   telemetry: false,
   modules: ["@nuxtjs/tailwindcss", "@nuxt/image", "@nuxtjs/i18n"],
-  css: ["~/assets/css/style.css"],
+  css: ["~/assets/css/style.css", "~/assets/css/mobile.css"],
   postcss: {
     plugins: {
       tailwindcss: {},
