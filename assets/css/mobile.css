@@ -1,0 +1,182 @@
+/* Mobile-only overrides — desktop (lg: 1024px+) is untouched. */
+@media (max-width: 1023px) {
+  /* ── 1. Foundation ───────────────────────────────────────────── */
+  html,
+  body {
+    overflow-x: clip;
+  }
+
+  main {
+    overflow-x: clip;
+  }
+
+  main img:not([class*="absolute"]),
+  main video:not([class*="absolute"]),
+  main iframe {
+    max-width: 100%;
+    height: auto;
+  }
+
+  main section.relative.overflow-hidden > video[class*="absolute"],
+  main section.relative.overflow-hidden > img[class*="absolute"] {
+    height: 100%;
+    max-width: none;
+  }
+
+  /* ── 2. Typography ─────────────────────────────────────────── */
+  main [class*="text-[48px]"],
+  footer [class*="text-[48px]"] {
+    font-size: 2.25rem !important;
+    line-height: 2.625rem !important;
+  }
+
+  main [class*="text-[42px]"],
+  footer [class*="text-[42px]"] {
+    font-size: 1.875rem !important;
+    line-height: 2.375rem !important;
+  }
+
+  main [class*="text-[40px]"] {
+    font-size: 1.75rem !important;
+    line-height: 2rem !important;
+  }
+
+  main [class*="text-[32px]"],
+  footer [class*="text-[32px]"] {
+    font-size: 1.5rem !important;
+    line-height: 2rem !important;
+  }
+
+  main [class*="text-[28px]"] {
+    font-size: 1.375rem !important;
+    line-height: 1.75rem !important;
+  }
+
+  main [class*="text-[24px]"].font-bold,
+  footer [class*="text-[24px]"].font-bold {
+    font-size: 1.25rem !important;
+    line-height: 1.625rem !important;
+  }
+
+  main [class*="text-[128px]"] {
+    font-size: 4.5rem !important;
+    line-height: 1 !important;
+  }
+
+  /* ── 3. Heroes ───────────────────────────────────────────────── */
+  main section.relative.overflow-hidden.bg-brand-card [class*="min-h-[600px]"],
+  main section.relative.overflow-hidden.bg-brand-card [class*="min-h-[430px]"],
+  main section.relative.overflow-hidden.bg-brand-card [class*="min-h-[634px]"],
+  main section.relative.overflow-hidden.bg-brand-card [class*="min-h-[507px]"] {
+    min-height: 26rem !important;
+  }
+
+  main section.relative.overflow-hidden.bg-brand-card [class*="justify-end"] {
+    justify-content: flex-start !important;
+  }
+
+  main section.relative.overflow-hidden.bg-brand-card [class*="items-end"] {
+    align-items: flex-start !important;
+  }
+
+  main section.relative.overflow-hidden.bg-brand-card [class*="text-right"] {
+    text-align: left !important;
+  }
+
+  main section.relative.overflow-hidden.bg-brand-card > [class*="bg-gradient"] {
+    background-image: linear-gradient(
+      to right,
+      rgb(255 255 255) 0%,
+      rgb(255 255 255 / 0.88) 45%,
+      rgb(255 255 255 / 0.35) 100%
+    ) !important;
+  }
+
+  /* ── 4. Sections ───────────────────────────────────────────── */
+  main [class*="w-[479px]"],
+  main [class*="w-[376px]"],
+  main [class*="w-[582px]"],
+  main [class*="w-[602px]"],
+  main [class*="w-[644px]"] {
+    width: 100% !important;
+  }
+
+  main [class*="pl-[150px]"] {
+    padding-left: 4.5rem !important;
+    padding-right: 1.5rem !important;
+  }
+
+  main [class*="pb-[69px]"] {
+    overflow: hidden;
+    padding-bottom: 2rem !important;
+  }
+
+  main [class*="right-[-27px]"] {
+    right: 0 !important;
+  }
+
+  main img[class*="h-[481px]"],
+  main img[class*="h-[683px]"],
+  main img[class*="h-[458px]"],
+  main img[class*="h-[378px]"],
+  main video[class*="h-[260px]"]:not([class*="absolute"]) {
+    height: auto !important;
+    max-height: 20rem;
+  }
+
+  main [class*="h-[283px]"][class*="w-[283px]"] {
+    height: 11rem !important;
+    width: 11rem !important;
+  }
+
+  main [class*="top-[137px]"] {
+    top: 6.5rem !important;
+  }
+
+  main [class*="whitespace-nowrap"] {
+    white-space: normal !important;
+  }
+
+  /* ── 5. Blog / articles ────────────────────────────────────── */
+  .article-body img,
+  .article-body video,
+  .article-body iframe {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .article-body table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .article-body [class*="text-[32px]"] {
+    font-size: 1.5rem !important;
+    line-height: 2rem !important;
+  }
+
+  .article-body [class*="text-[24px]"] {
+    font-size: 1.25rem !important;
+    line-height: 1.75rem !important;
+  }
+
+  /* ── 6. Shell (utility bar + footer) ───────────────────────── */
+  .site-utility-bar {
+    flex-wrap: wrap;
+    justify-content: flex-start !important;
+    gap: 0.75rem !important;
+    font-size: 0.875rem !important;
+    line-height: 1.25rem !important;
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+
+  .site-utility-bar .site-utility-divider {
+    display: none;
+  }
+
+  footer .grid-cols-2 {
+    grid-template-columns: 1fr;
+  }
+}
