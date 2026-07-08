@@ -29,7 +29,7 @@
           class="flex max-w-full flex-col items-center gap-8 rounded-[10px] border border-brand-blue p-[32px] text-center"
           :class="wide ? 'w-[479px]' : 'w-[376px]'"
         >
-          <p class="font-serif text-[24px] font-bold text-brand-blue">
+          <p class="whitespace-pre-line font-serif text-[24px] font-bold text-brand-blue">
             {{ c.title }}
           </p>
           <p

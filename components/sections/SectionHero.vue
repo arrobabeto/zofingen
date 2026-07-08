@@ -1,6 +1,5 @@
 <script setup lang="ts">
   import SectionButton from "./_SectionButton.vue"
-  import VideoBackgroundOverlay from "./_VideoBackgroundOverlay.vue"
 
   withDefaults(
     defineProps<{
@@ -37,7 +36,6 @@
       alt=""
       class="pointer-events-none absolute inset-0 h-full w-full object-cover"
     />
-    <VideoBackgroundOverlay v-if="video" />
     <div
       class="absolute inset-0"
       :class="
@@ -67,7 +65,7 @@
         </p>
         <p
           v-if="body"
-          class="font-serif text-[18px] leading-[25px] text-brand-blue"
+          class="whitespace-pre-line font-serif text-[18px] leading-[25px] text-brand-blue"
         >
           {{ body }}
         </p>

@@ -1,6 +1,5 @@
 <script setup lang="ts">
   import CheckCircle from "./_CheckCircle.vue"
-  import VideoBackgroundOverlay from "./_VideoBackgroundOverlay.vue"
 
   defineProps<{
     image: string
@@ -29,7 +28,6 @@
           playsinline
           class="h-[320px] w-full object-cover lg:h-full"
         />
-        <VideoBackgroundOverlay v-if="video" />
         <img
           v-else
           :src="image"
@@ -52,7 +50,7 @@
               :key="i"
               class="flex items-center gap-9"
             >
-              <CheckCircle />
+              <CheckCircle class="text-brand-blue" />
               <p class="font-serif text-[18px] leading-[25px] text-brand-blue">
                 {{ it }}
               </p>

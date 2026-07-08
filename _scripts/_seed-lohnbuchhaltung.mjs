@@ -26,7 +26,7 @@ const CTA_HREF = "/kontakt"
 
 const sections = [
   {
-    title: "Externe Lohnbuchhaltung Aargau",
+    title: "Externe Lohnbuchhaltung",
     subtitle:
       "Entlasten Sie sich mit unserer professionellen externen Lohnbuchhaltung",
     body: "Wir rechnen Ihre Löhne gesetzeskonform ab. Maximieren Sie Ihre Effizienz und Genauigkeit bei der Lohnabrechnung durch unseren zuverlässigen Service.",

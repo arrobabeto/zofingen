@@ -41,7 +41,7 @@
             :key="i"
             class="flex items-start gap-6"
           >
-            <CheckCircle class="mt-1" />
+            <CheckCircle class="mt-1 text-brand-blue" />
             <p class="font-serif text-[18px] leading-[25px] text-brand-blue">
               {{ b }}
             </p>

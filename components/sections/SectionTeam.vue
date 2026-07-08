@@ -31,7 +31,7 @@
             :key="i"
             class="flex items-center gap-6"
           >
-            <CheckCircle />
+            <CheckCircle class="text-brand-blue" />
             <p class="font-serif text-[18px] leading-[25px] text-brand-blue lg:w-[485px]">
               <span class="font-bold">{{ b.bold }} </span>{{ b.text }}
             </p>
@@ -45,14 +45,14 @@
         <div
           v-for="(m, i) of members"
           :key="i"
-          class="relative flex h-full w-[273px] flex-col items-center overflow-visible"
+          class="relative flex h-full w-[283px] flex-col items-center overflow-visible"
           :class="m.stamp && 'mb-10'"
         >
           <div
-            class="absolute left-0 right-0 top-[132px] bottom-0 rounded-[10px] bg-brand-light/60"
+            class="absolute left-0 right-0 top-[137px] bottom-0 rounded-[10px] bg-brand-light/60"
           />
           <div
-            class="relative z-[1] h-[273px] w-[273px] shrink-0 overflow-hidden rounded-full bg-white"
+            class="relative z-[1] h-[283px] w-[283px] shrink-0 overflow-hidden rounded-full bg-white"
           >
             <img
               :src="m.image"
@@ -61,14 +61,14 @@
             />
           </div>
           <div
-            class="relative z-[1] mt-4 w-full px-2 pb-5 text-center text-brand-blue"
+            class="relative z-[1] mt-4 w-full px-4 pb-5 text-center text-brand-blue"
           >
-            <div class="flex flex-col items-center gap-[15px]">
+            <div class="flex flex-col items-center gap-[15px] px-2">
               <p class="font-serif text-[24px] font-bold">{{ m.name }}</p>
-              <p class="whitespace-pre-line font-serif text-[16px] font-bold leading-[25px]">
+              <p class="whitespace-nowrap font-serif text-[14px] font-bold leading-[22px]">
                 {{ m.role }}
               </p>
-              <span class="block h-px w-[123px] bg-brand-blue" />
+              <span class="block h-px w-[90%] bg-brand-blue" />
               <p class="font-serif text-[16px] leading-[25px]">
                 {{ m.description }}
               </p>

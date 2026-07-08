@@ -68,7 +68,7 @@ const sections = [
         body: "Wir übernehmen die komplette Liegenschafts-Buchhaltung und stellen sicher, dass Ihre Nebenkostenabrechnungen präzise und korrekt erstellt werden.",
       },
       {
-        title: "Finanzielle Unterstützung",
+        title: "Finanzielle\nUnterstützung",
         body: "Wir bieten Ihnen Beratung und Unterstützung bei Immobilien-Finanzierungen, um Ihnen dabei zu helfen, die besten finanziellen Entscheidungen für Ihre Immobilieninvestitionen zu treffen.",
       },
       {

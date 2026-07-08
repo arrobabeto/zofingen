@@ -30,7 +30,7 @@
           class="relative mx-auto w-full max-w-[376px] pb-[69px]"
         >
           <div
-            class="relative flex h-[277px] flex-col gap-6 rounded-[10px] border border-brand-blue px-8 pb-8 pt-8"
+            class="relative isolate flex h-[277px] flex-col gap-6 rounded-[10px] border border-brand-blue px-8 pb-8 pt-8"
           >
             <p class="font-serif text-[24px] font-bold leading-normal text-brand-blue">
               {{ step.title }}
@@ -38,15 +38,30 @@
             <ul
               class="list-disc space-y-0 pl-6 font-serif text-[18px] leading-[25px] text-brand-blue"
             >
-              <li v-for="(it, j) of step.items" :key="j">{{ it }}</li>
+              <li v-for="(it, j) of step.items" :key="j" class="whitespace-pre-line">
+                {{ it }}
+              </li>
             </ul>
+
+            <div
+              class="pointer-events-none absolute bottom-[-1px] right-[-1px] z-[2] h-[2px] w-[96px] bg-brand-card"
+              aria-hidden="true"
+            />
+            <div
+              class="pointer-events-none absolute right-[-1px] top-[132px] z-[2] h-[148px] w-[2px] bg-brand-card"
+              aria-hidden="true"
+            />
+            <div
+              class="pointer-events-none absolute bottom-[-1px] right-[-1px] z-[2] h-[96px] w-[96px] bg-brand-card"
+              aria-hidden="true"
+            />
           </div>
 
           <div
-            class="pointer-events-none absolute right-[-27px] top-[144px] h-[202px] w-[103px]"
+            class="pointer-events-none absolute right-[-27px] top-[144px] z-[1] h-[202px] w-[103px]"
           >
             <div
-              class="absolute bottom-0 right-0 h-[122px] w-[103px] bg-brand-card"
+              class="absolute bottom-0 right-0 h-[128px] w-[103px] bg-brand-card"
             />
             <span
               class="absolute left-1/2 top-[calc(50%-10px)] -translate-x-1/2 -translate-y-1/2 font-serif text-[128px] font-bold leading-[58px] text-brand-blue"

@@ -62,7 +62,7 @@ const sections = [
           "Liquiditätsplanung",
           "Kalkulationsgrundlagen",
           "Budgetierung",
-          "Betriebswirtschaftliche Analysen",
+          "Betriebswirtschaftliche\nAnalysen",
         ],
       },
       {

@@ -26,7 +26,7 @@ const CTA_HREF = "/kontakt"
 
 const sections = [
   {
-    title: "Steuern für Privatpersonen Aargau",
+    title: "Steuern für Privatpersonen",
     subtitle:
       "Optimieren Sie Ihre Steuerangelegenheiten mit unserer professionellen Unterstützung für Privatpersonen",
     body: "Wir beraten Sie umfassend in allen steuerlichen Themen und bieten Lösungen für komplexe Sachverhalte und internationales Steuerrecht.",
