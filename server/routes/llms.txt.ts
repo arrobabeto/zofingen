@@ -46,11 +46,11 @@ export default defineEventHandler(async (event) => {
 
   const lines: string[] = []
   lines.push(
-    `# ${process.env.NUXT_PUBLIC_SITE_NAME ?? "Orbitype Headless CMS Template"}`,
+    `# ${process.env.NUXT_PUBLIC_SITE_NAME ?? "Zofingen Treuhand AG"}`,
   )
   lines.push("")
   lines.push(
-    `> ${process.env.NUXT_PUBLIC_SITE_DESCRIPTION ?? "A production-ready starter for Orbitype-powered websites."}`,
+    `> ${process.env.NUXT_PUBLIC_SITE_DESCRIPTION ?? "Treuhand & Steuerberatung in Zofingen – effizient, persönlich und zuverlässig."}`,
   )
   lines.push("")
 

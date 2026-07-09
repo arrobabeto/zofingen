@@ -1,0 +1,21 @@
+{
+  "name": "Zofingen Treuhand AG",
+  "short_name": "Zofingen Treuhand",
+  "description": "Treuhand & Steuerberatung in Zofingen – effizient, persönlich und zuverlässig.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#012068",
+  "icons": [
+    {
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}
