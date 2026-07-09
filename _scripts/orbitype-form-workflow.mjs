@@ -1,111 +1,143 @@
 /**
- * Orbitype Workflow: "Zofingen — Form Submissions"
+ * Orbitype Workflow: "Website form to SendGrid email"
+ *
+ * Workflow ID: becbdc8b-cd2a-4d16-aac7-0a764650b30a
+ * Credential: sendgrid (stored in Orbitype project credentials)
  *
  * Setup in Orbitype dashboard:
- * 1. Create workflow with Webhook trigger
- * 2. Copy webhook URL → ORBITYPE_FORM_WEBHOOK_URL in .env
- * 3. Paste node code below into Code nodes
- * 4. Configure SMTP credentials in workspace Settings → Credentials
- * 5. Activate workflow after manual test
+ * 1. Open workflow "Website form to SendGrid email"
+ * 2. Add/configure Webhook trigger → copy URL to ORBITYPE_FORM_WEBHOOK_URL
+ * 3. Ensure Node 1 accepts the site payload (email, name, phone, subject, message)
+ * 4. Node 2 sends confirmation to submitter via SendGrid
+ * 5. Add Node 3 (NotifyOwner) — paste code below
+ * 6. Manual test, then enable workflow
  *
- * Test payload:
+ * Site proxy: POST /api/forms/submit → maps fields → Orbitype webhook
+ *
+ * Test payload (Orbitype manual run or curl to webhook):
  * {
+ *   "email": "max@example.com",
+ *   "name": "Herr Max Muster",
+ *   "phone": "+41 79 000 00 00",
+ *   "subject": "Anfrage: Firmengründungshandbuch (PDF)",
+ *   "message": "Formular: pdf_handbook\n...",
  *   "formType": "pdf_handbook",
  *   "source": "zofingen-treuhand.ch",
- *   "submittedAt": "2026-07-05T17:00:00Z",
- *   "fields": {
- *     "salutation": "Herr",
- *     "lastName": "Muster",
- *     "firstName": "Max",
- *     "email": "max@example.com",
- *     "phone": "+41 79 000 00 00"
- *   }
+ *   "submittedAt": "2026-07-09T12:00:00.000Z",
+ *   "fields": { "salutation": "Herr", "lastName": "Muster", ... }
  * }
  */
 
 export const ORBITYPE_WORKFLOW_NODES = {
-  FormatSubmission: `
+  ReceiveFormSubmission: `
+// Node 1 — "Receive form submission" (entry)
+// Normalizes flat webhook body from zofingen-treuhand.ch
 async ({ input }) => {
-  const fields = input.fields || {}
-  const formType = input.formType || "unknown"
-  const source = input.source || "zofingen-treuhand.ch"
-  const submittedAt = input.submittedAt || new Date().toISOString()
-
-  const lines = Object.entries(fields).map(([key, value]) => \`\${key}: \${value}\`)
-  const formatted = [
-    \`Formular: \${formType}\`,
-    \`Quelle: \${source}\`,
-    \`Eingegangen: \${submittedAt}\`,
-    "",
-    ...lines,
-  ].join("\\n")
-
-  const notifySender = formType === "contact" || formType === "jahresabschluss"
+  const email = input.email?.trim()
+  if (!email) {
+    return { output: { ok: false, error: "Missing required field: email" } }
+  }
 
   return {
     output: {
-      formatted,
-      formType,
-      email: fields.email || "",
-      notifySender,
-      fields,
-      source,
-      submittedAt,
+      ok: true,
+      name: input.name || input.fullName || "(not provided)",
+      email,
+      phone: input.phone || "(not provided)",
+      subject: input.subject || "New website form submission",
+      message: input.message || input.text || "(no message)",
+      formType: input.formType || "unknown",
+      source: input.source || "zofingen-treuhand.ch",
+      submittedAt: input.submittedAt || new Date().toISOString(),
+      fields: input.fields || {},
     },
   }
 }
 `,
 
-  NotifyAdmin: `
-async ({ input, config, nodemailer }) => {
-  const adminEmail = config.adminEmail || "it@bexolutions.ch"
-  const subject = \`[Zofingen] Neue Anfrage: \${input.formType}\`
+  SendConfirmationToSubmitter: `
+// Node 2 — "Send confirmation to submitter" (SendGrid)
+async ({ input, orbi }) => {
+  if (!input.ok) return { output: input }
 
-  const transporter = nodemailer.createTransport({
-    host: config.smtpHost,
-    port: Number(config.smtpPort || 587),
-    secure: config.smtpSecure === "true",
-    auth: {
-      user: config.smtpUser,
-      pass: config.smtpPass,
+  const apiKey = orbi.project.credentials.find((c) => c.name === "sendgrid")?.value
+  if (!apiKey) throw new Error("SendGrid credential not found")
+
+  const res = await fetch("https://api.sendgrid.com/v3/mail/send", {
+    method: "POST",
+    headers: {
+      Authorization: \`Bearer \${apiKey}\`,
+      "Content-Type": "application/json",
     },
+    body: JSON.stringify({
+      personalizations: [{ to: [{ email: input.email, name: input.name }] }],
+      from: { email: "kontakt@zofingen-treuhand.ch", name: "Zofingen Treuhand" },
+      subject: "Wir haben Ihre Anfrage erhalten",
+      content: [{
+        type: "text/html",
+        value: "<p>Vielen Dank, wir haben Ihre Nachricht erhalten. Wir melden uns in Kürze bei Ihnen.</p>",
+      }],
+    }),
   })
 
-  await transporter.sendMail({
-    from: config.smtpFrom || config.smtpUser,
-    to: adminEmail,
-    subject,
-    text: input.formatted,
-  })
-
-  return { output: { sent: true, to: adminEmail } }
-}
-`,
-
-  NotifySender: `
-async ({ input, config, nodemailer }) => {
-  if (!input.notifySender || !input.email) {
-    return { output: { skipped: true } }
+  if (!res.ok) {
+    const err = await res.text()
+    console.error("SendGrid confirmation failed:", err)
+    return { output: { ...input, confirmationSent: false } }
   }
 
-  const transporter = nodemailer.createTransport({
-    host: config.smtpHost,
-    port: Number(config.smtpPort || 587),
-    secure: config.smtpSecure === "true",
-    auth: {
-      user: config.smtpUser,
-      pass: config.smtpPass,
+  return { output: { ...input, confirmationSent: true } }
+}
+`,
+
+  NotifyOwner: `
+// Node 3 — "Notify owner" (SendGrid) — add after confirmation node
+async ({ input, orbi }) => {
+  if (!input.ok) return { output: input }
+
+  const apiKey = orbi.project.credentials.find((c) => c.name === "sendgrid")?.value
+  if (!apiKey) throw new Error("SendGrid credential not found")
+
+  const ownerEmail = "alberto.bexolutions@gmail.com"
+  const html = [
+    "<h2>Neue Website-Anfrage</h2>",
+    "<p><strong>Formular:</strong> " + (input.formType || "unknown") + "</p>",
+    "<p><strong>Name:</strong> " + input.name + "</p>",
+    "<p><strong>E-Mail:</strong> " + input.email + "</p>",
+    "<p><strong>Telefon:</strong> " + input.phone + "</p>",
+    "<p><strong>Betreff:</strong> " + input.subject + "</p>",
+    "<pre>" + (input.message || "").replace(/</g, "&lt;") + "</pre>",
+  ].join("")
+
+  const res = await fetch("https://api.sendgrid.com/v3/mail/send", {
+    method: "POST",
+    headers: {
+      Authorization: \`Bearer \${apiKey}\`,
+      "Content-Type": "application/json",
     },
+    body: JSON.stringify({
+      personalizations: [{ to: [{ email: ownerEmail, name: "Zofingen Admin" }] }],
+      from: { email: "kontakt@zofingen-treuhand.ch", name: "Zofingen Treuhand" },
+      subject: "[Zofingen] " + (input.subject || "Neue Anfrage"),
+      content: [{ type: "text/html", value: html }],
+    }),
   })
 
-  await transporter.sendMail({
-    from: config.smtpFrom || config.smtpUser,
-    to: input.email,
-    subject: "Vielen Dank für Ihre Anfrage — Zofingen Treuhand AG",
-    text: "Vielen Dank, wir haben Ihre Nachricht erhalten! Wir melden uns in Kürze bei Ihnen.",
-  })
+  if (!res.ok) {
+    const err = await res.text()
+    console.error("SendGrid owner notify failed:", err)
+    return { output: { ...input, ownerNotified: false } }
+  }
 
-  return { output: { sent: true, to: input.email } }
+  return { output: { ...input, ownerNotified: true } }
 }
 `,
 }
+
+export const ORBITYPE_SETUP_CHECKLIST = [
+  "Enable Webhook trigger on workflow becbdc8b-cd2a-4d16-aac7-0a764650b30a",
+  "Set ORBITYPE_FORM_WEBHOOK_URL in .env (local) and Vercel (production)",
+  "Wire: Webhook → ReceiveFormSubmission → SendConfirmationToSubmitter → NotifyOwner",
+  "Verify SendGrid sender kontakt@zofingen-treuhand.ch is verified",
+  "Test PDF form on site + Kontakt form on /kontakt",
+]
