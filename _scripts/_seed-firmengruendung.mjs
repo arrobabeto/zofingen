@@ -5,6 +5,7 @@ import { readFileSync } from "node:fs"
 import { fileURLToPath } from "node:url"
 import { dirname, join } from "node:path"
 import { HERO_VIDEO, FIRMENGRUENDUNG_VIDEO } from "./_wordpress-videos.mjs"
+import { HERO_IMAGE } from "./_shared-assets.mjs"
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..")
 const env = Object.fromEntries(
@@ -33,8 +34,7 @@ const sections = [
     ctaLabel: CTA,
     ctaHref: CTA_HREF,
     ctaSize: "medium",
-    image: img("hero-bg.png"),
-    video: HERO_VIDEO,
+    image: HERO_IMAGE,
     _orbi: { component: "SectionHero" },
   },
   {

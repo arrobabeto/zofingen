@@ -15,7 +15,7 @@
   <section class="w-full px-6 pb-5 pt-16 lg:px-[100px]">
     <div class="mx-auto flex max-w-[1099px] flex-col gap-10">
       <h1
-        class="max-w-[687px] font-serif text-[42px] font-bold leading-[58px] text-brand-blue"
+        class="max-w-[687px] font-serif text-[28px] font-bold leading-[36px] text-brand-blue lg:text-[32px] lg:leading-[42px]"
       >
         {{ t(p.title) }}
       </h1>

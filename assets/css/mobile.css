@@ -10,7 +10,7 @@
     overflow-x: clip;
   }
 
-  main img:not([class*="absolute"]),
+  main img:not([class*="absolute"]):not(.partner-logo),
   main video:not([class*="absolute"]),
   main iframe {
     max-width: 100%;
@@ -63,6 +63,20 @@
     line-height: 1 !important;
   }
 
+  main [class*="text-[96px]"] {
+    font-size: 3.5rem !important;
+    line-height: 0.9 !important;
+  }
+
+  main [class*="text-[80px]"] {
+    font-size: 3rem !important;
+    line-height: 0.9 !important;
+  }
+
+  main [class*="p-[32px]"] {
+    padding: 1.25rem !important;
+  }
+
   /* ── 3. Heroes ───────────────────────────────────────────────── */
   main section.relative.overflow-hidden.bg-brand-card [class*="min-h-[600px]"],
   main section.relative.overflow-hidden.bg-brand-card [class*="min-h-[430px]"],
@@ -71,24 +85,24 @@
     min-height: 26rem !important;
   }
 
-  main section.relative.overflow-hidden.bg-brand-card [class*="justify-end"] {
-    justify-content: flex-start !important;
+  main section.relative.overflow-hidden.bg-brand-card [class*="justify-center"] {
+    justify-content: center !important;
   }
 
-  main section.relative.overflow-hidden.bg-brand-card [class*="items-end"] {
-    align-items: flex-start !important;
+  main section.relative.overflow-hidden.bg-brand-card [class*="items-center"] {
+    align-items: center !important;
   }
 
-  main section.relative.overflow-hidden.bg-brand-card [class*="text-right"] {
-    text-align: left !important;
+  main section.relative.overflow-hidden.bg-brand-card [class*="text-center"] {
+    text-align: center !important;
   }
 
   main section.relative.overflow-hidden.bg-brand-card > [class*="bg-gradient"] {
     background-image: linear-gradient(
-      to right,
+      to bottom,
       rgb(255 255 255) 0%,
-      rgb(255 255 255 / 0.88) 45%,
-      rgb(255 255 255 / 0.35) 100%
+      rgb(255 255 255 / 0.88) 50%,
+      rgb(255 255 255 / 0.5) 100%
     ) !important;
   }
 
@@ -97,7 +111,8 @@
   main [class*="w-[376px]"],
   main [class*="w-[582px]"],
   main [class*="w-[602px]"],
-  main [class*="w-[644px]"] {
+  main [class*="w-[644px]"],
+  main [class*="w-[477px]"] {
     width: 100% !important;
   }
 
@@ -138,6 +153,11 @@
   }
 
   /* ── 5. Blog / articles ────────────────────────────────────── */
+  .article-body {
+    font-size: 1rem !important;
+    line-height: 1.5rem !important;
+  }
+
   .article-body img,
   .article-body video,
   .article-body iframe {

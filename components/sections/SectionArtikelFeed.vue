@@ -31,7 +31,7 @@
         <div class="flex flex-col gap-9 lg:w-[421px]">
           <div class="flex flex-col gap-4">
             <h2
-              class="font-serif text-[42px] font-bold leading-[58px] text-brand-blue"
+              class="font-serif text-[32px] font-bold leading-[42px] text-brand-blue"
             >
               {{ featured.title }}
             </h2>
@@ -73,7 +73,7 @@
           />
           <div class="flex flex-col gap-4">
             <h3
-              class="font-serif text-[24px] font-bold leading-normal text-brand-blue"
+              class="font-serif text-[20px] font-bold leading-normal text-brand-blue"
             >
               {{ a.title }}
             </h3>

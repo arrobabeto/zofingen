@@ -5,6 +5,7 @@ import { readFileSync } from "node:fs"
 import { fileURLToPath } from "node:url"
 import { dirname, join } from "node:path"
 import { HERO_VIDEO } from "./_wordpress-videos.mjs"
+import { HERO_IMAGE } from "./_shared-assets.mjs"
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..")
 const env = Object.fromEntries(
@@ -34,8 +35,7 @@ const sections = [
     body: "Mit einer cloudbasierten Software und mit Automatisierung in der Verbuchung der Belegstruktur und Bankbewegungen erstellen wir Ihren Jahresabschluss.\n\nVon der Erstellung der Buchhaltung bis zur Vertretung vor Behörden – wir bieten Ihnen einen reibungslosen und effizienten Jahresabschluss zu einem attraktiven Preis.\n\nZu unserem Leistungsumfang gehört auch eine durch uns erstellte Liquiditätsplanung wie auch die Auswertung der Kostenstruktur und die vereinfachte Kostenkalkulation anhand einer Berechnung der fixen und variablen Kosten.",
     ctaLabel: CTA,
     ctaHref: CTA_HREF,
-    image: img("hero-bg.png"),
-    video: HERO_VIDEO,
+    image: HERO_IMAGE,
     _orbi: { component: "SectionHero" },
   },
   {

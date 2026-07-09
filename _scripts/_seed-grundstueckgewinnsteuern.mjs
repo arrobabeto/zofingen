@@ -5,6 +5,7 @@ import { readFileSync } from "node:fs"
 import { fileURLToPath } from "node:url"
 import { dirname, join } from "node:path"
 import { HERO_VIDEO } from "./_wordpress-videos.mjs"
+import { HERO_IMAGE } from "./_shared-assets.mjs"
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..")
 const env = Object.fromEntries(
@@ -32,9 +33,7 @@ const sections = [
     body: "Vertrauen Sie auf unsere langjährige Erfahrung im Bereich der Grundstückgewinnsteuern und lassen Sie sich umfassend beraten.",
     ctaLabel: CTA,
     ctaHref: CTA_HREF,
-    image: img("hero-bg.png"),
-    video: HERO_VIDEO,
-    align: "left",
+    image: HERO_IMAGE,
     _orbi: { component: "SectionHero" },
   },
   {

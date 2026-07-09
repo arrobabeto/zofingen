@@ -19,7 +19,7 @@
       <div
         v-for="(c, i) of cards"
         :key="i"
-        class="relative flex w-full flex-col items-center gap-6 rounded-[10px] bg-brand-blue px-8 pb-16 pt-8 text-white lg:w-[582px]"
+        class="relative flex w-full flex-col items-center gap-6 rounded-[10px] bg-brand-blue px-6 pb-12 pt-6 text-white lg:w-[582px] lg:px-8 lg:pb-16 lg:pt-8"
       >
         <p class="text-center font-serif text-[24px] font-bold">
           {{ c.title }}
@@ -28,7 +28,7 @@
           <span class="font-serif text-[24px] font-bold leading-none">
             {{ c.currency }}
           </span>
-          <span class="font-serif text-[96px] font-bold leading-[0.85]">
+          <span class="font-serif text-[56px] font-bold leading-[0.85] lg:text-[96px]">
             {{ c.price }}
           </span>
         </div>

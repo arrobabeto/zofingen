@@ -83,7 +83,7 @@
         <img
           src="/logo_black_font_without_bordero.webp"
           alt="BAYO"
-          class="h-6 w-auto object-contain"
+          class="h-4 w-auto object-contain"
         />
         Kundenportal
       </a>
@@ -150,7 +150,7 @@
       </button>
 
       <nav
-        class="hidden flex-wrap items-center justify-end gap-9 font-serif text-[18px] font-bold lg:flex"
+        class="hidden items-center justify-end gap-5 font-serif text-[16px] font-bold lg:flex"
       >
         <!-- Dienstleistungen -->
         <div

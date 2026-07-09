@@ -16,7 +16,7 @@
       class="mx-auto max-w-[1099px] rounded-[10px] border border-brand-card bg-brand-card/40 p-6"
     >
       <p
-        class="mb-4 font-serif text-[18px] font-bold leading-[25px] text-brand-blue"
+        class="mb-4 font-serif text-[16px] font-bold leading-[24px] text-brand-blue"
       >
         Inhaltsverzeichnis
       </p>
@@ -24,7 +24,7 @@
         <li
           v-for="(item, i) of items"
           :key="item.id"
-          class="font-serif text-[18px] leading-[25px] text-brand-blue"
+          class="font-serif text-[16px] leading-[24px] text-brand-blue"
           :class="item.level === 3 ? 'ml-5' : ''"
         >
           <a

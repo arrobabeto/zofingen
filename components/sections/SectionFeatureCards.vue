@@ -26,10 +26,10 @@
         <div
           v-for="(c, i) of cards"
           :key="i"
-          class="flex max-w-full flex-col items-center gap-8 rounded-[10px] border border-brand-blue p-[32px] text-center"
+          class="flex max-w-full flex-col items-center gap-6 rounded-[10px] border border-brand-blue p-5 text-center lg:gap-8 lg:p-8"
           :class="wide ? 'w-[479px]' : 'w-[376px]'"
         >
-          <p class="whitespace-pre-line font-serif text-[24px] font-bold text-brand-blue">
+          <p class="whitespace-pre-line font-serif text-[20px] font-bold text-brand-blue lg:text-[24px]">
             {{ c.title }}
           </p>
           <p

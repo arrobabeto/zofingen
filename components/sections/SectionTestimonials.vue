@@ -81,23 +81,15 @@
       <div
         class="flex w-full max-w-[1200px] flex-col items-center justify-center gap-12 lg:flex-row lg:gap-[88px]"
       >
-        <div class="flex items-center gap-9">
-          <button
-            type="button"
-            class="select-none font-serif text-4xl text-brand-blue transition hover:text-brand-blue2"
-            aria-label="Vorheriges Testimonial"
-            @click="prev"
-          >
-            ‹
-          </button>
+        <div class="flex w-full max-w-[477px] flex-col items-center gap-6">
           <div
             v-if="active"
-            class="flex w-[477px] max-w-full items-center justify-center rounded-[20px] bg-white px-[18px] py-8 drop-shadow-[2px_2px_4px_rgba(0,0,0,0.1)] lg:h-[370px]"
+            class="flex w-full items-center justify-center rounded-[20px] bg-white px-[18px] py-8 drop-shadow-[2px_2px_4px_rgba(0,0,0,0.1)]"
           >
             <Transition name="testimonial-fade" mode="out-in">
               <div
                 :key="index"
-                class="w-[437px] max-w-full font-serif text-brand-blue"
+                class="w-full font-serif text-brand-blue"
                 aria-live="polite"
               >
                 <p class="text-[18px] leading-[25px]">{{ active.quote }}</p>
@@ -110,14 +102,37 @@
               </div>
             </Transition>
           </div>
-          <button
-            type="button"
-            class="select-none font-serif text-4xl text-brand-blue transition hover:text-brand-blue2"
-            aria-label="Nächstes Testimonial"
-            @click="next"
-          >
-            ›
-          </button>
+
+          <div class="flex w-full items-center justify-center gap-4">
+            <button
+              type="button"
+              class="select-none font-serif text-4xl text-brand-blue transition hover:text-brand-blue2"
+              aria-label="Vorheriges Testimonial"
+              @click="prev"
+            >
+              ‹
+            </button>
+            <div class="flex flex-wrap items-center justify-center gap-2">
+              <button
+                v-for="(_, i) of slides"
+                :key="i"
+                type="button"
+                class="testimonial-dot h-2.5 w-2.5 rounded-full transition"
+                :class="i === index ? 'bg-brand-blue' : 'bg-brand-blue/30'"
+                :aria-label="`Testimonial ${i + 1}`"
+                :aria-current="i === index ? 'true' : undefined"
+                @click="goTo(i)"
+              />
+            </div>
+            <button
+              type="button"
+              class="select-none font-serif text-4xl text-brand-blue transition hover:text-brand-blue2"
+              aria-label="Nächstes Testimonial"
+              @click="next"
+            >
+              ›
+            </button>
+          </div>
         </div>
         <img
           :src="image"
