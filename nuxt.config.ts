@@ -52,13 +52,15 @@ export default defineNuxtConfig({
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
       siteName:
-        process.env.NUXT_PUBLIC_SITE_NAME ?? "Orbitype Headless CMS Template",
+        process.env.NUXT_PUBLIC_SITE_NAME ?? "Zofingen Treuhand AG",
       siteDescription:
         process.env.NUXT_PUBLIC_SITE_DESCRIPTION ??
-        "A production-ready starter for Orbitype-powered websites.",
-      organizationName: process.env.NUXT_PUBLIC_ORGANIZATION_NAME ?? "Orbitype",
+        "Treuhand & Steuerberatung in Zofingen – effizient, persönlich und zuverlässig.",
+      organizationName:
+        process.env.NUXT_PUBLIC_ORGANIZATION_NAME ?? "Zofingen Treuhand AG",
       organizationLogo:
-        process.env.NUXT_PUBLIC_ORGANIZATION_LOGO ?? "/favicon.svg",
+        process.env.NUXT_PUBLIC_ORGANIZATION_LOGO ??
+        "/img/home/logo-treuhand.png",
       defaultLocale:
         process.env.NUXT_PUBLIC_DEFAULT_LOCALE ??
         process.env.NUXT_PUBLIC_SITE_LOCALE ??
@@ -68,7 +70,8 @@ export default defineNuxtConfig({
       ogImageEnabled: process.env.NUXT_PUBLIC_OG_IMAGE_ENABLED !== "false",
       commentsEnabled: process.env.NUXT_PUBLIC_COMMENTS_ENABLED === "true",
       gtmId,
-      ogLogoPath: process.env.NUXT_PUBLIC_OG_LOGO_PATH ?? "/favicon.svg",
+      ogLogoPath:
+        process.env.NUXT_PUBLIC_OG_LOGO_PATH ?? "/img/home/logo-treuhand.png",
     },
   },
   nitro: {

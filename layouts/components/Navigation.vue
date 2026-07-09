@@ -150,7 +150,7 @@
       </button>
 
       <nav
-        class="hidden items-center justify-end gap-5 font-serif text-[16px] font-bold lg:flex"
+        class="hidden items-center justify-end gap-5 font-serif text-[16px] font-bold lg:flex lg:gap-[25px] lg:text-[19px]"
       >
         <!-- Dienstleistungen -->
         <div

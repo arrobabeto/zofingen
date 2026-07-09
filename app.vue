@@ -34,17 +34,35 @@
       },
       {
         name: "theme-color",
-        content: "#111827",
+        content: "#012068",
       },
     ],
     link: [
+      {
+        rel: "icon",
+        href: "/favicon.svg",
+        type: "image/svg+xml",
+      },
+      {
+        rel: "icon",
+        href: "/favicon-32x32.png",
+        type: "image/png",
+        sizes: "32x32",
+      },
+      {
+        rel: "icon",
+        href: "/favicon-16x16.png",
+        type: "image/png",
+        sizes: "16x16",
+      },
       {
         rel: "manifest",
         href: "/manifest.json",
       },
       {
         rel: "apple-touch-icon",
-        href: config.public.organizationLogo,
+        href: "/apple-touch-icon.png",
+        sizes: "180x180",
       },
     ],
     script: [
@@ -60,7 +78,9 @@
               url: config.public.siteUrl,
               logo: {
                 "@type": "ImageObject",
-                url: config.public.organizationLogo,
+                url: config.public.organizationLogo.startsWith("http")
+                  ? config.public.organizationLogo
+                  : `${config.public.siteUrl}${config.public.organizationLogo}`,
               },
             },
             {
@@ -84,7 +104,6 @@
 <template>
   <!--eslint-disable vue/no-multiple-template-root-->
   <Head>
-    <Link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <Link rel="preconnect" href="https://fonts.googleapis.com" />
     <Link
       rel="preconnect"

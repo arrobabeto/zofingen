@@ -3,17 +3,20 @@ import { defineEventHandler, getQuery } from "h3"
 
 export default defineEventHandler(async (event) => {
   const query = getQuery(event)
-  const siteName =
-    process.env.NUXT_PUBLIC_SITE_NAME ?? "Orbitype Headless CMS Template"
+  const siteName = process.env.NUXT_PUBLIC_SITE_NAME ?? "Zofingen Treuhand AG"
+  const siteUrl = (process.env.NUXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(
+    /\/$/,
+    "",
+  )
   const logoPath =
-    process.env.NUXT_PUBLIC_OG_LOGO_PATH ??
-    "https://www.orbitype.com/assets/images/svg/orbitype-logo-hero.svg"
+    process.env.NUXT_PUBLIC_OG_LOGO_PATH ?? "/img/home/logo-treuhand.png"
+  const logoSrc = logoPath.startsWith("http") ? logoPath : `${siteUrl}${logoPath}`
   const title =
-    typeof query.title === "string" ? query.title : "Orbitype CMS Page"
+    typeof query.title === "string" ? query.title : "Zofingen Treuhand AG"
   const description =
     typeof query.description === "string"
       ? query.description
-      : "A production-ready starter for Orbitype-powered websites."
+      : "Treuhand & Steuerberatung in Zofingen – effizient, persönlich und zuverlässig."
 
   return new ImageResponse(
     {
@@ -34,7 +37,7 @@ export default defineEventHandler(async (event) => {
           {
             type: "img",
             props: {
-              src: logoPath,
+              src: logoSrc,
               style: {
                 width: "260px",
                 height: "64px",

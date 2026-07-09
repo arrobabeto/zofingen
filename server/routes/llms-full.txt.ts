@@ -56,10 +56,10 @@ export default defineEventHandler(async (event) => {
     process.env.NUXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   )
   const siteName =
-    process.env.NUXT_PUBLIC_SITE_NAME ?? "Orbitype Headless CMS Template"
+    process.env.NUXT_PUBLIC_SITE_NAME ?? "Zofingen Treuhand AG"
   const siteDescription =
     process.env.NUXT_PUBLIC_SITE_DESCRIPTION ??
-    "A production-ready starter for Orbitype-powered websites."
+    "Treuhand & Steuerberatung in Zofingen – effizient, persönlich und zuverlässig."
 
   const [pages, posts] = await Promise.all([
     $fetch<IPage[]>("/api/pages").catch(() => []),
