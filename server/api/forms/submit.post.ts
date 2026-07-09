@@ -1,4 +1,5 @@
 import { createError, defineEventHandler, readBody } from "h3"
+import { toOrbitypeWebhookBody } from "~/server/utils/orbitypeFormPayload"
 import {
   normalizeFields,
   validateFormSubmission,
@@ -8,6 +9,8 @@ type TSubmitBody = {
   formType?: string
   fields?: Record<string, string>
 }
+
+const SOURCE = "zofingen-treuhand.ch"
 
 export default defineEventHandler(async (event) => {
   const body = (await readBody(event).catch(() => ({}))) as TSubmitBody
@@ -33,12 +36,12 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  const payload = {
-    formType: validation.formType,
-    source: "zofingen-treuhand.ch",
-    submittedAt: new Date().toISOString(),
-    fields: normalizeFields(body.fields),
-  }
+  const submittedAt = new Date().toISOString()
+  const fields = normalizeFields(body.fields)
+  const payload = toOrbitypeWebhookBody(validation.formType, fields, {
+    source: SOURCE,
+    submittedAt,
+  })
 
   try {
     await $fetch(webhookUrl, {
@@ -46,7 +49,17 @@ export default defineEventHandler(async (event) => {
       headers: { "Content-Type": "application/json" },
       body: payload,
     })
-  } catch {
+  } catch (err: unknown) {
+    const fetchErr = err as {
+      statusCode?: number
+      statusMessage?: string
+      data?: unknown
+    }
+    console.error("[forms/submit] Orbitype webhook failed:", {
+      status: fetchErr.statusCode,
+      message: fetchErr.statusMessage,
+      data: fetchErr.data,
+    })
     throw createError({
       statusCode: 502,
       statusMessage: "Failed to submit form. Please try again later.",

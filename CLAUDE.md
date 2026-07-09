@@ -106,8 +106,15 @@ Orbitype session flow: `orbitype_get_context` → `sql_readonly_query` → `sql_
 npm run dev          # Dev server
 npm run sync:agent   # Sync rules + skills for Cursor and Claude
 node _scripts/_seed-<slug>.mjs   # Seed a page
+npm run test:unit    # Form payload + validation unit tests
 npm run test:e2e     # Playwright tests
 ```
+
+## Form submissions (SendGrid via Orbitype)
+
+- UI: footer PDF popup (`_PdfHandbookForm.vue`), `/kontakt` (`SectionContact.vue`)
+- API: `POST /api/forms/submit` → `ORBITYPE_FORM_WEBHOOK_URL` (server-only env)
+- Orbitype workflow setup: `_scripts/orbitype-form-workflow.mjs`
 
 ## CTA destinations (reference)
 

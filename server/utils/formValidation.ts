@@ -2,7 +2,7 @@ export type TFormType = "pdf_handbook" | "contact" | "jahresabschluss" | "callba
 
 const REQUIRED_FIELDS: Record<TFormType, string[]> = {
   pdf_handbook: ["salutation", "lastName", "firstName", "email", "phone"],
-  contact: ["salutation", "lastName", "firstName", "email"],
+  contact: ["salutation", "lastName", "firstName", "email", "message"],
   jahresabschluss: ["salutation", "lastName", "firstName", "email", "phone"],
   callback: ["lastName", "firstName", "phone"],
 }
@@ -30,11 +30,6 @@ export function validateFormSubmission(
   const email = fields.email?.trim()
   if (email && !EMAIL_RE.test(email)) {
     return { ok: false, message: "Invalid email address." }
-  }
-
-  const normalized: Record<string, string> = {}
-  for (const [key, value] of Object.entries(fields)) {
-    normalized[key] = value.trim()
   }
 
   return { ok: true, formType: typedFormType }

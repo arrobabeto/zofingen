@@ -1,5 +1,9 @@
 <script setup lang="ts">
-  defineProps<{
+  import { reactive } from "vue"
+  import { useFormSubmit } from "~/composables/useFormSubmit"
+  import { FormToast } from "~/services/FormToast"
+
+  const p = defineProps<{
     map: string
     office: string
     phone: string
@@ -7,6 +11,39 @@
     linkedin: string
     services: string[]
   }>()
+
+  const fields = reactive({
+    salutation: "Herr",
+    lastName: "",
+    firstName: "",
+    company: "",
+    email: "",
+    phone: "",
+    service: p.services[0] || "",
+    message: "",
+  })
+
+  const { status, errorMessage, submitForm, reset } = useFormSubmit()
+
+  const SUCCESS_MESSAGE = "Vielen Dank, wir haben Ihre Nachricht erhalten!"
+  const AUTO_CLOSE_MS = 4000
+
+  async function handleSubmit() {
+    fields.service = fields.service || p.services[0] || ""
+    await submitForm("contact", { ...fields })
+    if (status.value !== "success") return
+
+    FormToast.show(SUCCESS_MESSAGE, AUTO_CLOSE_MS)
+    fields.salutation = "Herr"
+    fields.lastName = ""
+    fields.firstName = ""
+    fields.company = ""
+    fields.email = ""
+    fields.phone = ""
+    fields.service = p.services[0] || ""
+    fields.message = ""
+    reset()
+  }
 </script>
 
 <template>
@@ -85,17 +122,21 @@
       </div>
 
       <!-- Right: form -->
-      <form class="flex flex-1 flex-col gap-4 p-6 text-center lg:p-16" @submit.prevent>
+      <form
+        class="flex flex-1 flex-col gap-4 p-6 text-center lg:p-16"
+        @submit.prevent="handleSubmit"
+      >
         <label class="flex flex-col gap-2">
           <span class="font-serif text-[18px] leading-[25px] text-brand-blue2">
             Anrede
           </span>
           <select
+            v-model="fields.salutation"
+            required
             class="rounded-[10px] border border-brand-blue2 bg-white p-3 font-serif text-[16px] text-brand-blue2"
           >
-            <option>Herr / Frau</option>
-            <option>Herr</option>
-            <option>Frau</option>
+            <option value="Herr">Herr</option>
+            <option value="Frau">Frau</option>
           </select>
         </label>
 
@@ -105,7 +146,9 @@
               Name
             </span>
             <input
+              v-model="fields.lastName"
               type="text"
+              required
               placeholder="Name"
               class="rounded-[10px] border border-black p-3 font-serif text-[16px] text-brand-grey"
             />
@@ -115,7 +158,9 @@
               Vorname
             </span>
             <input
+              v-model="fields.firstName"
               type="text"
+              required
               placeholder="Vorname"
               class="rounded-[10px] border border-black p-3 font-serif text-[16px] text-brand-grey"
             />
@@ -127,6 +172,7 @@
             Firma
           </span>
           <input
+            v-model="fields.company"
             type="text"
             placeholder="Firma"
             class="rounded-[10px] border border-black p-3 font-serif text-[16px] text-brand-grey"
@@ -139,7 +185,9 @@
               Email
             </span>
             <input
+              v-model="fields.email"
               type="email"
+              required
               placeholder="Email"
               class="rounded-[10px] border border-black p-3 font-serif text-[16px] text-brand-grey"
             />
@@ -149,6 +197,7 @@
               Telefon
             </span>
             <input
+              v-model="fields.phone"
               type="tel"
               placeholder="Telefon"
               class="rounded-[10px] border border-black p-3 font-serif text-[16px] text-brand-grey"
@@ -161,9 +210,10 @@
             Dienstleistung
           </span>
           <select
+            v-model="fields.service"
             class="rounded-[10px] border border-brand-blue2 bg-white p-3 font-serif text-[16px] text-brand-blue2"
           >
-            <option v-for="(s, i) of services" :key="i">{{ s }}</option>
+            <option v-for="(s, i) of services" :key="i" :value="s">{{ s }}</option>
           </select>
         </label>
 
@@ -172,7 +222,9 @@
             Mitteilung
           </span>
           <textarea
+            v-model="fields.message"
             rows="4"
+            required
             placeholder="Mitteilung"
             class="rounded-[10px] border border-brand-blue2 p-3 font-serif text-[16px] text-brand-blue2"
           />
@@ -180,10 +232,15 @@
 
         <button
           type="submit"
-          class="mx-auto mt-2 w-full max-w-[273px] rounded-[10px] bg-brand-blue px-4 py-3 font-serif text-[18px] text-white transition hover:bg-brand-blue2"
+          :disabled="status === 'submitting'"
+          class="mx-auto mt-2 w-full max-w-[273px] rounded-[10px] bg-brand-blue px-4 py-3 font-serif text-[18px] text-white transition hover:bg-brand-blue2 disabled:cursor-not-allowed disabled:opacity-60"
         >
-          Anfrage versenden
+          {{ status === "submitting" ? "Wird gesendet…" : "Anfrage versenden" }}
         </button>
+
+        <p v-if="errorMessage" class="font-serif text-[14px] text-red-600">
+          {{ errorMessage }}
+        </p>
       </form>
     </div>
   </section>
