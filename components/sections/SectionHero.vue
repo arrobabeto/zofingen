@@ -48,24 +48,24 @@
     />
     <div class="relative w-full px-6 pb-16 pt-28 lg:px-[100px] lg:pt-32">
       <div
-        class="hero-layout relative mx-auto flex max-w-[1200px] items-center"
+        class="hero-layout relative mx-auto flex max-w-[1200px] items-center justify-center"
         :class="[
           align === 'left'
-            ? 'justify-start'
+            ? 'lg:justify-start'
             : align === 'center'
-              ? 'justify-center'
-              : 'justify-end',
+              ? ''
+              : 'lg:justify-end',
           compact ? 'min-h-[430px]' : 'min-h-[600px] lg:min-h-[741px]',
         ]"
       >
         <div
-          class="hero-content flex w-[644px] max-w-full flex-col gap-8"
+          class="hero-content flex w-[644px] max-w-full flex-col items-center gap-8 text-center"
           :class="
             align === 'left'
-              ? 'items-start text-left'
+              ? 'lg:items-start lg:text-left'
               : align === 'center'
-                ? 'items-center text-center'
-                : 'items-end text-right'
+                ? ''
+                : 'lg:items-end lg:text-right'
           "
         >
           <h1

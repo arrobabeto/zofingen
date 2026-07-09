@@ -85,16 +85,6 @@
     min-height: 26rem !important;
   }
 
-  main section.relative.overflow-hidden.bg-brand-card .hero-layout {
-    justify-content: center !important;
-    align-items: center !important;
-  }
-
-  main section.relative.overflow-hidden.bg-brand-card .hero-content {
-    align-items: center !important;
-    text-align: center !important;
-  }
-
   main section.relative.overflow-hidden.bg-brand-card > [class*="bg-gradient"] {
     background-image: linear-gradient(
       to bottom,
