@@ -37,9 +37,9 @@
       </div>
 
       <div class="flex w-full flex-col items-start gap-11 lg:w-[653px]">
-        <h2 class="font-serif text-[42px] font-bold leading-[58px] text-brand-blue">
-          <span class="block whitespace-pre-line">{{ titleTop }}</span>
-          <span class="block whitespace-pre-line italic">{{ titleItalic }}</span>
+        <h2 class="reliability-heading font-serif text-[42px] font-bold leading-[58px] text-brand-blue">
+          <span class="block whitespace-normal lg:whitespace-pre-line">{{ titleTop }}</span>
+          <span class="block whitespace-normal italic lg:whitespace-pre-line">{{ titleItalic }}</span>
         </h2>
         <span class="block h-[4px] w-[67px] bg-brand-blue" />
 

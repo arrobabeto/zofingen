@@ -81,58 +81,78 @@
       <div
         class="flex w-full max-w-[1200px] flex-col items-center justify-center gap-12 lg:flex-row lg:gap-[88px]"
       >
-        <div class="flex w-full max-w-[477px] flex-col items-center gap-6">
-          <div
-            v-if="active"
-            class="flex w-full items-center justify-center rounded-[20px] bg-white px-[18px] py-8 drop-shadow-[2px_2px_4px_rgba(0,0,0,0.1)]"
+        <div class="flex w-full max-w-[477px] flex-col items-center gap-6 lg:max-w-none lg:flex-row lg:items-center lg:gap-9">
+          <button
+            type="button"
+            class="hidden select-none font-serif text-4xl text-brand-blue transition hover:text-brand-blue2 lg:inline-flex"
+            aria-label="Vorheriges Testimonial"
+            @click="prev"
           >
-            <Transition name="testimonial-fade" mode="out-in">
-              <div
-                :key="index"
-                class="w-full font-serif text-brand-blue"
-                aria-live="polite"
+            ‹
+          </button>
+
+          <div class="flex w-full flex-col items-center gap-6 lg:w-[477px] lg:gap-0">
+            <div
+              v-if="active"
+              class="flex w-full items-center justify-center rounded-[20px] bg-white px-[18px] py-8 drop-shadow-[2px_2px_4px_rgba(0,0,0,0.1)] lg:h-[370px]"
+            >
+              <Transition name="testimonial-fade" mode="out-in">
+                <div
+                  :key="index"
+                  class="w-full font-serif text-brand-blue"
+                  aria-live="polite"
+                >
+                  <p class="text-[18px] leading-[25px]">{{ active.quote }}</p>
+                  <p class="mt-6 text-[18px] font-bold italic leading-[25px]">
+                    - {{ active.author }}
+                  </p>
+                  <p class="text-[18px] italic leading-[25px] text-brand-grey">
+                    {{ active.role }}
+                  </p>
+                </div>
+              </Transition>
+            </div>
+
+            <div class="flex w-full items-center justify-center gap-4 lg:hidden">
+              <button
+                type="button"
+                class="select-none font-serif text-4xl text-brand-blue transition hover:text-brand-blue2"
+                aria-label="Vorheriges Testimonial"
+                @click="prev"
               >
-                <p class="text-[18px] leading-[25px]">{{ active.quote }}</p>
-                <p class="mt-6 text-[18px] font-bold italic leading-[25px]">
-                  - {{ active.author }}
-                </p>
-                <p class="text-[18px] italic leading-[25px] text-brand-grey">
-                  {{ active.role }}
-                </p>
+                ‹
+              </button>
+              <div class="flex flex-wrap items-center justify-center gap-2">
+                <button
+                  v-for="(_, i) of slides"
+                  :key="i"
+                  type="button"
+                  class="testimonial-dot h-2.5 w-2.5 rounded-full transition"
+                  :class="i === index ? 'bg-brand-blue' : 'bg-brand-blue/30'"
+                  :aria-label="`Testimonial ${i + 1}`"
+                  :aria-current="i === index ? 'true' : undefined"
+                  @click="goTo(i)"
+                />
               </div>
-            </Transition>
+              <button
+                type="button"
+                class="select-none font-serif text-4xl text-brand-blue transition hover:text-brand-blue2"
+                aria-label="Nächstes Testimonial"
+                @click="next"
+              >
+                ›
+              </button>
+            </div>
           </div>
 
-          <div class="flex w-full items-center justify-center gap-4">
-            <button
-              type="button"
-              class="select-none font-serif text-4xl text-brand-blue transition hover:text-brand-blue2"
-              aria-label="Vorheriges Testimonial"
-              @click="prev"
-            >
-              ‹
-            </button>
-            <div class="flex flex-wrap items-center justify-center gap-2">
-              <button
-                v-for="(_, i) of slides"
-                :key="i"
-                type="button"
-                class="testimonial-dot h-2.5 w-2.5 rounded-full transition"
-                :class="i === index ? 'bg-brand-blue' : 'bg-brand-blue/30'"
-                :aria-label="`Testimonial ${i + 1}`"
-                :aria-current="i === index ? 'true' : undefined"
-                @click="goTo(i)"
-              />
-            </div>
-            <button
-              type="button"
-              class="select-none font-serif text-4xl text-brand-blue transition hover:text-brand-blue2"
-              aria-label="Nächstes Testimonial"
-              @click="next"
-            >
-              ›
-            </button>
-          </div>
+          <button
+            type="button"
+            class="hidden select-none font-serif text-4xl text-brand-blue transition hover:text-brand-blue2 lg:inline-flex"
+            aria-label="Nächstes Testimonial"
+            @click="next"
+          >
+            ›
+          </button>
         </div>
         <img
           :src="image"

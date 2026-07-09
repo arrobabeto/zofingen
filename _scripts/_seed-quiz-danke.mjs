@@ -26,6 +26,7 @@ const sections = [
   {
     title: "Vielen Dank für Ihre Antworten",
     image: HERO_IMAGE,
+    align: "center",
     _orbi: { component: "SectionPageHero" },
   },
   {

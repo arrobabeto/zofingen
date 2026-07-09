@@ -37,6 +37,7 @@ const sections = [
     ctaLabel: "Beratungsgespräch vereinbaren",
     ctaHref: CALENDLY_30,
     image: HERO_IMAGE,
+    align: "left",
     _orbi: { component: "SectionHero" },
   },
   {
@@ -331,26 +332,6 @@ const sections = [
   },
   {
     title: "Wissenswertes",
-    articles: [
-      {
-        title: "AHV-Reform führt zur Erhöhung der MwSt-Sätze auf den 1. Januar 2024",
-        image: img("article-1.jpg"),
-      },
-      { title: "Lohn oder Dividende für Unternehmer?", image: img("article-2.jpg") },
-      {
-        title: "Auszahlung Pensionskassenkapital oder Rentenbezug?",
-        image: img("article-3.jpg"),
-      },
-      {
-        title: "Steuerlicher Liegenschaftsunterhalt: Kosten für energetische Sanierungen",
-        image: img("article-4.jpg"),
-      },
-      {
-        title: "Soll ich eine Immobilien AG oder Immobilien GmbH gründen?",
-        image: img("article-4.jpg"),
-      },
-      { title: "Berechnung der Grundstückgewinnsteuern", image: img("article-6.jpg") },
-    ],
     _orbi: { component: "SectionArticles" },
   },
   {

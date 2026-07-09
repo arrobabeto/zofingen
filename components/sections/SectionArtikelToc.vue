@@ -4,6 +4,13 @@
   defineProps<{
     items: ArticleTocItem[]
   }>()
+
+  function scrollToSection(id: string) {
+    const el = document.getElementById(id)
+    if (!el) return
+    el.scrollIntoView({ behavior: "smooth", block: "start" })
+    history.replaceState(null, "", `#${id}`)
+  }
 </script>
 
 <template>
@@ -30,6 +37,7 @@
           <a
             :href="`#${item.id}`"
             class="inline-flex gap-2 hover:underline"
+            @click.prevent="scrollToSection(item.id)"
           >
             <span class="font-bold">{{ i + 1 }}.</span>
             {{ item.text }}
