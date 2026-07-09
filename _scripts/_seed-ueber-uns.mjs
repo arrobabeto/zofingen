@@ -4,6 +4,7 @@
 import { readFileSync } from "node:fs"
 import { fileURLToPath } from "node:url"
 import { dirname, join } from "node:path"
+import { HERO_IMAGE } from "./_shared-assets.mjs"
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..")
 const env = Object.fromEntries(
@@ -25,8 +26,7 @@ const sections = [
   {
     title: "Über uns – Zofingen Treuhand AG",
     body: "Die Zofingen Treuhand AG steht für zuverlässige Steuerberatung, Buchhaltung und Finanzplanung. Seit vielen Jahren unterstützen wir kleine und mittelständische Unternehmen dabei, ihre finanziellen Ziele effizient und rechtssicher zu erreichen. Unser Ziel ist es, komplexe Finanzprozesse zu vereinfachen und massgeschneiderte Lösungen zu bieten – von Mensch zu Mensch.",
-    image: img("hero-bg.png"),
-    align: "left",
+    image: HERO_IMAGE,
     _orbi: { component: "SectionHero" },
   },
   {

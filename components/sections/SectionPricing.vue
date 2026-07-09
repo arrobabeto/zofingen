@@ -43,12 +43,12 @@
           class="flex w-full flex-col gap-6 lg:w-[582px]"
         >
           <div
-            class="relative flex flex-col items-center gap-8 overflow-hidden rounded-[10px] border border-brand-blue p-[32px]"
+            class="relative flex flex-col items-center gap-6 overflow-hidden rounded-[10px] border border-brand-blue p-6 lg:gap-8 lg:p-8"
             :class="plan.featured ? 'bg-brand-blue' : 'bg-white'"
           >
             <span
               v-if="plan.badge"
-              class="absolute -right-[42px] top-[26px] w-[170px] rotate-45 bg-brand-light py-1 text-center font-serif text-[16px] font-bold text-brand-blue shadow-sm"
+              class="absolute -right-[42px] top-[26px] w-[170px] rotate-45 bg-brand-light py-1 text-center font-serif text-[14px] font-bold text-brand-blue shadow-sm lg:text-[16px]"
             >
               {{ plan.badge }}
             </span>
@@ -67,13 +67,13 @@
               <span class="font-serif text-[24px] font-bold">
                 {{ plan.currency }}
               </span>
-              <span class="font-serif text-[80px] font-bold leading-[0.9]">
+              <span class="font-serif text-[48px] font-bold leading-[0.9] lg:text-[80px]">
                 {{ plan.price }}
               </span>
             </div>
 
             <ul
-              class="w-full list-disc space-y-1 pl-6 font-serif text-[18px] leading-[25px]"
+              class="w-full list-disc space-y-1 pl-6 font-serif text-[16px] leading-[24px] lg:text-[18px] lg:leading-[25px]"
               :class="plan.featured ? 'text-white' : 'text-brand-blue'"
             >
               <li v-for="(f, fi) of plan.features" :key="fi">{{ f }}</li>

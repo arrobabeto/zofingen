@@ -15,7 +15,7 @@
 </script>
 
 <template>
-  <section class="relative w-full overflow-hidden">
+  <section class="relative w-full min-h-[280px] overflow-hidden lg:min-h-[360px]">
     <video
       v-if="video"
       :src="video"
@@ -33,16 +33,16 @@
       class="pointer-events-none absolute inset-0 h-full w-full object-cover"
     />
     <VideoBackgroundOverlay v-if="video" />
-    <div class="relative py-[50px]">
+    <div class="relative py-12 lg:py-20">
       <div
         class="relative mx-auto flex max-w-[1400px] flex-col px-6 lg:px-[100px]"
       >
         <div
-          class="flex flex-col items-center gap-8 rounded-b-[10px] bg-white/90 px-6 py-[64px] text-center lg:px-[120px]"
+          class="flex flex-col items-center gap-8 rounded-b-[10px] bg-white/90 px-6 py-12 text-center lg:px-[120px] lg:py-24"
         >
-          <SectionHeading :title="title" />
+          <SectionHeading :title="title" align="center" />
           <p
-            class="max-w-[788px] whitespace-pre-line font-serif text-[18px] leading-[25px] text-brand-blue"
+            class="mx-auto max-w-[788px] whitespace-pre-line text-center font-serif text-[18px] leading-[25px] text-brand-blue"
           >
             {{ body }}
           </p>

@@ -11,10 +11,10 @@
       ctaSize?: "fit" | "medium" | "block" | "narrow"
       image: string
       video?: string
-      align?: "left" | "right"
+      align?: "left" | "center" | "right"
       compact?: boolean
     }>(),
-    { align: "right" },
+    { align: "center" },
   )
 </script>
 
@@ -39,21 +39,33 @@
     <div
       class="absolute inset-0"
       :class="
-        align === 'left'
-          ? 'bg-gradient-to-r from-white via-white/70 to-transparent'
-          : 'bg-gradient-to-l from-white via-white/70 to-transparent'
+        align === 'center'
+          ? 'bg-gradient-to-b from-white via-white/80 to-white/50'
+          : align === 'left'
+            ? 'bg-gradient-to-r from-white via-white/70 to-transparent'
+            : 'bg-gradient-to-l from-white via-white/70 to-transparent'
       "
     />
     <div
-      class="relative mx-auto flex max-w-[1200px] items-center px-6 py-16 lg:px-[100px]"
+      class="relative mx-auto flex max-w-[1200px] items-center px-6 pb-16 pt-28 lg:px-[100px] lg:pt-32"
       :class="[
-        align === 'left' ? 'justify-start' : 'justify-end',
+        align === 'center'
+          ? 'justify-center'
+          : align === 'left'
+            ? 'justify-start'
+            : 'justify-end',
         compact ? 'min-h-[430px]' : 'min-h-[600px] lg:min-h-[741px]',
       ]"
     >
       <div
         class="flex w-[644px] max-w-full flex-col gap-8"
-        :class="align === 'left' ? 'items-start text-left' : 'items-end text-right'"
+        :class="
+          align === 'center'
+            ? 'items-center text-center'
+            : align === 'left'
+              ? 'items-start text-left'
+              : 'items-end text-right'
+        "
       >
         <h1
           class="font-serif text-[42px] font-bold leading-[58px] text-brand-blue"

@@ -5,6 +5,7 @@ import { readFileSync } from "node:fs"
 import { fileURLToPath } from "node:url"
 import { dirname, join } from "node:path"
 import { HERO_VIDEO } from "./_wordpress-videos.mjs"
+import { HERO_IMAGE } from "./_shared-assets.mjs"
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..")
 const env = Object.fromEntries(
@@ -32,9 +33,7 @@ const sections = [
     body: "Wir übernehmen Ihre Liegenschafts-Buchhaltung, erstellen Nebenkostenabrechnungen und bieten Ihnen umfassende Unterstützung bei Immobilien-Finanzierungen und rechtlichen Fragen.",
     ctaLabel: CTA,
     ctaHref: CTA_HREF,
-    image: img("hero-bg.png"),
-    video: HERO_VIDEO,
-    align: "right",
+    image: HERO_IMAGE,
     _orbi: { component: "SectionHero" },
   },
   {

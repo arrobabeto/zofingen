@@ -15,7 +15,7 @@
 </script>
 
 <template>
-  <section class="w-full px-6 py-24 lg:px-[100px]">
+  <section class="w-full px-6 py-12 lg:px-[100px] lg:py-24">
     <div class="mx-auto flex max-w-[1200px] flex-col items-start gap-16">
       <h2
         class="font-serif text-[42px] font-bold leading-[58px] text-brand-blue"
@@ -36,7 +36,7 @@
         >
           <button
             type="button"
-            class="flex w-full items-center justify-between gap-6 px-5 py-5 text-left"
+            class="flex w-full items-center justify-between gap-6 px-4 py-4 text-left lg:px-5 lg:py-5"
             :aria-expanded="openIndex === i"
             @click="toggle(i)"
           >
@@ -61,7 +61,7 @@
           </button>
           <div
             v-if="openIndex === i"
-            class="px-5 pb-8"
+            class="px-4 pb-6 lg:px-5 lg:pb-8"
           >
             <p
               class="max-w-[947px] font-serif text-[18px] leading-[25px] text-brand-blue"

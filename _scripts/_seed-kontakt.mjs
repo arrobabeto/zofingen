@@ -4,6 +4,7 @@
 import { readFileSync } from "node:fs"
 import { fileURLToPath } from "node:url"
 import { dirname, join } from "node:path"
+import { HERO_IMAGE } from "./_shared-assets.mjs"
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..")
 const env = Object.fromEntries(
@@ -25,8 +26,7 @@ const sections = [
   {
     title: "Zofingen Treuhand AG",
     subtitle: "Kontaktieren Sie uns noch heute",
-    image: img("hero-bg.png"),
-    align: "left",
+    image: HERO_IMAGE,
     compact: true,
     _orbi: { component: "SectionHero" },
   },

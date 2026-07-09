@@ -19,12 +19,12 @@
       class="pointer-events-none absolute inset-0 h-full w-full object-cover"
     />
     <div
-      class="absolute inset-0 bg-gradient-to-r from-white via-white/70 to-transparent"
+      class="absolute inset-0 bg-gradient-to-b from-white via-white/80 to-white/50"
     />
     <div
-      class="relative mx-auto flex max-w-[1200px] px-6 pb-16 pt-24 lg:px-[100px]"
+      class="relative mx-auto flex max-w-[1200px] items-center px-6 pb-16 pt-28 lg:px-[100px] lg:pt-32"
       :class="[
-        body ? 'min-h-[634px] items-end' : 'min-h-[507px] items-end',
+        body ? 'min-h-[634px]' : 'min-h-[507px]',
         align === 'left' ? 'justify-start' : 'justify-center',
       ]"
     >

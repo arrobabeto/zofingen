@@ -9,6 +9,7 @@ import {
   CORPORATE_VIDEO,
   RELIABILITY_VIDEO,
 } from "./_wordpress-videos.mjs"
+import { HERO_IMAGE } from "./_shared-assets.mjs"
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..")
 const env = Object.fromEntries(
@@ -35,8 +36,7 @@ const sections = [
     body: "Zofingen Treuhand AG bietet Ihnen massgeschneiderte Treuhanddienstleistungen wie digitale Buchhaltung, Lohnbuchhaltung und Steuerberatung für KMUs. Mit unserer Kombination aus persönlicher Betreuung und digitaler Effizienz entlasten wir Sie bei administrativen Aufgaben und optimieren Ihre Finanzprozesse.",
     ctaLabel: "Beratungsgespräch vereinbaren",
     ctaHref: CALENDLY_30,
-    image: img("hero-bg.png"),
-    video: HERO_VIDEO,
+    image: HERO_IMAGE,
     _orbi: { component: "SectionHero" },
   },
   {
@@ -225,7 +225,7 @@ const sections = [
   {
     image: img("problems-side.png"),
     video: RELIABILITY_VIDEO,
-    titleTop: "Unsere Zuverlässigkeit -\nfür Ihre Zufriedenheit.",
+    titleTop: "Unsere Zuverlässigkeit – für Ihre Zufriedenheit.",
     titleItalic: "Gemeinsam «steuern» wir\nSie in eine sichere Zukunft.",
     items: [
       "Unzureichendes Wissen oder fehlendes Verständnis für gesetzliche Vorschriften können zu Rechtsproblemen und Strafen führen.",

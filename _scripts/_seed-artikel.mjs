@@ -6,6 +6,7 @@ import { readFileSync } from "node:fs"
 import { fileURLToPath } from "node:url"
 import { dirname, join } from "node:path"
 import slug from "slug"
+import { HERO_IMAGE } from "./_shared-assets.mjs"
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..")
 const env = Object.fromEntries(
@@ -86,7 +87,7 @@ async function run() {
     title: "Artikel",
     date: "",
     excerpt: "",
-    image: img("hero-bg.png"),
+    image: HERO_IMAGE,
     href: "#",
   }
 
@@ -119,7 +120,7 @@ async function run() {
   const sections = [
     {
       title: "Artikel",
-      image: img("hero-bg.png"),
+      image: HERO_IMAGE,
       _orbi: { component: "SectionPageHero" },
     },
     {

@@ -85,7 +85,7 @@
       </div>
 
       <!-- Right: form -->
-      <form class="flex flex-1 flex-col gap-4 p-16" @submit.prevent>
+      <form class="flex flex-1 flex-col gap-4 p-6 text-center lg:p-16" @submit.prevent>
         <label class="flex flex-col gap-2">
           <span class="font-serif text-[18px] leading-[25px] text-brand-blue2">
             Anrede
@@ -180,7 +180,7 @@
 
         <button
           type="submit"
-          class="mt-2 w-[273px] max-w-full rounded-[10px] bg-brand-blue px-4 py-3 font-serif text-[18px] text-white transition hover:bg-brand-blue2"
+          class="mx-auto mt-2 w-full max-w-[273px] rounded-[10px] bg-brand-blue px-4 py-3 font-serif text-[18px] text-white transition hover:bg-brand-blue2"
         >
           Anfrage versenden
         </button>

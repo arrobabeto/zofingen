@@ -48,10 +48,12 @@
             <div
               v-for="(it, i) of items"
               :key="i"
-              class="flex items-center gap-9"
+              class="flex items-start gap-4 sm:gap-6"
             >
-              <CheckCircle class="text-brand-blue" />
-              <p class="font-serif text-[18px] leading-[25px] text-brand-blue">
+              <CheckCircle class="shrink-0 text-brand-blue" />
+              <p
+                class="min-w-0 flex-1 font-serif text-[18px] leading-[25px] text-brand-blue"
+              >
                 {{ it }}
               </p>
             </div>
