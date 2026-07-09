@@ -27,6 +27,7 @@ const sections = [
     title: "Links",
     body: "Hier finden Sie alle wichtigen Links zu unseren Dienstleistungen, Beratungen und Ressourcen. Entdecken Sie alles, was Sie brauchen, an einem einzigen Ort.",
     image: HERO_IMAGE,
+    align: "left",
     large: true,
     _orbi: { component: "SectionPageHero" },
   },

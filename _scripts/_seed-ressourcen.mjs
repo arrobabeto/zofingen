@@ -27,6 +27,7 @@ const sections = [
     title: "Ressourcen",
     body: "Hier finden Sie alle wichtigen Ressourcen zu unseren Dienstleistungen. Entdecken Sie alles, was Sie brauchen, an einem einzigen Ort.",
     image: HERO_IMAGE,
+    align: "left",
     _orbi: { component: "SectionPageHero" },
   },
   {

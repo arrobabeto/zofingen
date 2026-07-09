@@ -27,6 +27,7 @@ const sections = [
     title: "Zofingen Treuhand AG",
     subtitle: "Kontaktieren Sie uns noch heute",
     image: HERO_IMAGE,
+    align: "left",
     compact: true,
     _orbi: { component: "SectionHero" },
   },

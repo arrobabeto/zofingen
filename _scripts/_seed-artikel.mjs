@@ -1,11 +1,10 @@
 // Seeds the Zofingen Treuhand "Artikel" page into the Orbitype `pages` table.
 // Content mirrors the Figma design (node 520:1378) and maps to components/sections/*.vue.
 // Usage: node _scripts/_seed-artikel.mjs
-// Requires published posts in Orbitype (run _import-posts-from-wordpress.mjs or publish-blog skill).
+// SectionArtikelFeed loads published posts from /api/posts at runtime.
 import { readFileSync } from "node:fs"
 import { fileURLToPath } from "node:url"
 import { dirname, join } from "node:path"
-import slug from "slug"
 import { HERO_IMAGE } from "./_shared-assets.mjs"
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..")
@@ -22,7 +21,6 @@ const env = Object.fromEntries(
 
 const URL = env.ORBITYPE_API_SQL_URL
 const KEY = env.ORBITYPE_API_SQL_KEY
-const img = (name) => `/img/artikel/${name}`
 
 async function sql(query, bindings = {}) {
   const res = await fetch(URL, {
@@ -39,84 +37,7 @@ async function sql(query, bindings = {}) {
   }
 }
 
-function postHref(post) {
-  const title = post.title?.de ?? post.title?.en ?? "artikel"
-  return `/posts/${post.id}/${slug(title)}`
-}
-
-function formatDate(iso) {
-  const d = new Date(iso)
-  return d.toLocaleDateString("de-CH", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  })
-}
-
-function mapPostToCard(post) {
-  return {
-    title: post.title?.de ?? post.title?.en ?? "",
-    date: formatDate(post.created_at),
-    excerpt: plainLead(post.lead).slice(0, 220),
-    image: post.img || img("article-1.png"),
-    href: postHref(post),
-  }
-}
-
-async function fetchPublishedPosts(limit = 7) {
-  return sql(
-    `SELECT id, title, lead, img, created_at FROM posts
-     WHERE status->>'value' = 'published'
-     ORDER BY created_at DESC, id DESC
-     LIMIT :limit`,
-    { limit },
-  )
-}
-
-function plainLead(lead) {
-  if (!lead) return ""
-  const html = typeof lead === "string" ? lead : lead.de ?? lead.en ?? ""
-  return html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim()
-}
-
 async function run() {
-  const posts = await fetchPublishedPosts(7)
-  const cards = Array.isArray(posts) ? posts.map(mapPostToCard) : []
-
-  const featured = cards[0] ?? {
-    title: "Artikel",
-    date: "",
-    excerpt: "",
-    image: HERO_IMAGE,
-    href: "#",
-  }
-
-  const gridArticles =
-    cards.length > 1
-      ? [...cards.slice(1), ...cards.slice(1)].slice(0, 6)
-      : [
-          {
-            title:
-              "Nachhaltigkeit und Steuern: Steuerliche Vorteile durch grüne Investitionen",
-            date: "14 Aug 2023",
-            image: img("article-1.png"),
-            href: "#",
-          },
-          {
-            title: "Indirekte Steuern und deren Einfluss auf Unternehmen",
-            date: "14 Aug 2023",
-            image: img("article-2.png"),
-            href: "#",
-          },
-          {
-            title:
-              "Die Rolle von Familienstiftungen und Trusts in der Steuerplanung",
-            date: "14 Aug 2023",
-            image: img("article-3.png"),
-            href: "#",
-          },
-        ]
-
   const sections = [
     {
       title: "Artikel",
@@ -124,10 +45,6 @@ async function run() {
       _orbi: { component: "SectionPageHero" },
     },
     {
-      featured,
-      articles: gridArticles,
-      page: 1,
-      pages: 4,
       _orbi: { component: "SectionArtikelFeed" },
     },
   ]

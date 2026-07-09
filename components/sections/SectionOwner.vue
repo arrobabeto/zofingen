@@ -32,7 +32,7 @@
       class="pointer-events-none absolute inset-0 h-full w-full object-cover"
     />
     <VideoBackgroundOverlay v-if="video" />
-    <div class="relative py-[50px]">
+    <div class="relative px-[15px] py-[50px] lg:px-0">
       <div class="relative mx-auto max-w-[1200px] bg-white">
         <div
           class="flex flex-col items-start gap-12 px-6 py-16 lg:flex-row lg:gap-[138px] lg:px-[100px]"

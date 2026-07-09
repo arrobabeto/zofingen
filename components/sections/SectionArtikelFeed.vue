@@ -1,26 +1,91 @@
 <script setup lang="ts">
+  import slug from "slug"
+  import { ref, watch } from "vue"
   import SectionButton from "./_SectionButton.vue"
+  import { useTranslate } from "~/composables/useTranslate"
+  import { dt } from "~/functions/dt"
+  import { fn } from "~/functions/fn"
+  import type { IPost } from "~/types/dto/IPost"
 
   type ArtikelItem = {
     title: string
     date: string
     excerpt?: string
     image: string
-    href?: string
+    href: string
   }
 
-  defineProps<{
-    featured: ArtikelItem
-    articles: ArtikelItem[]
+  const props = defineProps<{
     page?: number
     pages?: number
+    featured?: ArtikelItem
+    articles?: ArtikelItem[]
   }>()
+
+  const POSTS_PER_PAGE = 7
+
+  const t = useTranslate()
+  const currentPage = ref(props.page ?? 1)
+  const featured = ref<ArtikelItem | null>(null)
+  const articles = ref<ArtikelItem[]>([])
+  const totalPages = ref(1)
+  const isLoading = ref(false)
+
+  function mapPost(post: IPost): ArtikelItem {
+    return {
+      title: t(post.title),
+      date: dt.toArticle(post.created_at),
+      excerpt: fn.truncateText(fn.removeHtml(t(post.lead)), 220),
+      image: post.img || "/img/artikel/article-1.png",
+      href: `/posts/${post.id}/${slug(t(post.title))}`,
+    }
+  }
+
+  async function loadPosts() {
+    isLoading.value = true
+    try {
+      const offset = (currentPage.value - 1) * POSTS_PER_PAGE
+      const [rows, count] = await Promise.all([
+        $fetch<IPost[]>("/api/posts", {
+          query: {
+            status: "published",
+            limit: POSTS_PER_PAGE,
+            offset,
+            orderBy: "created_at",
+            desc: true,
+          },
+        }),
+        $fetch<number>("/api/posts", {
+          query: { status: "published", count: "true" },
+        }),
+      ])
+
+      totalPages.value = Math.max(1, Math.ceil(count / POSTS_PER_PAGE))
+      const cards = rows.map(mapPost)
+      featured.value = cards[0] ?? null
+      articles.value = cards.slice(1)
+    } finally {
+      isLoading.value = false
+    }
+  }
+
+  function goPrev() {
+    if (currentPage.value > 1) currentPage.value--
+  }
+
+  function goNext() {
+    if (currentPage.value < totalPages.value) currentPage.value++
+  }
+
+  await loadPosts()
+  watch(currentPage, loadPosts)
 </script>
 
 <template>
-  <section class="w-full px-6 pb-24 pt-16 lg:px-[100px]">
+  <section class="section-artikel-feed w-full px-6 pb-24 pt-16 lg:px-[100px]">
     <div class="mx-auto flex max-w-[1200px] flex-col gap-20">
       <article
+        v-if="featured"
         class="flex flex-col gap-7 lg:flex-row lg:items-start"
       >
         <img
@@ -31,10 +96,15 @@
         <div class="flex flex-col gap-9 lg:w-[421px]">
           <div class="flex flex-col gap-4">
             <h2
-              class="font-serif text-[32px] font-bold leading-[42px] text-brand-blue"
+              class="hidden font-serif font-bold text-brand-blue lg:block lg:text-[32px] lg:leading-[42px]"
             >
               {{ featured.title }}
             </h2>
+            <h3
+              class="font-serif text-[20px] font-bold leading-normal text-brand-blue lg:hidden"
+            >
+              {{ featured.title }}
+            </h3>
             <p
               class="flex items-center gap-3 font-serif text-[20px] leading-[25px] text-brand-blue"
             >
@@ -49,6 +119,7 @@
             {{ featured.excerpt }}
           </p>
           <SectionButton
+            class="artikel-feed-btn"
             label="Mehr erfahren »"
             :href="featured.href"
             narrow
@@ -84,17 +155,20 @@
               <span class="h-2 w-2 rounded-full bg-brand-blue" />
             </p>
           </div>
-          <SectionButton label="Mehr erfahren »" :href="a.href" narrow />
+          <SectionButton class="artikel-feed-btn" label="Mehr erfahren »" :href="a.href" narrow />
         </article>
       </div>
 
       <nav
+        v-if="totalPages > 1"
         class="flex items-center justify-between"
         aria-label="Artikel Pagination"
       >
         <button
           type="button"
-          class="inline-flex items-center gap-2 rounded-[10px] border border-brand-blue bg-white px-6 py-4 font-serif text-[18px] leading-[25px] text-slate-800"
+          class="artikel-pagination-btn inline-flex items-center gap-2 rounded-[10px] border border-brand-blue bg-white px-6 py-4 font-serif text-[18px] leading-[25px] text-slate-800 disabled:cursor-not-allowed disabled:opacity-40"
+          :disabled="currentPage <= 1 || isLoading"
+          @click="goPrev"
         >
           <svg
             class="h-6 w-6 text-brand-blue"
@@ -115,11 +189,11 @@
 
         <div class="flex items-center gap-1">
           <span
-            v-for="p in pages || 4"
+            v-for="p of totalPages"
             :key="p"
             class="h-3.5 w-3.5 rounded-full"
             :class="
-              p === (page || 1)
+              p === currentPage
                 ? 'bg-brand-blue'
                 : 'border border-brand-blue bg-white'
             "
@@ -128,7 +202,9 @@
 
         <button
           type="button"
-          class="inline-flex items-center gap-2 rounded-[10px] border border-brand-blue bg-white px-6 py-4 font-serif text-[18px] leading-[25px] text-slate-800"
+          class="artikel-pagination-btn inline-flex items-center gap-2 rounded-[10px] border border-brand-blue bg-white px-6 py-4 font-serif text-[18px] leading-[25px] text-slate-800 disabled:cursor-not-allowed disabled:opacity-40"
+          :disabled="currentPage >= totalPages || isLoading"
+          @click="goNext"
         >
           Weiter
           <svg

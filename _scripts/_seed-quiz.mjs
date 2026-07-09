@@ -26,6 +26,7 @@ const sections = [
   {
     title: "Wie gut sind Sie vorbereitet?",
     image: HERO_IMAGE,
+    align: "left",
     _orbi: { component: "SectionPageHero" },
   },
   {

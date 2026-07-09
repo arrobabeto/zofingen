@@ -71,7 +71,7 @@
         </p>
         <button
           type="button"
-          class="flex h-16 w-full min-w-[240px] max-w-[376px] shrink-0 items-center justify-center whitespace-nowrap rounded-[10px] bg-brand-blue px-10 font-serif text-[18px] font-bold text-white transition hover:bg-brand-blue2 lg:w-[376px]"
+          class="footer-pdf-btn flex h-16 w-full min-w-[240px] max-w-[376px] shrink-0 items-center justify-center whitespace-nowrap rounded-[10px] bg-brand-blue px-10 font-serif text-[18px] font-bold text-white transition hover:bg-brand-blue2 lg:w-[376px]"
           @click="openPdfModal"
         >
           PDF anfordern

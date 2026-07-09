@@ -2,6 +2,36 @@ import { defineEventHandler, getQuery } from "h3"
 
 export default defineEventHandler(async (event) => {
   const bindings = getQuery(event)
+
+  if (bindings.count === "true") {
+    let countSql = "SELECT COUNT(*)::int AS count FROM posts"
+    const where: string[] = []
+    if (bindings.id) where.push("id = :id")
+    if (bindings.status) where.push(`"status"->>'value' = :status`)
+    if (where.length > 0) countSql += ` WHERE ${where.join(" AND ")}`
+
+    if (
+      !import.meta.env.ORBITYPE_API_SQL_URL ||
+      !import.meta.env.ORBITYPE_API_SQL_KEY
+    ) {
+      return 0
+    }
+
+    try {
+      const rows: { count: number }[] = await $fetch(
+        import.meta.env.ORBITYPE_API_SQL_URL,
+        {
+          method: "POST",
+          headers: { "X-API-KEY": import.meta.env.ORBITYPE_API_SQL_KEY },
+          body: { sql: countSql, bindings },
+        },
+      )
+      return Number(rows[0]?.count ?? 0)
+    } catch {
+      return 0
+    }
+  }
+
   const orderBy = String(bindings.orderBy ?? "created_at")
   const allowedOrderBy = new Set(["created_at", "updated_at", "id"])
   const safeOrderBy = allowedOrderBy.has(orderBy) ? orderBy : "created_at"

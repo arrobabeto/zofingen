@@ -34,6 +34,7 @@ const sections = [
     ctaLabel: CTA,
     ctaHref: CTA_HREF,
     image: HERO_IMAGE,
+    align: "left",
     _orbi: { component: "SectionHero" },
   },
   {
