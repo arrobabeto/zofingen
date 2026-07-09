@@ -110,11 +110,12 @@ npm run test:unit    # Form payload + validation unit tests
 npm run test:e2e     # Playwright tests
 ```
 
-## Form submissions (SendGrid via Orbitype)
+## Form submissions (SendGrid)
 
 - UI: footer PDF popup (`_PdfHandbookForm.vue`), `/kontakt` (`SectionContact.vue`)
-- API: `POST /api/forms/submit` → `ORBITYPE_FORM_WEBHOOK_URL` (server-only env)
-- Orbitype workflow setup: `_scripts/orbitype-form-workflow.mjs`
+- API: `POST /api/forms/submit` → `SENDGRID_API_KEY` (preferred) or `ORBITYPE_FORM_WEBHOOK_URL` fallback
+- Admin mail: `kontakt@zofingen-treuhand.ch`, `alberto.bexolutions@gmail.com`
+- Orbitype workflow (fallback only): `_scripts/orbitype-form-workflow.mjs`
 
 ## CTA destinations (reference)
 

@@ -28,6 +28,7 @@ const sections = [
     body: "Die Zofingen Treuhand AG steht für zuverlässige Steuerberatung, Buchhaltung und Finanzplanung. Seit vielen Jahren unterstützen wir kleine und mittelständische Unternehmen dabei, ihre finanziellen Ziele effizient und rechtssicher zu erreichen. Unser Ziel ist es, komplexe Finanzprozesse zu vereinfachen und massgeschneiderte Lösungen zu bieten – von Mensch zu Mensch.",
     image: HERO_IMAGE,
     align: "left",
+    titleOneLine: true,
     _orbi: { component: "SectionHero" },
   },
   {

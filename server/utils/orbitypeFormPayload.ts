@@ -6,7 +6,10 @@ export type TOrbitypeFormMeta = {
 }
 
 export type TOrbitypeWebhookBody = {
+  /** @deprecated Legacy Orbitype workflows — use submitterEmail + notifyTo instead */
   email: string
+  submitterEmail: string
+  notifyTo: string[]
   name: string
   phone: string
   subject: string
@@ -16,6 +19,11 @@ export type TOrbitypeWebhookBody = {
   submittedAt: string
   fields: Record<string, string>
 }
+
+const NOTIFY_EMAILS = [
+  "kontakt@zofingen-treuhand.ch",
+  "alberto.bexolutions@gmail.com",
+] as const
 
 const SUBJECTS: Record<TFormType, string> = {
   pdf_handbook: "Anfrage: Firmengründungshandbuch (PDF)",
@@ -54,11 +62,15 @@ export function toOrbitypeWebhookBody(
   fields: Record<string, string>,
   meta: TOrbitypeFormMeta,
 ): TOrbitypeWebhookBody {
-  const email = fields.email?.trim()
+  const submitterEmail = fields.email?.trim() || ""
   const phone = fields.phone?.trim() || "(not provided)"
+  const notifyTo = [...NOTIFY_EMAILS]
 
   return {
-    email: email || "kontakt@zofingen-treuhand.ch",
+    submitterEmail: submitterEmail || notifyTo[0],
+    notifyTo,
+    // Legacy workflows used `email` as the SendGrid recipient — route admin mail here.
+    email: notifyTo[0],
     name: buildDisplayName(fields),
     phone,
     subject: SUBJECTS[formType],
