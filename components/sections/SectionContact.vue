@@ -233,7 +233,7 @@
         <button
           type="submit"
           :disabled="status === 'submitting'"
-          class="mx-auto mt-2 w-full max-w-[273px] rounded-[10px] bg-brand-blue px-4 py-3 font-serif text-[18px] text-white transition hover:bg-brand-blue2 disabled:cursor-not-allowed disabled:opacity-60"
+          class="mx-auto mt-2 flex w-full max-w-[273px] items-center justify-center rounded-[10px] bg-brand-blue px-4 py-3 text-center font-serif text-[18px] text-white transition hover:bg-brand-blue2 disabled:cursor-not-allowed disabled:opacity-60"
         >
           {{ status === "submitting" ? "Wird gesendet…" : "Anfrage versenden" }}
         </button>

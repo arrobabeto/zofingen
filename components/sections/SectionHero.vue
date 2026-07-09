@@ -13,6 +13,7 @@
       video?: string
       align?: "left" | "center" | "right"
       compact?: boolean
+      titleOneLine?: boolean
     }>(),
     { align: "right" },
   )
@@ -70,6 +71,7 @@
         >
           <h1
             class="font-serif text-[42px] font-bold leading-[58px] text-brand-blue"
+            :class="titleOneLine ? 'lg:whitespace-nowrap' : ''"
           >
             {{ title }}
           </h1>

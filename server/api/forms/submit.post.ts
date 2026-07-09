@@ -1,4 +1,5 @@
 import { createError, defineEventHandler, readBody } from "h3"
+import { sendFormEmails } from "~/server/utils/formMailer"
 import { toOrbitypeWebhookBody } from "~/server/utils/orbitypeFormPayload"
 import {
   normalizeFields,
@@ -28,14 +29,6 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, statusMessage: validation.message })
   }
 
-  const webhookUrl = import.meta.env.ORBITYPE_FORM_WEBHOOK_URL
-  if (!webhookUrl) {
-    throw createError({
-      statusCode: 503,
-      statusMessage: "Form webhook is not configured.",
-    })
-  }
-
   const submittedAt = new Date().toISOString()
   const fields = normalizeFields(body.fields)
   const payload = toOrbitypeWebhookBody(validation.formType, fields, {
@@ -43,21 +36,37 @@ export default defineEventHandler(async (event) => {
     submittedAt,
   })
 
-  try {
-    await $fetch(webhookUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: payload,
+  const sendgridKey = import.meta.env.SENDGRID_API_KEY
+  const webhookUrl = import.meta.env.ORBITYPE_FORM_WEBHOOK_URL
+
+  if (!sendgridKey && !webhookUrl) {
+    throw createError({
+      statusCode: 503,
+      statusMessage: "Form mailing is not configured.",
     })
+  }
+
+  try {
+    if (sendgridKey) {
+      await sendFormEmails(payload, sendgridKey)
+    } else if (webhookUrl) {
+      await $fetch(webhookUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: payload,
+      })
+    }
   } catch (err: unknown) {
     const fetchErr = err as {
       statusCode?: number
       statusMessage?: string
       data?: unknown
+      message?: string
     }
-    console.error("[forms/submit] Orbitype webhook failed:", {
+    console.error("[forms/submit] Form mailing failed:", {
+      via: sendgridKey ? "sendgrid" : "orbitype-webhook",
       status: fetchErr.statusCode,
-      message: fetchErr.statusMessage,
+      message: fetchErr.statusMessage || fetchErr.message,
       data: fetchErr.data,
     })
     throw createError({

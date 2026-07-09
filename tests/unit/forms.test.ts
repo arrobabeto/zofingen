@@ -22,7 +22,12 @@ describe("toOrbitypeWebhookBody", () => {
       meta,
     )
 
-    assert.equal(body.email, "max@example.com")
+    assert.equal(body.submitterEmail, "max@example.com")
+    assert.equal(body.email, "kontakt@zofingen-treuhand.ch")
+    assert.deepEqual(body.notifyTo, [
+      "kontakt@zofingen-treuhand.ch",
+      "alberto.bexolutions@gmail.com",
+    ])
     assert.equal(body.name, "Herr Max Muster")
     assert.equal(body.phone, "+41 79 000 00 00")
     assert.equal(body.subject, "Anfrage: Firmengründungshandbuch (PDF)")
@@ -81,6 +86,7 @@ describe("toOrbitypeWebhookBody", () => {
     )
 
     assert.equal(body.subject, "Rückruf-Anfrage")
+    assert.equal(body.submitterEmail, "kontakt@zofingen-treuhand.ch")
     assert.equal(body.email, "kontakt@zofingen-treuhand.ch")
     assert.equal(body.name, "Lea Rückruf")
   })
