@@ -40,11 +40,6 @@
     link: [
       {
         rel: "icon",
-        href: "/favicon.svg",
-        type: "image/svg+xml",
-      },
-      {
-        rel: "icon",
         href: "/favicon-32x32.png",
         type: "image/png",
         sizes: "32x32",
