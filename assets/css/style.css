@@ -76,16 +76,3 @@ th {
     opacity: 0.61;
   }
 }
-
-/******************************************************************************/
-::-webkit-scrollbar {
-  @apply w-4;
-}
-
-::-webkit-scrollbar-track {
-  @apply bg-gray-900;
-}
-
-::-webkit-scrollbar-thumb {
-  @apply bg-gray-700;
-}
