@@ -67,7 +67,6 @@
   })
 
   useHead({
-    ...page.head,
     link: useCanonicalLinks({
       canonicalPath,
       enPath,

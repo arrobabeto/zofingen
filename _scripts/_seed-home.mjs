@@ -379,11 +379,12 @@ async function run() {
     method: "POST",
     headers: { "X-API-KEY": KEY, "Content-Type": "application/json" },
     body: JSON.stringify({
-      sql: "UPDATE pages SET title = :title::json, sections = :sections::json, keywords = :keywords::json, updated_at = CURRENT_TIMESTAMP WHERE slug = :slug RETURNING id, slug",
+      sql: "UPDATE pages SET title = :title::json, sections = :sections::json, keywords = :keywords::json, head = :head::json, updated_at = CURRENT_TIMESTAMP WHERE slug = :slug RETURNING id, slug",
       bindings: {
         title: JSON.stringify(title),
         sections: JSON.stringify(sections),
         keywords: JSON.stringify(keywords),
+        head: JSON.stringify({}),
         slug: "home",
       },
     }),
