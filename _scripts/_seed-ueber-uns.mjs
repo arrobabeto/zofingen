@@ -116,7 +116,7 @@ const sections = [
 
 const title = {
   de: "Über uns",
-  en: "About us",
+  en: "Über uns",
 }
 const keywords = [
   "Über uns",
