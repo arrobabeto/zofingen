@@ -46,7 +46,11 @@
           v-for="(m, i) of members"
           :key="i"
           class="relative flex h-full w-[283px] flex-col items-center overflow-visible"
-          :class="m.stamp && 'mb-10'"
+          :class="[
+            m.stamp && 'mb-10',
+            i === members.length - 1 && members.length % 2 === 1 && 'sm:col-span-2',
+            i === members.length - 1 && members.length % 3 === 1 && 'lg:col-span-1 lg:col-start-2',
+          ]"
         >
           <div
             class="absolute left-0 right-0 top-[137px] bottom-0 rounded-[10px] bg-brand-light/60"

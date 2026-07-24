@@ -220,6 +220,13 @@ const sections = [
           "Andrea ist Ihre Ansprechpartnerin in allen Fragen rund um Löhne, Sozialversicherungen und Vorsorge und sorgt dafür, dass eine rechtlich korrekte und transparente Abrechnung gewährleistet ist. Dabei unterstützt sie Sie kompetent und zuverlässig bei administrativen Anliegen.",
         image: img("team-andrea.png"),
       },
+      {
+        name: "Beatrice Tschanz",
+        role: "Leitung Kommunikation und Dienste",
+        description:
+          "Beatrice ist für die interne und externe Kommunikation von Zofingen Treuhand AG zuständig. Mit über 20 Jahren Erfahrung als Selbstständige in der grafischen Branche sorgt sie für eine klare, verständliche und professionelle Kommunikation mit den Kundinnen und Kunden sowie für einen einheitlichen Auftritt des Unternehmens.",
+        image: img("team-beatrice.png"),
+      },
     ],
     _orbi: { component: "SectionTeam" },
   },
