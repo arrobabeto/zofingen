@@ -1,20 +1,36 @@
 <script setup lang="ts">
+  import { computed } from "vue"
   import SectionHeading from "./_SectionHeading.vue"
   import CheckCircle from "./_CheckCircle.vue"
 
-  defineProps<{
+  type Member = {
+    name: string
+    role: string
+    description: string
+    image: string
+    stamp?: string
+  }
+
+  const props = defineProps<{
     title: string
     subtitle: string
     intro: string
     bullets?: { bold: string; text: string }[]
-    members: {
-      name: string
-      role: string
-      description: string
-      image: string
-      stamp?: string
-    }[]
+    members: Member[]
   }>()
+
+  // 7 members → 2 / 3 / 2 so the first and last pairs sit centered
+  const rows = computed(() => {
+    const m = props.members
+    if (m.length === 7) {
+      return [m.slice(0, 2), m.slice(2, 5), m.slice(5, 7)]
+    }
+    const result: Member[][] = []
+    for (let i = 0; i < m.length; i += 3) {
+      result.push(m.slice(i, i + 3))
+    }
+    return result
+  })
 </script>
 
 <template>
@@ -39,52 +55,52 @@
         </div>
       </div>
 
-      <div
-        class="grid max-w-[1105px] grid-cols-1 justify-items-center gap-x-[60px] gap-y-10 overflow-visible sm:grid-cols-2 lg:grid-cols-3"
-      >
+      <div class="flex max-w-[1105px] flex-col items-center gap-10 overflow-visible">
         <div
-          v-for="(m, i) of members"
-          :key="i"
-          class="relative flex h-full w-[283px] flex-col items-center overflow-visible"
-          :class="[
-            m.stamp && 'mb-10',
-            i === members.length - 1 && members.length % 2 === 1 && 'sm:col-span-2',
-            i === members.length - 1 && members.length % 3 === 1 && 'lg:col-span-1 lg:col-start-2',
-          ]"
+          v-for="(row, ri) of rows"
+          :key="ri"
+          class="flex flex-wrap justify-center gap-x-[60px] gap-y-10 overflow-visible"
         >
           <div
-            class="absolute left-0 right-0 top-[137px] bottom-0 rounded-[10px] bg-brand-light/60"
-          />
-          <div
-            class="relative z-[1] h-[283px] w-[283px] shrink-0 overflow-hidden rounded-full bg-white"
+            v-for="(m, i) of row"
+            :key="i"
+            class="relative flex h-full w-[283px] flex-col items-center overflow-visible"
+            :class="m.stamp && 'mb-10'"
           >
+            <div
+              class="absolute left-0 right-0 top-[137px] bottom-0 rounded-[10px] bg-brand-light/60"
+            />
+            <div
+              class="relative z-[1] h-[283px] w-[283px] shrink-0 overflow-hidden rounded-full bg-white"
+            >
+              <img
+                :src="m.image"
+                alt=""
+                class="h-full w-full object-cover object-top"
+              />
+            </div>
+            <div
+              class="relative z-[1] mt-4 w-full px-4 pb-5 text-center text-brand-blue"
+            >
+              <div class="flex flex-col items-center gap-[15px] px-2">
+                <p class="font-serif text-[24px] font-bold">{{ m.name }}</p>
+                <p class="whitespace-nowrap font-serif text-[14px] font-bold leading-[22px]">
+                  {{ m.role }}
+                </p>
+                <span class="block h-px w-[90%] bg-brand-blue" />
+                <p class="font-serif text-[16px] leading-[25px]">
+                  {{ m.description }}
+                </p>
+              </div>
+            </div>
+
             <img
-              :src="m.image"
+              v-if="m.stamp"
+              :src="m.stamp"
               alt=""
-              class="h-full w-full object-cover object-top"
+              class="absolute -bottom-10 -right-10 z-[2] h-[88px] w-[88px]"
             />
           </div>
-          <div
-            class="relative z-[1] mt-4 w-full px-4 pb-5 text-center text-brand-blue"
-          >
-            <div class="flex flex-col items-center gap-[15px] px-2">
-              <p class="font-serif text-[24px] font-bold">{{ m.name }}</p>
-              <p class="whitespace-nowrap font-serif text-[14px] font-bold leading-[22px]">
-                {{ m.role }}
-              </p>
-              <span class="block h-px w-[90%] bg-brand-blue" />
-              <p class="font-serif text-[16px] leading-[25px]">
-                {{ m.description }}
-              </p>
-            </div>
-          </div>
-
-          <img
-            v-if="m.stamp"
-            :src="m.stamp"
-            alt=""
-            class="absolute -bottom-10 -right-10 z-[2] h-[88px] w-[88px]"
-          />
         </div>
       </div>
     </div>
