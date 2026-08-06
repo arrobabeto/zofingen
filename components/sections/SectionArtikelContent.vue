@@ -29,6 +29,7 @@
     border-collapse: collapse;
     font: inherit;
     color: inherit;
+    margin-bottom: 15px;
   }
 
   .article-body :deep(td),
@@ -44,5 +45,15 @@
   .article-body :deep(thead th) {
     font-weight: 700;
     background-color: rgb(1 32 104 / 0.06);
+  }
+
+  /* Sources block: title-sized heading with clear separation from previous section */
+  .article-body :deep(h2#quellen) {
+    margin-top: 4.5rem;
+    margin-bottom: 1.25rem;
+    font-size: 28px;
+    line-height: 36px;
+    font-weight: 700;
+    scroll-margin-top: 7rem;
   }
 </style>
