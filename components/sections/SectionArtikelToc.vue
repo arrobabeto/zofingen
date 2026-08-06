@@ -32,7 +32,6 @@
           v-for="(item, i) of items"
           :key="item.id"
           class="font-serif text-[16px] leading-[24px] text-brand-blue"
-          :class="item.level === 3 ? 'ml-5' : ''"
         >
           <a
             :href="`#${item.id}`"
