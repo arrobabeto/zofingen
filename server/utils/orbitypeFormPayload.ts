@@ -20,10 +20,7 @@ export type TOrbitypeWebhookBody = {
   fields: Record<string, string>
 }
 
-const NOTIFY_EMAILS = [
-  "kontakt@zofingen-treuhand.ch",
-  "alberto.bexolutions@gmail.com",
-] as const
+const NOTIFY_EMAILS = ["kontakt@zofingen-treuhand.ch"] as const
 
 const SUBJECTS: Record<TFormType, string> = {
   pdf_handbook: "Anfrage: Firmengründungshandbuch (PDF)",

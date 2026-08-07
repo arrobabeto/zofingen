@@ -20,7 +20,7 @@
  * Test payload:
  * {
  *   "submitterEmail": "max@example.com",
- *   "notifyTo": ["kontakt@zofingen-treuhand.ch", "alberto.bexolutions@gmail.com"],
+ *   "notifyTo": ["kontakt@zofingen-treuhand.ch"],
  *   "email": "kontakt@zofingen-treuhand.ch",
  *   "name": "Herr Max Muster",
  *   "phone": "+41 79 000 00 00",
@@ -40,7 +40,7 @@ async ({ input }) => {
   const submitterEmail = (input.submitterEmail || input.email || "").trim()
   const notifyTo = Array.isArray(input.notifyTo) && input.notifyTo.length
     ? input.notifyTo
-    : ["kontakt@zofingen-treuhand.ch", "alberto.bexolutions@gmail.com"]
+    : ["kontakt@zofingen-treuhand.ch"]
 
   if (!submitterEmail && !notifyTo.length) {
     return { output: { ok: false, error: "Missing submitterEmail / notifyTo" } }
@@ -73,7 +73,7 @@ async ({ input, orbi }) => {
   const apiKey = orbi.project.credentials.find((c) => c.name === "sendgrid")?.value
   if (!apiKey) throw new Error("SendGrid credential not found")
 
-  const recipients = input.notifyTo || ["kontakt@zofingen-treuhand.ch", "alberto.bexolutions@gmail.com"]
+  const recipients = input.notifyTo || ["kontakt@zofingen-treuhand.ch"]
   const html = [
     "<h2>Neue Website-Anfrage</h2>",
     "<p><strong>Formular:</strong> " + (input.formType || "unknown") + "</p>",
@@ -116,7 +116,7 @@ async ({ input, orbi }) => {
   if (!input.ok) return { output: input }
 
   const submitter = (input.submitterEmail || "").trim()
-  const adminSet = new Set(input.notifyTo || ["kontakt@zofingen-treuhand.ch", "alberto.bexolutions@gmail.com"])
+  const adminSet = new Set(input.notifyTo || ["kontakt@zofingen-treuhand.ch"])
   if (!submitter || adminSet.has(submitter)) {
     return { output: { ...input, confirmationSent: false } }
   }

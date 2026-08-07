@@ -114,7 +114,7 @@ npm run test:e2e     # Playwright tests
 
 - UI: footer PDF popup (`_PdfHandbookForm.vue`), `/kontakt` (`SectionContact.vue`)
 - API: `POST /api/forms/submit` → `SENDGRID_API_KEY` (preferred) or `ORBITYPE_FORM_WEBHOOK_URL` fallback
-- Admin mail: `kontakt@zofingen-treuhand.ch`, `alberto.bexolutions@gmail.com`
+- Admin mail: `kontakt@zofingen-treuhand.ch`
 - Orbitype workflow (fallback only): `_scripts/orbitype-form-workflow.mjs`
 
 ## CTA destinations (reference)
