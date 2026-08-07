@@ -36,13 +36,17 @@ export default defineEventHandler(async (event) => {
     submittedAt,
   })
 
-  const sendgridKey = import.meta.env.SENDGRID_API_KEY
-  const webhookUrl = import.meta.env.ORBITYPE_FORM_WEBHOOK_URL
+  const sendgridKey =
+    import.meta.env.SENDGRID_API_KEY || process.env.SENDGRID_API_KEY
+  const webhookUrl =
+    import.meta.env.ORBITYPE_FORM_WEBHOOK_URL ||
+    process.env.ORBITYPE_FORM_WEBHOOK_URL
 
   if (!sendgridKey && !webhookUrl) {
     throw createError({
       statusCode: 503,
-      statusMessage: "Form mailing is not configured.",
+      statusMessage:
+        "Form mailing is not configured. Set SENDGRID_API_KEY in the environment.",
     })
   }
 

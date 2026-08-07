@@ -5,10 +5,7 @@ const FROM = {
   name: "Zofingen Treuhand",
 } as const
 
-export const FORM_NOTIFY_EMAILS = [
-  "kontakt@zofingen-treuhand.ch",
-  "alberto.bexolutions@gmail.com",
-] as const
+export const FORM_NOTIFY_EMAILS = ["kontakt@zofingen-treuhand.ch"] as const
 
 function escapeHtml(text: string): string {
   return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
