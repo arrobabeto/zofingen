@@ -1,5 +1,14 @@
 import { createError, defineEventHandler, readBody } from "h3"
 import { sendFormEmails } from "~/server/utils/formMailer"
+import {
+  buildMailerliteFields,
+  getMailerliteFormConfig,
+  hasMailerliteConsent,
+} from "~/server/utils/mailerliteFormConfig"
+import {
+  isMailerliteConfigured,
+  upsertSubscriberToGroups,
+} from "~/server/utils/mailerliteClient"
 import { toOrbitypeWebhookBody } from "~/server/utils/orbitypeFormPayload"
 import {
   normalizeFields,
@@ -69,6 +78,7 @@ export default defineEventHandler(async (event) => {
     }
     console.error("[forms/submit] Form mailing failed:", {
       via: sendgridKey ? "sendgrid" : "orbitype-webhook",
+      formType: validation.formType,
       status: fetchErr.statusCode,
       message: fetchErr.statusMessage || fetchErr.message,
       data: fetchErr.data,
@@ -77,6 +87,33 @@ export default defineEventHandler(async (event) => {
       statusCode: 502,
       statusMessage: "Failed to submit form. Please try again later.",
     })
+  }
+
+  const mailerliteConfig = getMailerliteFormConfig(validation.formType)
+  if (mailerliteConfig && hasMailerliteConsent(mailerliteConfig, fields)) {
+    if (!isMailerliteConfigured()) {
+      console.error("[forms/submit] MailerLite skipped: API key missing.", {
+        formType: validation.formType,
+        groupName: mailerliteConfig.groupName,
+      })
+    } else {
+      const email = fields[mailerliteConfig.emailField]?.trim() || ""
+      const result = await upsertSubscriberToGroups({
+        email,
+        fields: buildMailerliteFields(mailerliteConfig, fields),
+        groupIds: [mailerliteConfig.groupId],
+      })
+
+      if (!result.ok) {
+        // mixed / contact: lead already delivered via SendGrid — do not fail the request
+        console.error("[forms/submit] MailerLite sync failed:", {
+          formType: validation.formType,
+          groupName: mailerliteConfig.groupName,
+          status: result.status,
+          message: result.message,
+        })
+      }
+    }
   }
 
   return { ok: true }
