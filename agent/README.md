@@ -67,4 +67,5 @@ Copy `.env.example` to `.env` and set:
 | `orbitype-cms` | `/orbitype-cms` | Sections, CMS JSON, Orbitype MCP |
 | `build-figma-page` | `/build-figma-page` | New page from Figma design |
 | `seed-pages` | `/seed-pages` | Create or update `_scripts/_seed-*.mjs` |
+| `connect-mailerlite` | `/connect-mailerlite` | Connect one form to a MailerLite group |
 | `zofingen-rules` | `/zofingen-rules` | Look up any project rule by topic |

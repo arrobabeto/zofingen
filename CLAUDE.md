@@ -29,6 +29,7 @@ Invoke with `/skill-name` or let Claude auto-load when relevant:
 | `/orbitype-cms` | Sections, CMS JSON, Orbitype MCP |
 | `/build-figma-page` | New page from Figma design |
 | `/seed-pages` | `_scripts/_seed-*.mjs` patterns |
+| `/connect-mailerlite` | Connect one form to a MailerLite group (API, per-form registry) |
 | `/zofingen-rules` | All coding standards and patterns |
 
 After editing `agent/skills/` or `.cursor/rules/`, run `npm run sync:agent`.
@@ -110,12 +111,15 @@ npm run test:unit    # Form payload + validation unit tests
 npm run test:e2e     # Playwright tests
 ```
 
-## Form submissions (SendGrid)
+## Form submissions (SendGrid + optional MailerLite)
 
 - UI: footer PDF popup (`_PdfHandbookForm.vue`), `/kontakt` (`SectionContact.vue`)
 - API: `POST /api/forms/submit` → `SENDGRID_API_KEY` (preferred) or `ORBITYPE_FORM_WEBHOOK_URL` fallback
 - Admin mail: `kontakt@zofingen-treuhand.ch`
 - Orbitype workflow (fallback only): `_scripts/orbitype-form-workflow.mjs`
+- MailerLite (optional, per form): `MAILERLITE_API_KEY` + registry in `server/utils/mailerliteFormConfig.ts`
+  - Currently connected: `pdf_handbook` only (group ID in registry, not env)
+  - Failures are independent of SendGrid (`mixed` policy for PDF)
 
 ## CTA destinations (reference)
 
