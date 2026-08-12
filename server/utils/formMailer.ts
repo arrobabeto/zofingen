@@ -5,8 +5,6 @@ const FROM = {
   name: "Zofingen Treuhand",
 } as const
 
-export const FORM_NOTIFY_EMAILS = ["kontakt@zofingen-treuhand.ch"] as const
-
 function escapeHtml(text: string): string {
   return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
 }
@@ -62,27 +60,9 @@ export async function sendAdminFormNotification(
   })
 }
 
-export async function sendSubmitterConfirmation(
-  payload: TOrbitypeWebhookBody,
-  apiKey: string,
-): Promise<void> {
-  const submitter = payload.submitterEmail.trim()
-  const adminEmails = new Set<string>(FORM_NOTIFY_EMAILS)
-  if (!submitter || adminEmails.has(submitter)) {
-    return
-  }
-
-  await sendGridMail(apiKey, {
-    to: [{ email: submitter, name: payload.name }],
-    subject: "Wir haben Ihre Anfrage erhalten",
-    html: "<p>Vielen Dank, wir haben Ihre Nachricht erhalten. Wir melden uns in Kürze bei Ihnen.</p>",
-  })
-}
-
 export async function sendFormEmails(
   payload: TOrbitypeWebhookBody,
   apiKey: string,
 ): Promise<void> {
   await sendAdminFormNotification(payload, apiKey)
-  await sendSubmitterConfirmation(payload, apiKey)
 }
