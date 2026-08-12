@@ -45,13 +45,15 @@
     isLoading.value = true
     try {
       const offset = (currentPage.value - 1) * POSTS_PER_PAGE
+      // Always load published posts from API — no CMS hardcoding required.
+      // Sort by updated_at so newly published/updated Artikels appear first.
       const [rows, count] = await Promise.all([
         $fetch<IPost[]>("/api/posts", {
           query: {
             status: "published",
             limit: POSTS_PER_PAGE,
             offset,
-            orderBy: "created_at",
+            orderBy: "updated_at",
             desc: true,
           },
         }),
