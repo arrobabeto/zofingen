@@ -14,7 +14,7 @@
     query: {
       status: "published",
       limit: 6,
-      orderBy: "created_at",
+      orderBy: "updated_at",
       desc: true,
     },
   })
