@@ -84,9 +84,9 @@
             >
               <div class="flex flex-col items-center gap-[15px] px-2">
                 <p class="font-serif text-[24px] font-bold">{{ m.name }}</p>
-                <p class="whitespace-nowrap font-serif text-[14px] font-bold leading-[22px]">
-                  {{ m.role }}
-                </p>
+              <p class="whitespace-pre-line text-center font-serif text-[14px] font-bold leading-[22px]">
+                {{ m.role }}
+              </p>
                 <span class="block h-px w-[90%] bg-brand-blue" />
                 <p class="font-serif text-[16px] leading-[25px]">
                   {{ m.description }}

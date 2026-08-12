@@ -57,28 +57,28 @@ const sections = [
       },
       {
         name: "Kateryna Abegglen",
-        role: "Treuhänderin mit eidg. FA",
+        role: "Treuhänderin mit\neidg. FA",
         description:
           "Kateryna ist die Ansprechpartnerin für alle Fragen rund um Buchhaltung, MWST und Steuern. Sie berät Kunden mit fundierter Fachkenntnis und langjähriger Erfahrung und koordiniert das Team im Tagesgeschäft.",
         image: img("kateryna.png"),
       },
       {
         name: "Daniela Nadler",
-        role: "Treuhänderin mit eidg. FA",
+        role: "Treuhänderin mit\neidg. FA",
         description:
           "Daniela ist die Ansprechpartnerin für Jahresabschlüsse, Steuererklärungen und die laufende Mandatsbetreuung. Sie begleitet KMU mit fachlicher Genauigkeit und sorgt für klare Abläufe.",
         image: img("daniela.png"),
       },
       {
         name: "Emre Duman",
-        role: "Fachspezialist Buchhaltung",
+        role: "Fachspezialist\nBuchhaltung",
         description:
           "Emre führt Ausbildungskurse unserer Cloud-Software durch und er ist unser Garant für die vollständige und richtige Verbuchung von umfangreichen Kundenbuchhaltungen. Er stellt sicher, dass die Buchhaltungsprozesse reibungslos, effizient und nach höchsten Qualitätsstandards ablaufen.",
         image: img("emre.png"),
       },
       {
         name: "Aengi Kuoni",
-        role: "Fachfrau Steuern",
+        role: "Angehende Treuhänderin mit eidg. FA",
         description:
           "Aengi ist die erste Ansprechperson für unsere Steuererklärungskunden. Sie stellt sicher, dass die Steuererklärungen vollständig vorbereitet und sämtliche Fristen eingehalten werden. Ebenfalls unterstützt sie unseren Fachspezialist Buchhaltung bei der korrekten Erfassung der Buchhaltungen.",
         image: img("aengi.png"),

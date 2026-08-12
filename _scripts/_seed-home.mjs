@@ -58,7 +58,7 @@ const sections = [
     _orbi: { component: "SectionFeatureCards" },
   },
   {
-    title: "Ihre Bedürfnisse\nUnsere Lösungen",
+    title: "Ihre Bedürfnisse.\nUnsere Lösungen.",
     body: "Suchen Sie nach einem Treuhänder in der Schweiz, der mit Ihren persönlichen Überzeugungen und Werten übereinstimmt?\n\nDer Sie kompetent und zuverlässig in allen finanziellen Belangen unterstützt?\n\nWir bieten Ihnen massgeschneiderte Treuhandlösungen für KMUs, um rechtliche Risiken zu vermeiden und Ihre Finanzen digital und effizient zu managen.",
     image: img("loesungen.jpg"),
     _orbi: { component: "SectionTextMedia" },
@@ -105,12 +105,12 @@ const sections = [
   {
     services: [
       {
-        title: "Unternehmens\nSteuerberatung",
+        title: "Unternehmens-\nSteuerberatung",
         body: "Optimale Steuerstrategien, die Ihre Steuerlast senken und Ihnen finanzielle Sicherheit bieten.",
         image: img("service-1.jpg"),
       },
       {
-        title: "Buchhaltung\nJahresabschlüse",
+        title: "Buchhaltung\nJahresabschlüsse",
         body: "Effiziente, digitale Lösungen für Ihre Buchhaltung und fehlerfreie Jahresabschlüsse.",
         image: img("service-2.jpg"),
       },
@@ -125,7 +125,7 @@ const sections = [
         image: img("service-4.jpg"),
       },
       {
-        title: "Immobilienverwaltung\nSchweiz",
+        title: "Pensionsplanung",
         body: "Fachkundige Verwaltung von Liegenschaften inklusive Buchhaltung und Steueroptimierung.",
         image: img("service-5.jpg"),
       },
@@ -186,28 +186,28 @@ const sections = [
       },
       {
         name: "Kateryna Abegglen",
-        role: "Treuhänderin mit eidg. FA",
+        role: "Treuhänderin mit\neidg. FA",
         description:
           "Kateryna ist die Ansprechpartnerin für alle Fragen rund um Buchhaltung, MWST und Steuern. Sie berät Kunden mit fundierter Fachkenntnis und langjähriger Erfahrung und koordiniert das Team im Tagesgeschäft.",
         image: img("team-kateryna.png"),
       },
       {
         name: "Daniela Nadler",
-        role: "Treuhänderin mit eidg. FA",
+        role: "Treuhänderin mit\neidg. FA",
         description:
           "Daniela ist die Ansprechpartnerin für Jahresabschlüsse, Steuererklärungen und die laufende Mandatsbetreuung. Sie begleitet KMU mit fachlicher Genauigkeit und sorgt für klare Abläufe.",
         image: img("team-daniela.png"),
       },
       {
         name: "Emre Duman",
-        role: "Fachspezialist Buchhaltung",
+        role: "Fachspezialist\nBuchhaltung",
         description:
           "Emre führt Ausbildungskurse unserer Cloud-Software durch und er ist unser Garant für die vollständige und richtige Verbuchung von umfangreichen Kundenbuchhaltungen. Er stellt sicher, dass die Buchhaltungsprozesse reibungslos, effizient und nach höchsten Qualitätsstandards ablaufen.",
         image: img("team-emre.png"),
       },
       {
         name: "Aengi Kuoni",
-        role: "Fachfrau Steuern",
+        role: "Angehende Treuhänderin mit eidg. FA",
         description:
           "Aengi ist die erste Ansprechperson für unsere Steuererklärungskunden. Sie stellt sicher, dass die Steuererklärungen vollständig vorbereitet und sämtliche Fristen eingehalten werden. Ebenfalls unterstützt sie unseren Fachspezialist Buchhaltung bei der korrekten Erfassung der Buchhaltungen.",
         image: img("team-aengi.png"),
