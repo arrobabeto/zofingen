@@ -19,11 +19,11 @@
     members: Member[]
   }>()
 
-  // 7 members → 2 / 3 / 2 so the first and last pairs sit centered
+  // 7 members → 3 / 2 / 2 (Daniela right of Kateryna; Andrea left of Beatrice)
   const rows = computed(() => {
     const m = props.members
     if (m.length === 7) {
-      return [m.slice(0, 2), m.slice(2, 5), m.slice(5, 7)]
+      return [m.slice(0, 3), m.slice(3, 5), m.slice(5, 7)]
     }
     const result: Member[][] = []
     for (let i = 0; i < m.length; i += 3) {
@@ -84,7 +84,7 @@
             >
               <div class="flex flex-col items-center gap-[15px] px-2">
                 <p class="font-serif text-[24px] font-bold">{{ m.name }}</p>
-              <p class="whitespace-pre-line text-center font-serif text-[14px] font-bold leading-[22px]">
+              <p class="whitespace-nowrap text-center font-serif text-[14px] font-bold leading-[22px]">
                 {{ m.role }}
               </p>
                 <span class="block h-px w-[90%] bg-brand-blue" />
