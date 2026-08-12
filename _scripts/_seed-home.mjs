@@ -186,21 +186,21 @@ const sections = [
       },
       {
         name: "Kateryna Abegglen",
-        role: "Treuhänderin mit\neidg. FA",
+        role: "Treuhänderin mit eidg. FA",
         description:
           "Kateryna ist die Ansprechpartnerin für alle Fragen rund um Buchhaltung, MWST und Steuern. Sie berät Kunden mit fundierter Fachkenntnis und langjähriger Erfahrung und koordiniert das Team im Tagesgeschäft.",
         image: img("team-kateryna.png"),
       },
       {
         name: "Daniela Nadler",
-        role: "Treuhänderin mit\neidg. FA",
+        role: "Treuhänderin mit eidg. FA",
         description:
           "Daniela ist die Ansprechpartnerin für Jahresabschlüsse, Steuererklärungen und die laufende Mandatsbetreuung. Sie begleitet KMU mit fachlicher Genauigkeit und sorgt für klare Abläufe.",
         image: img("team-daniela.png"),
       },
       {
         name: "Emre Duman",
-        role: "Fachspezialist\nBuchhaltung",
+        role: "Fachspezialist Buchhaltung",
         description:
           "Emre führt Ausbildungskurse unserer Cloud-Software durch und er ist unser Garant für die vollständige und richtige Verbuchung von umfangreichen Kundenbuchhaltungen. Er stellt sicher, dass die Buchhaltungsprozesse reibungslos, effizient und nach höchsten Qualitätsstandards ablaufen.",
         image: img("team-emre.png"),
@@ -211,11 +211,10 @@ const sections = [
         description:
           "Aengi ist die erste Ansprechperson für unsere Steuererklärungskunden. Sie stellt sicher, dass die Steuererklärungen vollständig vorbereitet und sämtliche Fristen eingehalten werden. Ebenfalls unterstützt sie unseren Fachspezialist Buchhaltung bei der korrekten Erfassung der Buchhaltungen.",
         image: img("team-aengi.png"),
-        stamp: img("stamp.png"),
       },
       {
         name: "Andrea Bally",
-        role: "Fachfrau\nSozialversicherungen",
+        role: "Fachfrau Sozialversicherungen",
         description:
           "Andrea ist Ihre Ansprechpartnerin in allen Fragen rund um Löhne, Sozialversicherungen und Vorsorge und sorgt dafür, dass eine rechtlich korrekte und transparente Abrechnung gewährleistet ist. Dabei unterstützt sie Sie kompetent und zuverlässig bei administrativen Anliegen.",
         image: img("team-andrea.png"),
