@@ -215,7 +215,7 @@ const sections = [
       },
       {
         name: "Andrea Bally",
-        role: "Fachfrau Sozialversicherungen",
+        role: "Fachfrau\nSozialversicherungen",
         description:
           "Andrea ist Ihre Ansprechpartnerin in allen Fragen rund um Löhne, Sozialversicherungen und Vorsorge und sorgt dafür, dass eine rechtlich korrekte und transparente Abrechnung gewährleistet ist. Dabei unterstützt sie Sie kompetent und zuverlässig bei administrativen Anliegen.",
         image: img("team-andrea.png"),
