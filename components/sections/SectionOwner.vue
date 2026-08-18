@@ -38,7 +38,15 @@
           class="flex flex-col items-start gap-12 px-6 py-16 lg:flex-row lg:gap-[138px] lg:px-[100px]"
         >
           <div class="flex w-full flex-col items-center gap-4 lg:w-[273px]">
-            <img :src="photo" alt="" class="h-[273px] w-[273px] object-contain" />
+            <div
+              class="h-[273px] w-[273px] overflow-hidden rounded-full border border-brand-blue bg-white pt-[15px]"
+            >
+              <img
+                :src="photo"
+                alt=""
+                class="h-full w-full object-cover object-top"
+              />
+            </div>
             <p class="text-center font-serif text-[24px] font-bold text-brand-blue">
               {{ name }}
             </p>
