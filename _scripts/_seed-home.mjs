@@ -86,7 +86,7 @@ const sections = [
   {
     background: img("owner-bg.jpg"),
     video: HERO_VIDEO,
-    photo: img("philippe-round.png"),
+    photo: img("team-philippe.png"),
     name: "Inhaber Philippe Bally",
     quote: "Wir können den Wind nicht ändern, aber die Segel anders setzen.",
     badge: img("badge-steuerexperten.png"),
