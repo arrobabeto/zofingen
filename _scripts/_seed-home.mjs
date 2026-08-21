@@ -125,8 +125,8 @@ const sections = [
         image: img("service-4.jpg"),
       },
       {
-        title: "Pensionsplanung",
-        body: "Fachkundige Verwaltung von Liegenschaften inklusive Buchhaltung und Steueroptimierung.",
+        title: "Unabhängige Pensionsplanung",
+        body: "Unabhängige Beratung für Pensionierung, AHV, Pensionskasse und Ihre finanzielle Zukunft.",
         image: img("service-5.jpg"),
       },
       {
