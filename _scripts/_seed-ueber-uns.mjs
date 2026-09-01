@@ -84,6 +84,13 @@ const sections = [
         image: img("aengi.png"),
       },
       {
+        name: "Julia Wenk",
+        role: "Fachfrau Buchhaltung / MwSt",
+        description:
+          "Julia ist unsere Fachfrau für Buchhaltungen und Mehrwertsteuern. Sie führt Kundenbuchhaltungen vollständig und korrekt und unterstützt unsere Kundinnen und Kunden kompetent bei Fragen rund um die Mehrwertsteuer. Dabei sorgt sie für effiziente Abläufe und eine zuverlässige Bearbeitung.",
+        image: img("julia.png"),
+      },
+      {
         name: "Andrea Bally",
         role: "Fachfrau Sozialversicherungen",
         description:

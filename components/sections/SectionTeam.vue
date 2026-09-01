@@ -19,9 +19,12 @@
     members: Member[]
   }>()
 
-  // 7 members → 3 / 2 / 2 (Daniela right of Kateryna; Andrea left of Beatrice)
+  // 8 members → 3 / 3 / 2 (Julia after Aengi; Andrea left of Beatrice)
   const rows = computed(() => {
     const m = props.members
+    if (m.length === 8) {
+      return [m.slice(0, 3), m.slice(3, 6), m.slice(6, 8)]
+    }
     if (m.length === 7) {
       return [m.slice(0, 3), m.slice(3, 5), m.slice(5, 7)]
     }
