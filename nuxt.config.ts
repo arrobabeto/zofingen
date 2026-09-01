@@ -72,6 +72,8 @@ export default defineNuxtConfig({
       gtmId,
       ogLogoPath:
         process.env.NUXT_PUBLIC_OG_LOGO_PATH ?? "/img/home/logo-treuhand.png",
+      preferredSourceEnabled:
+        process.env.NUXT_PUBLIC_PREFERRED_SOURCE_ENABLED !== "false",
     },
   },
   nitro: {

@@ -2,6 +2,7 @@
   import type { I18nString } from "~/types/util/I18nString"
   import { useTranslate } from "~/composables/useTranslate"
   import { dt } from "~/functions/dt"
+  import PreferredSourceButton from "~/components/PreferredSourceButton.vue"
 
   const p = defineProps<{
     title: I18nString
@@ -19,11 +20,14 @@
       >
         {{ t(p.title) }}
       </h1>
-      <div
-        class="flex items-center gap-3 font-serif text-[20px] leading-[25px] text-brand-blue"
-      >
-        <time :datetime="p.date">{{ dt.toArticle(p.date) }}</time>
-        <span class="h-2 w-2 rounded-full bg-brand-blue" aria-hidden="true" />
+      <div class="flex flex-col gap-5">
+        <div
+          class="flex items-center gap-3 font-serif text-[20px] leading-[25px] text-brand-blue"
+        >
+          <time :datetime="p.date">{{ dt.toArticle(p.date) }}</time>
+          <span class="h-2 w-2 rounded-full bg-brand-blue" aria-hidden="true" />
+        </div>
+        <PreferredSourceButton />
       </div>
     </div>
   </section>
