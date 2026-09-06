@@ -1,5 +1,6 @@
 import { defineEventHandler, appendResponseHeaders } from "h3"
 import { dedent } from "ts-dedent"
+import { getSiteUrl } from "~/server/utils/siteUrl"
 
 const dateToday = new Date().toISOString().split("T")[0] // Example: current date
 
@@ -10,8 +11,7 @@ const sitemapEntriesConfig = [
 ]
 
 export default defineEventHandler(async (event) => {
-  const siteUrl = process.env.NUXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
-  const baseUrl = siteUrl.endsWith("/") ? siteUrl.slice(0, -1) : siteUrl
+  const baseUrl = getSiteUrl()
 
   // Generate <sitemap> entries from the static configuration
   const sitemapEntries = sitemapEntriesConfig

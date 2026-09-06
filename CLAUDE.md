@@ -111,6 +111,12 @@ npm run test:unit    # Form payload + validation unit tests
 npm run test:e2e     # Playwright tests
 ```
 
+## SEO / redirects (post–WordPress migration)
+
+- Legacy WP → Nuxt 301 map: `server/utils/legacyRedirects.ts` + `server/middleware/redirects.server.ts`
+- Production **must** set `NUXT_PUBLIC_SITE_URL=https://www.zofingen-treuhand.ch` on Vercel (canonicals, robots, sitemaps)
+- After deploy: GSC — remove `/sitemap_index.xml`, submit `/sitemaps.xml`, validate 404 fixes
+
 ## Form submissions (SendGrid + optional MailerLite)
 
 - UI: footer PDF popup (`_PdfHandbookForm.vue`), `/kontakt` (`SectionContact.vue`)

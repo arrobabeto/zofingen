@@ -1,6 +1,7 @@
 <script setup lang="ts">
-  import { showError, useSeoMeta } from "#app"
+  import { navigateTo, showError, useSeoMeta } from "#app"
   import { useHead, useI18n, useRoute, useRuntimeConfig } from "#imports"
+  import slug from "slug"
   import { computed } from "vue"
   import { useTranslate } from "~/composables/useTranslate"
   import { useArticleToc } from "~/composables/useArticleToc"
@@ -20,11 +21,25 @@
   const config = useRuntimeConfig()
 
   const route = useRoute()
-  const id = route.params["id"]
+  const idParam = route.params["id"]
+  const id = Array.isArray(idParam) ? idParam[0] : idParam
+  const slugParam = route.params["slug"]
+  const routeSlug = Array.isArray(slugParam) ? slugParam[0] : slugParam
 
   const post: IPost = await $fetch("/api/posts", { query: { id } })
   if (!post)
     throw showError({ statusCode: 404, statusMessage: "Post not found" })
+
+  const title = t(post.title)
+  const canonicalSlug = slug(title)
+  const isGermanPage = route.path === "/de" || route.path.startsWith("/de/")
+  const enPath = `/posts/${post.id}/${canonicalSlug}`
+  const dePath = `/de${enPath}`
+  const canonicalPath = isGermanPage ? dePath : enPath
+
+  if (routeSlug && routeSlug !== canonicalSlug) {
+    await navigateTo(canonicalPath, { redirectCode: 301, replace: true })
+  }
 
   const contentSection = post.sections?.find(
     (s) => s._orbi?.component === "SectionArtikelContent",
@@ -35,15 +50,7 @@
   const { enrichedHtml, items: tocItems } = useArticleToc(rawContentHtml)
 
   const plainLead = fn.removeHtml(t(post.lead))
-
-  const isGermanPage = route.path === "/de" || route.path.startsWith("/de/")
-  const enPath = route.path.startsWith("/de/")
-    ? route.path.slice(3) || "/"
-    : route.path
-  const dePath = enPath === "/" ? "/de" : `/de${enPath}`
-  const canonicalPath = isGermanPage ? dePath : enPath
   const canonicalUrl = `${config.public.siteUrl}${canonicalPath}`
-  const title = t(post.title)
   const description = fn.truncateText(plainLead, 160)
   const heroImage = computed(() => post.img || "/img/artikel/hero-bg.png")
   const ogImage = config.public.ogImageEnabled

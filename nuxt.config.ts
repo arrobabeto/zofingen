@@ -50,7 +50,8 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      siteUrl: process.env.NUXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+      siteUrl:
+        process.env.NUXT_PUBLIC_SITE_URL ?? "https://www.zofingen-treuhand.ch",
       siteName:
         process.env.NUXT_PUBLIC_SITE_NAME ?? "Zofingen Treuhand AG",
       siteDescription:
