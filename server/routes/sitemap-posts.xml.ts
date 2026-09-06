@@ -15,8 +15,7 @@ type TPostRow = {
   created_at?: string
 }
 
-/** Legacy path kept for GSC (serves XML, does not redirect). */
-export default defineEventHandler(async (event) => {
+async function postsSitemapXml() {
   const baseUrl = getSiteUrl()
   const posts = await fetchCmsRows<TPostRow>(
     `SELECT id, title, updated_at, created_at FROM posts
@@ -27,10 +26,15 @@ export default defineEventHandler(async (event) => {
     path: postPathFromTitle(p.id, p.title),
     lastmod: p.updated_at ?? p.created_at,
   }))
+  return buildUrlsetXml(baseUrl, entries)
+}
 
+export default defineEventHandler(async (event) => {
   appendResponseHeaders(event, {
     "Content-Type": "application/xml; charset=utf-8",
     "Cache-Control": "public, max-age=3600",
   })
-  return buildUrlsetXml(baseUrl, entries)
+  return postsSitemapXml()
 })
+
+export { postsSitemapXml }

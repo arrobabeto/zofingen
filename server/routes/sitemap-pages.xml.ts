@@ -13,8 +13,7 @@ type TPageRow = {
   created_at?: string
 }
 
-/** Legacy path kept for GSC (serves XML, does not redirect). */
-export default defineEventHandler(async (event) => {
+async function pagesSitemapXml() {
   const baseUrl = getSiteUrl()
   const pages = await fetchCmsRows<TPageRow>(
     "SELECT slug, updated_at, created_at FROM pages ORDER BY slug",
@@ -23,10 +22,15 @@ export default defineEventHandler(async (event) => {
     path: pagePathFromSlug(p.slug),
     lastmod: p.updated_at ?? p.created_at,
   }))
+  return buildUrlsetXml(baseUrl, entries)
+}
 
+export default defineEventHandler(async (event) => {
   appendResponseHeaders(event, {
     "Content-Type": "application/xml; charset=utf-8",
     "Cache-Control": "public, max-age=3600",
   })
-  return buildUrlsetXml(baseUrl, entries)
+  return pagesSitemapXml()
 })
+
+export { pagesSitemapXml }
