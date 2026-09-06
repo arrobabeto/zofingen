@@ -1,15 +1,12 @@
 import { appendResponseHeaders, defineEventHandler } from "h3"
 import toSlug from "slug"
 import sanitizeHtml from "sanitize-html"
+import { getSiteUrl } from "~/server/utils/siteUrl"
 import type { IPage } from "~/types/dto/IPage"
 import type { IPost } from "~/types/dto/IPost"
 import type { I18nString } from "~/types/util/I18nString"
 
 type TLang = keyof I18nString
-
-function normalizeBaseUrl(url: string): string {
-  return url.endsWith("/") ? url.slice(0, -1) : url
-}
 
 function localize(value: string | I18nString, lang: TLang): string {
   if (typeof value === "string") return value
@@ -33,9 +30,7 @@ function toPostUrl(baseUrl: string, post: IPost): string {
 }
 
 export default defineEventHandler(async (event) => {
-  const baseUrl = normalizeBaseUrl(
-    process.env.NUXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
-  )
+  const baseUrl = getSiteUrl()
 
   const [pages, posts] = await Promise.all([
     $fetch<IPage[]>("/api/pages").catch(() => []),

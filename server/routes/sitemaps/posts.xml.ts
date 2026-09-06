@@ -1,6 +1,7 @@
 import { appendResponseHeaders, defineEventHandler } from "h3"
 import toSlug from "slug"
 import { dedent } from "ts-dedent"
+import { getSiteUrl } from "~/server/utils/siteUrl"
 import type { IPost } from "~/types/dto/IPost"
 import type { I18nString } from "~/types/util/I18nString"
 
@@ -15,10 +16,9 @@ type TIndexable = {
 const langs: TLang[] = ["en", "de"]
 
 export default defineEventHandler(async (event) => {
-  const siteUrl = process.env.NUXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
-  const baseUrl = siteUrl.endsWith("/") ? siteUrl.slice(0, -1) : siteUrl
+  const baseUrl = getSiteUrl()
 
-  const posts: IPost[] = await $fetch(baseUrl + "/api/posts", {
+  const posts: IPost[] = await $fetch("/api/posts", {
     query: {
       status: "published",
     },

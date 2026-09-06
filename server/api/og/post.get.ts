@@ -1,13 +1,11 @@
 import { ImageResponse } from "@vercel/og"
 import { defineEventHandler, getQuery } from "h3"
+import { getSiteUrl } from "~/server/utils/siteUrl"
 
 export default defineEventHandler(async (event) => {
   const query = getQuery(event)
   const siteName = process.env.NUXT_PUBLIC_SITE_NAME ?? "Zofingen Treuhand AG"
-  const siteUrl = (process.env.NUXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(
-    /\/$/,
-    "",
-  )
+  const siteUrl = getSiteUrl()
   const logoPath =
     process.env.NUXT_PUBLIC_OG_LOGO_PATH ?? "/img/home/logo-treuhand.png"
   const logoSrc = logoPath.startsWith("http") ? logoPath : `${siteUrl}${logoPath}`
