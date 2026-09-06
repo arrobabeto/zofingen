@@ -16,6 +16,9 @@ export default defineEventHandler(async (event) => {
 
     Allow: /robots.txt
     Allow: /sitemaps.xml
+    Allow: /sitemap-pages.xml
+    Allow: /sitemap-posts.xml
+    Allow: /sitemaps/
     Allow: /llms.txt
 
     Sitemap: ${baseUrl}/sitemaps.xml
