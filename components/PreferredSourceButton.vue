@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { computed, onMounted } from "vue"
-  import { useI18n, useRuntimeConfig } from "#imports"
+  import { useRuntimeConfig } from "#imports"
 
   const SCRIPT_URL = "https://news.google.com/swg/js/v1/publisher.js"
   const SCRIPT_ATTR = "data-zofingen-preferred-source"
@@ -20,16 +20,11 @@
   )
 
   const config = useRuntimeConfig()
-  const { locale } = useI18n()
 
   const enabled = computed(() => config.public.preferredSourceEnabled !== false)
 
-  const labels: Record<string, string> = {
-    de: "Zu bevorzugten Quellen hinzufügen",
-    en: "Add to preferred sources",
-  }
-
-  const label = computed(() => labels[locale.value] ?? labels.en)
+  // Site audience is DE; default i18n locale is "en" on unprefixed routes.
+  const label = "Zu bevorzugten Quellen hinzufügen"
 
   let addPreferredSource: (() => void) | null = null
 
@@ -67,7 +62,7 @@
     window.PREFERRED_SOURCE.push((preferredSource: PreferredSourceClient) => {
       preferredSource.init({
         theme: props.theme,
-        lang: locale.value === "de" ? "de" : "en",
+        lang: "de",
       })
       addPreferredSource = () => preferredSource.addPreferredSource()
     })
