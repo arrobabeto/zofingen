@@ -107,8 +107,12 @@ const sections = [
 ]
 
 const title = {
-  de: "Grundstückgewinnsteuern",
-  en: "Real Estate Capital Gains Tax",
+  de: "Grundstückgewinnsteuer im Aargau: Beratung",
+  en: "Grundstückgewinnsteuer im Aargau: Beratung",
+}
+const lead = {
+  de: "Beim Verkauf einer Liegenschaft die Grundstückgewinnsteuer korrekt deklarieren und Abzüge nutzen. Beratung durch Steuerfachleute in Zofingen.",
+  en: "Beim Verkauf einer Liegenschaft die Grundstückgewinnsteuer korrekt deklarieren und Abzüge nutzen. Beratung durch Steuerfachleute in Zofingen.",
 }
 const keywords = [
   "Grundstückgewinnsteuern",
@@ -138,11 +142,12 @@ async function sql(query, bindings) {
 async function run() {
   await sql("DELETE FROM pages WHERE slug = :slug", { slug })
   await sql(
-    "INSERT INTO pages (title, slug, sections, keywords) VALUES (:title::json, :slug, :sections::json, :keywords::json) RETURNING id, slug",
+    "INSERT INTO pages (title, slug, sections, keywords, lead) VALUES (:title::json, :slug, :sections::json, :keywords::json, :lead::json) RETURNING id, slug",
     {
       title: JSON.stringify(title),
       sections: JSON.stringify(sections),
       keywords: JSON.stringify(keywords),
+      lead: JSON.stringify(lead),
       slug,
     },
   )

@@ -142,8 +142,12 @@ const sections = [
 ]
 
 const title = {
-  de: "Externe Lohnbuchhaltung",
-  en: "External Payroll Accounting",
+  de: "Externe Lohnbuchhaltung für KMU im Aargau",
+  en: "Externe Lohnbuchhaltung für KMU im Aargau",
+}
+const lead = {
+  de: "Lohnabrechnungen, Sozialversicherungen und Quellensteuer korrekt und fristgerecht, ausgelagert an die Fachleute der Zofingen Treuhand AG.",
+  en: "Lohnabrechnungen, Sozialversicherungen und Quellensteuer korrekt und fristgerecht, ausgelagert an die Fachleute der Zofingen Treuhand AG.",
 }
 const keywords = [
   "Externe Lohnbuchhaltung",
@@ -171,11 +175,12 @@ async function sql(query, bindings) {
 async function run() {
   await sql("DELETE FROM pages WHERE slug = :slug", { slug })
   await sql(
-    "INSERT INTO pages (title, slug, sections, keywords) VALUES (:title::json, :slug, :sections::json, :keywords::json) RETURNING id, slug",
+    "INSERT INTO pages (title, slug, sections, keywords, lead) VALUES (:title::json, :slug, :sections::json, :keywords::json, :lead::json) RETURNING id, slug",
     {
       title: JSON.stringify(title),
       sections: JSON.stringify(sections),
       keywords: JSON.stringify(keywords),
+      lead: JSON.stringify(lead),
       slug,
     },
   )

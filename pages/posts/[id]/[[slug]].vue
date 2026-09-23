@@ -49,7 +49,27 @@
   const rawContentHtml = t(contentSource)
   const { enrichedHtml, items: tocItems } = useArticleToc(rawContentHtml)
 
-  const plainLead = fn.removeHtml(t(post.lead))
+  const plainLeadFromField = fn.removeHtml(t(post.lead)).trim()
+  const firstParagraphPlain = (() => {
+    const paragraphs = [
+      ...rawContentHtml.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/gi),
+    ].map((m) => fn.removeHtml(m[1]).trim())
+    const substantial = paragraphs.find((p) => {
+      if (!p || p.length < 80) return false
+      if (/^zuletzt aktualisiert/i.test(p)) return false
+      return true
+    })
+    return (
+      substantial ||
+      paragraphs.find((p) => p.length >= 40) ||
+      paragraphs[0] ||
+      ""
+    )
+  })()
+  const plainLead =
+    plainLeadFromField && plainLeadFromField !== "..."
+      ? plainLeadFromField
+      : firstParagraphPlain
   const canonicalUrl = `${config.public.siteUrl}${canonicalPath}`
   const description = fn.truncateText(plainLead, 160)
   const heroImage = computed(() => post.img || "/img/artikel/hero-bg.png")
@@ -72,15 +92,13 @@
     ogImage,
     ogUrl: canonicalUrl,
     ogSiteName: config.public.siteName,
-    ogLocale: locale.value === "de" ? "de_DE" : "en_US",
+    ogLocale: "de_CH",
     articlePublishedTime: post.created_at,
     articleModifiedTime: post.updated_at,
     twitterCard: "summary_large_image",
     twitterTitle: title,
     twitterDescription: description,
     twitterImage: ogImage,
-    twitterSite: config.public.twitterSite,
-    twitterCreator: config.public.twitterCreator,
   })
 
   useHead({

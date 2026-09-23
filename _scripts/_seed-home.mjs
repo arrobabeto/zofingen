@@ -27,7 +27,7 @@ const URL = env.ORBITYPE_API_SQL_URL
 const KEY = env.ORBITYPE_API_SQL_KEY
 const img = (name) => `/img/home/${name}`
 const CALENDLY_30 = "https://calendly.com/ph-bally/30min"
-const RECHNER = "/rechner"
+const KONTAKT = "/kontakt"
 
 const sections = [
   {
@@ -77,10 +77,10 @@ const sections = [
     _orbi: { component: "SectionCentered" },
   },
   {
-    title: "Berechnen Sie Ihre monatlichen\nBuchhaltungskosten",
-    body: "Möchten Sie Ihre Lohnabrechnung optimieren und von unserem professionellen Service profitieren? Buchen Sie jetzt Ihr persönliches Beratungsgespräch und machen Sie sich die Expertise von Zofingen Treuhand AG zu Nutze.",
-    ctaLabel: "Zum Preisrechner",
-    ctaHref: RECHNER,
+    title: "Was kostet Ihre Buchhaltung?",
+    body: "Sie erhalten von uns eine transparente Offerte, abgestimmt auf Umfang und Belegmenge Ihres Unternehmens.",
+    ctaLabel: "Offerte anfragen",
+    ctaHref: KONTAKT,
     _orbi: { component: "SectionCalculator" },
   },
   {
@@ -92,8 +92,8 @@ const sections = [
     badge: img("badge-steuerexperten.png"),
     intro: "Nach vielen Jahren Tätigkeit für Kanton und Gemeinden, habe ich es mir zur Aufgabe gemacht, meine Expertise direkt und persönlich in den Dienst von Menschen und Unternehmen zu stellen.\n\nMit dem Fokus auf die Zukunft biete ich Ihnen eine massgeschneiderte Treuhandberatung, die auf persönlicher Betreuung basiert – von Mensch zu Mensch.",
     credentials: [
-      "15 Jahre leitender Steuerkomissär Kanton Aargau",
-      "7 Jahre Leiter Steuern einer Komunalen Veranlagungsbehörde im Kt. Aargau",
+      "15 Jahre leitender Steuerkommissär Kanton Aargau",
+      "7 Jahre Leiter Steuern einer kommunalen Veranlagungsbehörde im Kanton Aargau",
       "7 Jahre Fachspezialist Steuern in verschiedenen Aargauer Gemeinden",
       "Abschluss Dipl. Treuhänder FA",
       "Abschluss Steuerexperte SSK",
@@ -169,11 +169,11 @@ const sections = [
     bullets: [
       {
         bold: "Wir planen zielgerichtet",
-        text: "– Jedes Problem hat eine Lösung, und mit unserer Fachkompetenz finden wir den besten Weg, es zu lösen. Egal, wie komplex die Herausforderung ist, wir entwickeln eine massgeschneiderte Strategie.",
+        text: ": Jedes Problem hat eine Lösung, und mit unserer Fachkompetenz finden wir den besten Weg, es zu lösen. Egal, wie komplex die Herausforderung ist, wir entwickeln eine massgeschneiderte Strategie.",
       },
       {
         bold: "Wir denken voraus",
-        text: "– Wir arbeiten proaktiv und sorgen dafür, dass Sie auch in der Zukunft optimal aufgestellt sind. Verlassen Sie sich auf uns – wir lassen Sie nicht im Stich, egal in welcher Phase.",
+        text: ": Wir arbeiten proaktiv und sorgen dafür, dass Sie auch in der Zukunft optimal aufgestellt sind. Verlassen Sie sich auf uns – wir lassen Sie nicht im Stich, egal in welcher Phase.",
       },
     ],
     members: [
@@ -181,7 +181,7 @@ const sections = [
         name: "Philippe Bally",
         role: "Dipl. Treuhänder & Steuerexperte",
         description:
-          "Mit über 20 Jahren Erfahrung in der Steuerberatung führt Philippe unser Team. Seine Expertise liegt in der Erstellung und Optimierung der Steuerstrategien für KMU's sowie in der Vertretung der Kunden vor Steuerbehörden.",
+          "Mit über 20 Jahren Erfahrung in der Steuerberatung führt Philippe unser Team. Seine Expertise liegt in der Erstellung und Optimierung der Steuerstrategien für KMU sowie in der Vertretung der Kunden vor Steuerbehörden.",
         image: img("team-philippe.png"),
       },
       {
@@ -239,7 +239,7 @@ const sections = [
   {
     image: img("problems-side.png"),
     video: RELIABILITY_VIDEO,
-    titleTop: "Unsere Zuverlässigkeit – für Ihre Zufriedenheit.",
+    titleTop: "Unsere Zuverlässigkeit – für Ihre Zufriedenheit. ",
     titleItalic: "Gemeinsam «steuern» wir\nSie in eine sichere Zukunft.",
     items: [
       "Unzureichendes Wissen oder fehlendes Verständnis für gesetzliche Vorschriften können zu Rechtsproblemen und Strafen führen.",
@@ -375,8 +375,12 @@ const sections = [
 ]
 
 const title = {
-  de: "Treuhand & Steuerberatung in Zofingen",
-  en: "Trust & Tax Consulting in Zofingen",
+  de: "Treuhand & Steuerberatung für KMU in Zofingen",
+  en: "Treuhand & Steuerberatung für KMU in Zofingen",
+}
+const lead = {
+  de: "Buchhaltung, Löhne, MWST und Steuern für KMU im Aargau, betreut von einem Team aus Treuhand- und Steuerfachleuten in Zofingen. Jetzt Erstgespräch vereinbaren.",
+  en: "Buchhaltung, Löhne, MWST und Steuern für KMU im Aargau, betreut von einem Team aus Treuhand- und Steuerfachleuten in Zofingen. Jetzt Erstgespräch vereinbaren.",
 }
 const keywords = [
   "Treuhand",
@@ -392,9 +396,10 @@ async function run() {
     method: "POST",
     headers: { "X-API-KEY": KEY, "Content-Type": "application/json" },
     body: JSON.stringify({
-      sql: "UPDATE pages SET title = :title::json, sections = :sections::json, keywords = :keywords::json, head = :head::json, updated_at = CURRENT_TIMESTAMP WHERE slug = :slug RETURNING id, slug",
+      sql: "UPDATE pages SET title = :title::json, lead = :lead::json, sections = :sections::json, keywords = :keywords::json, head = :head::json, updated_at = CURRENT_TIMESTAMP WHERE slug = :slug RETURNING id, slug",
       bindings: {
         title: JSON.stringify(title),
+        lead: JSON.stringify(lead),
         sections: JSON.stringify(sections),
         keywords: JSON.stringify(keywords),
         head: JSON.stringify({}),

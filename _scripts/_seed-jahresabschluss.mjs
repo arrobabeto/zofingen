@@ -24,8 +24,8 @@ const KEY = env.ORBITYPE_API_SQL_KEY
 const img = (name) => `/img/jahresabschluss/${name}`
 const CTA = "Rückruf vereinbaren"
 const CTA_HREF = "https://calendly.com/ph-bally/rueckruf-termin"
-const PRICE_CTA = "Zum Preisrechner"
-const PRICE_HREF = "/rechner"
+const PRICE_CTA = "Offerte anfragen"
+const PRICE_HREF = "/kontakt"
 
 const sections = [
   {
@@ -52,8 +52,8 @@ const sections = [
     _orbi: { component: "SectionServiceList" },
   },
   {
-    title: "Berechnen Sie Ihre monatlichen\nBuchhaltungskosten",
-    body: "Möchten Sie Ihre Lohnabrechnung optimieren und von unserem professionellen Service profitieren? Buchen Sie jetzt Ihr persönliches Beratungsgespräch und machen Sie sich die Expertise von Zofingen Treuhand AG zu Nutze.",
+    title: "Was kostet Ihre Buchhaltung?",
+    body: "Sie erhalten von uns eine transparente Offerte, abgestimmt auf Umfang und Belegmenge Ihres Unternehmens.",
     ctaLabel: PRICE_CTA,
     ctaHref: PRICE_HREF,
     dividers: false,
@@ -70,7 +70,7 @@ const sections = [
   },
   {
     title: "Kundenorientiert und massgeschneidert",
-    body: "Jedes Unternehmen ist einzigartig, so auch die finanziellen Bedürfnisse und Herausforderungen. Wir von der Zofingen Treuhand AG glauben an einen kundenorientierten Ansatz. Wir nehmen uns Zeit, Ihre spezifischen Bedürfnisse zu verstehen und bieten Ihnen massgeschneiderte Lösungen an, die auf Ihre Situation zugeschnitten sind. Unser Financial Services Experte und sein Team stehen Ihnen jederzeit für Fragen und Anliegen zur Verfügung.",
+    body: "Jedes Unternehmen ist einzigartig, so auch die finanziellen Bedürfnisse und Herausforderungen. Wir von der Zofingen Treuhand AG glauben an einen kundenorientierten Ansatz. Wir nehmen uns Zeit, Ihre spezifischen Bedürfnisse zu verstehen und bieten Ihnen massgeschneiderte Lösungen an, die auf Ihre Situation zugeschnitten sind. Unser Team steht Ihnen jederzeit für Fragen und Anliegen zur Verfügung.",
     image: img("tm-b.png"),
     ctaLabel: CTA,
     ctaHref: CTA_HREF,
@@ -78,7 +78,7 @@ const sections = [
   },
   {
     title: "Über Uns",
-    body: "Zofingen Treuhand AG steht für vollkommene und persönliche Zuverlässigkeit. Mit über 15 Jahren Erfahrung im Steuer- und Finanzbereich und zahlreichen renommierten Abschlüssen im Bildungswesen ist unser Inhaber Philippe Bally Ihr vertrauenswürdiger Partner für einen für Sie stressfreien Jahresabschluss.",
+    body: "Zofingen Treuhand AG steht für vollkommene und persönliche Zuverlässigkeit. Mit über 20 Jahren Erfahrung im Steuer- und Finanzbereich und zahlreichen renommierten Abschlüssen im Bildungswesen ist unser Inhaber Philippe Bally Ihr vertrauenswürdiger Partner für einen für Sie stressfreien Jahresabschluss.",
     ctaLabel: CTA,
     ctaHref: CTA_HREF,
     photo: img("philippe.png"),
@@ -119,8 +119,12 @@ const sections = [
 ]
 
 const title = {
-  de: "Jahresabschluss",
-  en: "Annual Financial Statements",
+  de: "Jahresabschluss für KMU in Zofingen und im Aargau",
+  en: "Jahresabschluss für KMU in Zofingen und im Aargau",
+}
+const lead = {
+  de: "Jahresabschluss, Steuerabschluss und Liquiditätsplanung für KMU, digital erstellt und begleitet bis zur Veranlagung.",
+  en: "Jahresabschluss, Steuerabschluss und Liquiditätsplanung für KMU, digital erstellt und begleitet bis zur Veranlagung.",
 }
 const keywords = [
   "Jahresabschluss",
@@ -145,11 +149,12 @@ async function sql(query, bindings) {
 async function run() {
   await sql("DELETE FROM pages WHERE slug = :slug", { slug: "jahresabschluss" })
   await sql(
-    "INSERT INTO pages (title, slug, sections, keywords) VALUES (:title::json, :slug, :sections::json, :keywords::json) RETURNING id, slug",
+    "INSERT INTO pages (title, slug, sections, keywords, lead) VALUES (:title::json, :slug, :sections::json, :keywords::json, :lead::json) RETURNING id, slug",
     {
       title: JSON.stringify(title),
       sections: JSON.stringify(sections),
       keywords: JSON.stringify(keywords),
+      lead: JSON.stringify(lead),
       slug: "jahresabschluss",
     },
   )

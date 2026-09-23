@@ -142,8 +142,12 @@ const sections = [
 ]
 
 const title = {
-  de: "Firmengründung",
-  en: "Company Formation",
+  de: "Firmengründung in der Schweiz: GmbH und AG gründen",
+  en: "Firmengründung in der Schweiz: GmbH und AG gründen",
+}
+const lead = {
+  de: "Von der Rechtsform bis zum Handelsregistereintrag begleiten wir Ihre Firmengründung in der Schweiz. Mit kostenlosem Gründungshandbuch zum Download.",
+  en: "Von der Rechtsform bis zum Handelsregistereintrag begleiten wir Ihre Firmengründung in der Schweiz. Mit kostenlosem Gründungshandbuch zum Download.",
 }
 const keywords = [
   "Firmengründung",
@@ -168,11 +172,12 @@ async function sql(query, bindings) {
 async function run() {
   await sql("DELETE FROM pages WHERE slug = :slug", { slug: "firmengruendung" })
   await sql(
-    "INSERT INTO pages (title, slug, sections, keywords) VALUES (:title::json, :slug, :sections::json, :keywords::json) RETURNING id, slug",
+    "INSERT INTO pages (title, slug, sections, keywords, lead) VALUES (:title::json, :slug, :sections::json, :keywords::json, :lead::json) RETURNING id, slug",
     {
       title: JSON.stringify(title),
       sections: JSON.stringify(sections),
       keywords: JSON.stringify(keywords),
+      lead: JSON.stringify(lead),
       slug: "firmengruendung",
     },
   )
