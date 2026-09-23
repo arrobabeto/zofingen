@@ -57,13 +57,11 @@
     ogImage,
     ogUrl: canonicalUrl,
     ogSiteName: config.public.siteName,
-    ogLocale: locale.value === "de" ? "de_DE" : "en_US",
+    ogLocale: "de_CH",
     twitterCard: "summary_large_image",
     twitterTitle: t(page.title),
     twitterDescription: description,
     twitterImage: ogImage,
-    twitterSite: config.public.twitterSite,
-    twitterCreator: config.public.twitterCreator,
   })
 
   useHead({

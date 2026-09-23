@@ -65,9 +65,9 @@ export default defineNuxtConfig({
       defaultLocale:
         process.env.NUXT_PUBLIC_DEFAULT_LOCALE ??
         process.env.NUXT_PUBLIC_SITE_LOCALE ??
-        "en_US",
-      twitterSite: process.env.NUXT_PUBLIC_TWITTER_SITE ?? "@orbitype",
-      twitterCreator: process.env.NUXT_PUBLIC_TWITTER_CREATOR ?? "@orbitype",
+        "de_CH",
+      twitterSite: process.env.NUXT_PUBLIC_TWITTER_SITE ?? "",
+      twitterCreator: process.env.NUXT_PUBLIC_TWITTER_CREATOR ?? "",
       ogImageEnabled: process.env.NUXT_PUBLIC_OG_IMAGE_ENABLED !== "false",
       commentsEnabled: process.env.NUXT_PUBLIC_COMMENTS_ENABLED === "true",
       gtmId,

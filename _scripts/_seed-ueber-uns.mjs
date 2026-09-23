@@ -52,7 +52,7 @@ const sections = [
         name: "Philippe Bally",
         role: "Dipl. Treuhänder & Steuerexperte",
         description:
-          "Mit über 20 Jahren Erfahrung in der Steuerberatung führt Philippe unser Team. Seine Expertise liegt in der Erstellung und Optimierung der Steuerstrategien für KMU’s sowie in der Vertretung der Kunden vor Steuerbehörden.",
+          "Mit über 20 Jahren Erfahrung in der Steuerberatung führt Philippe unser Team. Seine Expertise liegt in der Erstellung und Optimierung der Steuerstrategien für KMU sowie in der Vertretung der Kunden vor Steuerbehörden.",
         image: img("philippe.png"),
       },
       {
@@ -128,8 +128,12 @@ const sections = [
 ]
 
 const title = {
-  de: "Über uns",
-  en: "Über uns",
+  de: "Über uns: Das Team der Zofingen Treuhand AG",
+  en: "Über uns: Das Team der Zofingen Treuhand AG",
+}
+const lead = {
+  de: "Lernen Sie das Team der Zofingen Treuhand AG kennen: Treuhand-, Steuer- und Buchhaltungsfachleute in der Altstadt von Zofingen.",
+  en: "Lernen Sie das Team der Zofingen Treuhand AG kennen: Treuhand-, Steuer- und Buchhaltungsfachleute in der Altstadt von Zofingen.",
 }
 const keywords = [
   "Über uns",
@@ -158,11 +162,12 @@ async function sql(query, bindings) {
 async function run() {
   await sql("DELETE FROM pages WHERE slug = :slug", { slug })
   await sql(
-    "INSERT INTO pages (title, slug, sections, keywords) VALUES (:title::json, :slug, :sections::json, :keywords::json) RETURNING id, slug",
+    "INSERT INTO pages (title, slug, sections, keywords, lead) VALUES (:title::json, :slug, :sections::json, :keywords::json, :lead::json) RETURNING id, slug",
     {
       title: JSON.stringify(title),
       sections: JSON.stringify(sections),
       keywords: JSON.stringify(keywords),
+      lead: JSON.stringify(lead),
       slug,
     },
   )

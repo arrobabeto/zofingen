@@ -34,7 +34,11 @@
       label: "Kirchplatz 4 4800 Zofingen",
       href: "https://maps.google.com/?q=Kirchplatz+4+4800+Zofingen",
     },
-    { icon: "linkedin", label: "Vernetzen mit Linkedin", href: "https://www.linkedin.com" },
+    {
+      icon: "linkedin",
+      label: "Vernetzen auf LinkedIn",
+      href: "https://www.linkedin.com/company/zofingen-treuhand-ag/",
+    },
   ] as const
 
   const dienstleistungen = [
@@ -48,9 +52,9 @@
   ]
 
   const rechtliches = [
-    { label: "Datenschutzinformationen", href: "#" },
-    { label: "Impressum", href: "#" },
-    { label: "AGB's", href: "#" },
+    { label: "Datenschutzinformationen", to: "/datenschutz" },
+    { label: "Impressum", to: "/impressum" },
+    { label: "AGB's", to: "/agb" },
   ]
 
   const weiteres = [
@@ -85,7 +89,12 @@
           <h3 class="mb-4 font-serif text-[24px] font-bold text-brand-blue">Kontakt</h3>
           <ul class="flex flex-col gap-[11px] font-serif text-[18px] leading-[25px] text-brand-blue">
             <li v-for="x of kontakt" :key="x.label">
-              <a :href="x.href" class="flex items-center gap-3 hover:underline">
+              <a
+                :href="x.href"
+                class="flex items-center gap-3 hover:underline"
+                :target="x.href.startsWith('http') ? '_blank' : undefined"
+                :rel="x.href.startsWith('http') ? 'noopener' : undefined"
+              >
                 <svg
                   v-if="x.icon === 'phone'"
                   class="h-5 w-5 shrink-0"
@@ -151,7 +160,13 @@
           <h3 class="mb-4 font-serif text-[24px] font-bold text-brand-blue">Rechtliches</h3>
           <ul class="flex flex-col gap-[11px] font-serif text-[18px] leading-[25px] text-brand-blue">
             <li v-for="x of rechtliches" :key="x.label">
-              <a :href="x.href" class="hover:underline">{{ x.label }}</a>
+              <NuxtLinkLocale
+                v-if="x.to"
+                :to="x.to"
+                class="hover:underline"
+                >{{ x.label }}</NuxtLinkLocale
+              >
+              <a v-else :href="x.href" class="hover:underline">{{ x.label }}</a>
             </li>
           </ul>
         </div>

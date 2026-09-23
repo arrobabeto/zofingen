@@ -199,8 +199,12 @@ const sections = [
 ]
 
 const title = {
-  de: "Links",
-  en: "Links",
+  de: "Links zu Treuhand, Steuern und Partnern",
+  en: "Links zu Treuhand, Steuern und Partnern",
+}
+const lead = {
+  de: "Hier finden Sie alle wichtigen Links zu unseren Dienstleistungen, Beratungen und Ressourcen. Entdecken Sie alles, was Sie brauchen, an einem einzigen Ort.",
+  en: "Hier finden Sie alle wichtigen Links zu unseren Dienstleistungen, Beratungen und Ressourcen. Entdecken Sie alles, was Sie brauchen, an einem einzigen Ort.",
 }
 const keywords = [
   "Links",
@@ -228,11 +232,12 @@ async function sql(query, bindings) {
 async function run() {
   await sql("DELETE FROM pages WHERE slug = :slug", { slug })
   await sql(
-    "INSERT INTO pages (title, slug, sections, keywords) VALUES (:title::json, :slug, :sections::json, :keywords::json) RETURNING id, slug",
+    "INSERT INTO pages (title, slug, sections, keywords, lead) VALUES (:title::json, :slug, :sections::json, :keywords::json, :lead::json) RETURNING id, slug",
     {
       title: JSON.stringify(title),
       sections: JSON.stringify(sections),
       keywords: JSON.stringify(keywords),
+      lead: JSON.stringify(lead),
       slug,
     },
   )

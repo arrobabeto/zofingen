@@ -112,8 +112,12 @@ const sections = [
 ]
 
 const title = {
-  de: "Steuern für Privatpersonen",
-  en: "Taxes for Individuals",
+  de: "Steuererklärung für Privatpersonen in Zofingen",
+  en: "Steuererklärung für Privatpersonen in Zofingen",
+}
+const lead = {
+  de: "Wir erstellen Ihre Steuererklärung im Kanton Aargau vollständig und fristgerecht, mit Steuerexpertise aus der Veranlagungspraxis.",
+  en: "Wir erstellen Ihre Steuererklärung im Kanton Aargau vollständig und fristgerecht, mit Steuerexpertise aus der Veranlagungspraxis.",
 }
 const keywords = [
   "Steuern",
@@ -143,11 +147,12 @@ async function sql(query, bindings) {
 async function run() {
   await sql("DELETE FROM pages WHERE slug = :slug", { slug })
   await sql(
-    "INSERT INTO pages (title, slug, sections, keywords) VALUES (:title::json, :slug, :sections::json, :keywords::json) RETURNING id, slug",
+    "INSERT INTO pages (title, slug, sections, keywords, lead) VALUES (:title::json, :slug, :sections::json, :keywords::json, :lead::json) RETURNING id, slug",
     {
       title: JSON.stringify(title),
       sections: JSON.stringify(sections),
       keywords: JSON.stringify(keywords),
+      lead: JSON.stringify(lead),
       slug,
     },
   )

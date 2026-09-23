@@ -126,8 +126,12 @@ const sections = [
 ]
 
 const title = {
-  de: "KMU Dienstleistungen",
-  en: "SME Services",
+  de: "Treuhand für KMU: Buchhaltung, Löhne & Beratung",
+  en: "Treuhand für KMU: Buchhaltung, Löhne & Beratung",
+}
+const lead = {
+  de: "Buchhaltung, Lohnadministration, Budgetierung und Nachfolgeberatung für KMU im Aargau. Ein festes Fachteam in Zofingen übernimmt Ihre Finanzadministration.",
+  en: "Buchhaltung, Lohnadministration, Budgetierung und Nachfolgeberatung für KMU im Aargau. Ein festes Fachteam in Zofingen übernimmt Ihre Finanzadministration.",
 }
 const keywords = [
   "KMU",
@@ -152,11 +156,12 @@ async function sql(query, bindings) {
 async function run() {
   await sql("DELETE FROM pages WHERE slug = :slug", { slug: "kmu" })
   await sql(
-    "INSERT INTO pages (title, slug, sections, keywords) VALUES (:title::json, :slug, :sections::json, :keywords::json) RETURNING id, slug",
+    "INSERT INTO pages (title, slug, sections, keywords, lead) VALUES (:title::json, :slug, :sections::json, :keywords::json, :lead::json) RETURNING id, slug",
     {
       title: JSON.stringify(title),
       sections: JSON.stringify(sections),
       keywords: JSON.stringify(keywords),
+      lead: JSON.stringify(lead),
       slug: "kmu",
     },
   )

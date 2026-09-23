@@ -64,7 +64,7 @@ export const LEGACY_REDIRECTS: Record<string, string> = {
   "/tag/sozialversicherung": "/artikel",
   "/feed": "/artikel",
   "/rechner": "/jahresabschluss",
-  "/agbs": "/kontakt",
+  "/agbs": "/agb",
   "/teamleiter-treuhand-pensum-80-100": "/ueber-uns",
 }
 

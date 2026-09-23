@@ -114,8 +114,12 @@ const sections = [
 ]
 
 const title = {
-  de: "Unabhängige Vorsorge und Pensionsplanung",
-  en: "Independent Pension Planning",
+  de: "Unabhängige Pensions- und Vorsorgeplanung im Aargau",
+  en: "Unabhängige Pensions- und Vorsorgeplanung im Aargau",
+}
+const lead = {
+  de: "Unabhängige Beratung zu Pensionierung, AHV, Pensionskasse und Säule 3a, steuerlich durchdacht geplant.",
+  en: "Unabhängige Beratung zu Pensionierung, AHV, Pensionskasse und Säule 3a, steuerlich durchdacht geplant.",
 }
 const keywords = [
   "Vorsorge",
@@ -145,11 +149,12 @@ async function sql(query, bindings) {
 async function run() {
   await sql("DELETE FROM pages WHERE slug = :slug", { slug })
   await sql(
-    "INSERT INTO pages (title, slug, sections, keywords) VALUES (:title::json, :slug, :sections::json, :keywords::json) RETURNING id, slug",
+    "INSERT INTO pages (title, slug, sections, keywords, lead) VALUES (:title::json, :slug, :sections::json, :keywords::json, :lead::json) RETURNING id, slug",
     {
       title: JSON.stringify(title),
       sections: JSON.stringify(sections),
       keywords: JSON.stringify(keywords),
+      lead: JSON.stringify(lead),
       slug,
     },
   )

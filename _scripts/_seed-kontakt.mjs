@@ -53,8 +53,12 @@ const sections = [
 ]
 
 const title = {
-  de: "Kontakt",
-  en: "Contact",
+  de: "Kontakt: Zofingen Treuhand AG in Zofingen",
+  en: "Kontakt: Zofingen Treuhand AG in Zofingen",
+}
+const lead = {
+  de: "Zofingen Treuhand AG, Kirchplatz 4, 4800 Zofingen, Telefon 062 745 70 30. Vereinbaren Sie ein Erstgespräch mit unserem Team.",
+  en: "Zofingen Treuhand AG, Kirchplatz 4, 4800 Zofingen, Telefon 062 745 70 30. Vereinbaren Sie ein Erstgespräch mit unserem Team.",
 }
 const keywords = [
   "Kontakt",
@@ -82,11 +86,12 @@ async function sql(query, bindings) {
 async function run() {
   await sql("DELETE FROM pages WHERE slug = :slug", { slug })
   await sql(
-    "INSERT INTO pages (title, slug, sections, keywords) VALUES (:title::json, :slug, :sections::json, :keywords::json) RETURNING id, slug",
+    "INSERT INTO pages (title, slug, sections, keywords, lead) VALUES (:title::json, :slug, :sections::json, :keywords::json, :lead::json) RETURNING id, slug",
     {
       title: JSON.stringify(title),
       sections: JSON.stringify(sections),
       keywords: JSON.stringify(keywords),
+      lead: JSON.stringify(lead),
       slug,
     },
   )
