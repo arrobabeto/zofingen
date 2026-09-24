@@ -22,7 +22,7 @@ const KEY = env.ORBITYPE_API_SQL_KEY
 
 const contentHtml = `
 <h2>Website-Betreiber</h2>
-<p><strong>Bexolutions GmbH</strong><br />Wiesenstrasse 10a<br />8952 Schlieren</p>
+<p><strong>Bexolutions Marketing und Vertrieb AG</strong><br />Fabrikweg 1a<br />5502 Hunzenschwil<br />Schweiz<br />E-Mail: <a href="mailto:info@bexolutions.ch">info@bexolutions.ch</a><br />Tel.: <a href="tel:+41783313777">078 331 37 77</a></p>
 
 <h2>Inhaltlich Verantwortlicher gemäß § 5 TMG</h2>
 <p><strong>Zofingen Treuhand AG</strong><br />Kirchplatz 4<br />4800 Zofingen</p>
