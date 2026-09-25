@@ -21,20 +21,30 @@ const URL = env.ORBITYPE_API_SQL_URL
 const KEY = env.ORBITYPE_API_SQL_KEY
 
 const contentHtml = `
-<h2>Website-Betreiber</h2>
-<p><strong>Bexolutions Marketing und Vertrieb AG</strong><br />Fabrikweg 1a<br />5502 Hunzenschwil<br />Schweiz<br />E-Mail: <a href="mailto:info@bexolutions.ch">info@bexolutions.ch</a><br />Tel.: <a href="tel:+41783313777">078 331 37 77</a></p>
-
-<h2>Inhaltlich Verantwortlicher gemäß § 5 TMG</h2>
-<p><strong>Zofingen Treuhand AG</strong><br />Kirchplatz 4<br />4800 Zofingen</p>
-
-<h2>Kontakt</h2>
+<h2>Verantwortlich für diese Website</h2>
+<p><strong>Zofingen Treuhand AG</strong><br />Kirchplatz 4<br />4800 Zofingen<br />Schweiz</p>
 <p>Telefon: <a href="tel:+41627457030">062 745 70 30</a><br />E-Mail: <a href="mailto:kontakt@zofingen-treuhand.ch">kontakt@zofingen-treuhand.ch</a></p>
+<p>Vertretungsberechtigte Person: Philippe Bally, Inhaber und Geschäftsführer</p>
+<p>UID-Nummer: CHE-434.979.980<br />Eingetragen im Handelsregister des Kantons Aargau</p>
+
+<h2>Mitgliedschaften</h2>
+<p>Mitglied von TREUHAND|SUISSE, Schweizerischer Treuhänderverband<br />Anerkannter Lehrbetrieb</p>
 
 <h2>Haftung für Inhalte</h2>
-<p>Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen. Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.</p>
+<p>Wir erstellen die Inhalte dieser Website mit grösstmöglicher Sorgfalt und bemühen uns, sie aktuell und vollständig zu halten. Für die Richtigkeit, Vollständigkeit und Aktualität der Informationen können wir jedoch keine Gewähr übernehmen. Die Inhalte stellen keine verbindliche Beratung dar. Für eine verbindliche Auskunft zu Ihrer konkreten Situation kontaktieren Sie uns bitte direkt.</p>
+<p>Haftungsansprüche wegen Schäden materieller oder immaterieller Art, die aus dem Zugriff auf diese Website oder aus deren Nutzung entstehen, sind ausgeschlossen, soweit kein Vorsatz oder keine grobe Fahrlässigkeit vorliegt.</p>
+
+<h2>Haftung für Links</h2>
+<p>Diese Website enthält Verweise auf Websites Dritter. Für deren Inhalte sind ausschliesslich die jeweiligen Anbieter verantwortlich. Zum Zeitpunkt der Verlinkung waren keine rechtswidrigen Inhalte erkennbar. Werden uns Rechtsverletzungen bekannt, entfernen wir die entsprechenden Links umgehend.</p>
 
 <h2>Urheberrecht</h2>
-<p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem schweizerischen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers. Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet. Soweit die Inhalte auf dieser Seite nicht vom Betreiber erstellt wurden, werden die Urheberrechte Dritter beachtet. Insbesondere werden Inhalte Dritter als solche gekennzeichnet. Sollten Sie trotzdem auf eine Urheberrechtsverletzung aufmerksam werden, bitten wir um einen entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Inhalte umgehend entfernen.</p>
+<p>Die auf dieser Website veröffentlichten Inhalte, Texte, Bilder und Grafiken unterliegen dem schweizerischen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung oder jede Art der Verwertung ausserhalb der Grenzen des Urheberrechts bedarf der schriftlichen Zustimmung der Zofingen Treuhand AG. Downloads und Kopien dieser Website sind nur für den privaten, nicht kommerziellen Gebrauch gestattet. Inhalte Dritter sind als solche gekennzeichnet.</p>
+
+<h2>Datenschutz</h2>
+<p>Informationen zur Bearbeitung von Personendaten finden Sie in unserer <a href="/datenschutz">Datenschutzerklärung</a>.</p>
+
+<h2>Realisierung</h2>
+<p>Bexolutions Marketing und Vertrieb AG, Hunzenschwil</p>
 `.trim()
 
 const sections = [
@@ -57,8 +67,8 @@ const title = {
   en: "Impressum",
 }
 const lead = {
-  de: "Impressum der Zofingen Treuhand AG – Website-Betreiber, Verantwortlicher und Kontakt.",
-  en: "Impressum der Zofingen Treuhand AG – Website-Betreiber, Verantwortlicher und Kontakt.",
+  de: "Impressum der Zofingen Treuhand AG – Verantwortlicher, Haftung, Urheberrecht und Kontakt.",
+  en: "Impressum der Zofingen Treuhand AG – Verantwortlicher, Haftung, Urheberrecht und Kontakt.",
 }
 const keywords = [
   "Impressum",
@@ -66,6 +76,7 @@ const keywords = [
   "Kontakt",
   "Haftung",
   "Urheberrecht",
+  "Handelsregister",
 ]
 
 const slug = "impressum"
