@@ -54,7 +54,7 @@
   const rechtliches = [
     { label: "Datenschutzinformationen", to: "/datenschutz" },
     { label: "Impressum", to: "/impressum" },
-    { label: "AGB's", to: "/agb" },
+    { label: "AGB", to: "/agb" },
   ]
 
   const weiteres = [
