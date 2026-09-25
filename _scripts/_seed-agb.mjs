@@ -57,7 +57,7 @@ const contentHtml = `
 
 const sections = [
   {
-    title: "AGB's",
+    title: "AGB",
     image: HERO_IMAGE,
     _orbi: { component: "SectionPageHero" },
   },
@@ -71,8 +71,8 @@ const sections = [
 ]
 
 const title = {
-  de: "AGB's",
-  en: "AGB's",
+  de: "AGB",
+  en: "AGB",
 }
 const lead = {
   de: "Allgemeine Geschäftsbedingungen der Zofingen Treuhand AG.",

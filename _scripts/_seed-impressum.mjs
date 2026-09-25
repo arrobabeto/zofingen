@@ -67,8 +67,8 @@ const title = {
   en: "Impressum",
 }
 const lead = {
-  de: "Impressum der Zofingen Treuhand AG – Verantwortlicher, Haftung, Urheberrecht und Kontakt.",
-  en: "Impressum der Zofingen Treuhand AG – Verantwortlicher, Haftung, Urheberrecht und Kontakt.",
+  de: "Impressum der Zofingen Treuhand AG mit Kontaktangaben, Handelsregistereintrag und rechtlichen Hinweisen.",
+  en: "Impressum der Zofingen Treuhand AG mit Kontaktangaben, Handelsregistereintrag und rechtlichen Hinweisen.",
 }
 const keywords = [
   "Impressum",
