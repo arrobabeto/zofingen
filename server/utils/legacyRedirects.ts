@@ -49,6 +49,8 @@ export const LEGACY_REDIRECTS: Record<string, string> = {
   "/soll-ich-eine-immobilien-ag-oder-immobilien-gmbh-gruenden":
     "/posts/4FLWqB/immobilien-ag-oder-immobilien-gmbh-grunden-und-steuern-sparen",
   "/unser-team-waechst": "/posts/UY7Jct/unser-team-wachst",
+  "/mitarbeiterbeteiligung-steuern":
+    "/posts/DTFmb1/mitarbeiterbeteiligung-und-steuern-in-der-schweiz-der-vollstandige-leitfaden-fur-kmu",
 
   // Service pages (WP /dienstleistungen/... → flat Nuxt slugs)
   "/dienstleistungen/externe-lohnbuchhaltung": "/externe-lohnbuchhaltung",
