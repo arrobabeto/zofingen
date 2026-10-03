@@ -23,7 +23,6 @@
 
   const enabled = computed(() => config.public.preferredSourceEnabled !== false)
 
-  // Site audience is DE; default i18n locale is "en" on unprefixed routes.
   const label = "Zu bevorzugten Quellen hinzufügen"
 
   let addPreferredSource: (() => void) | null = null

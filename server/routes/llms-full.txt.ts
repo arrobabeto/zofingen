@@ -44,7 +44,7 @@ function toPageUrl(baseUrl: string, page: IPage): string {
 }
 
 function toPostUrl(baseUrl: string, post: IPost): string {
-  const slug = toSlug(localize(post.title, "en"))
+  const slug = toSlug(localize(post.title, "de"))
   return `${baseUrl}/posts/${post.id}/${slug}`
 }
 
@@ -77,10 +77,10 @@ export default defineEventHandler(async (event) => {
     lines.push("## Pages")
     lines.push("")
     for (const page of pages) {
-      const title = localize(page.title, "en")
-      const lead = localize(page.lead, "en")
+      const title = localize(page.title, "de")
+      const lead = localize(page.lead, "de")
       const url = toPageUrl(baseUrl, page)
-      const sectionText = extractText(page.sections, "en")
+      const sectionText = extractText(page.sections, "de")
         .slice(0, 12)
         .join("\n")
       lines.push(`### ${title}`)
@@ -95,11 +95,11 @@ export default defineEventHandler(async (event) => {
     lines.push("## Posts")
     lines.push("")
     for (const post of posts) {
-      const title = localize(post.title, "en")
+      const title = localize(post.title, "de")
       const url = toPostUrl(baseUrl, post)
       lines.push(`### ${title}`)
       lines.push(`URL: ${url}`)
-      const lead = localize(post.lead as any, "en")
+      const lead = localize(post.lead as any, "de")
       if (lead) lines.push(`Summary: ${normalizeText(lead)}`)
       lines.push("")
     }

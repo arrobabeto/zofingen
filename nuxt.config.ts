@@ -43,9 +43,9 @@ export default defineNuxtConfig({
     },
   },
   i18n: {
-    defaultLocale: "en",
-    locales: ["en", "de"],
-    strategy: "prefix_except_default",
+    defaultLocale: "de",
+    locales: ["de"],
+    strategy: "no_prefix",
     detectBrowserLanguage: false,
   },
   runtimeConfig: {
