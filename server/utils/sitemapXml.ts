@@ -1,15 +1,11 @@
 import toSlug from "slug"
 import type { I18nString } from "~/types/util/I18nString"
 
-type TLang = "en" | "de"
-
 export type TSitemapEntry = {
-  /** Path without locale prefix, e.g. "" | "kontakt" | "posts/abc/slug" */
+  /** Path relative to the site root, e.g. "" | "kontakt" | "posts/abc/slug" */
   path: string
   lastmod?: string
 }
-
-const LANGS: TLang[] = ["en", "de"]
 
 function escapeXml(value: string): string {
   return value
@@ -20,10 +16,9 @@ function escapeXml(value: string): string {
     .replace(/'/g, "&apos;")
 }
 
-function absoluteUrl(baseUrl: string, lang: TLang, path: string): string {
+function absoluteUrl(baseUrl: string, path: string): string {
   const normalized = path.replace(/^\/+|\/+$/g, "")
   const parts = [baseUrl.replace(/\/$/, "")]
-  if (lang === "de") parts.push("de")
   if (normalized) parts.push(normalized)
   return parts.join("/")
 }
@@ -33,7 +28,7 @@ function lastmodDate(value?: string): string {
   return value.includes("T") ? value.slice(0, 10) : value
 }
 
-/** Compact urlset — single-line tags for reliable GSC parsing. */
+/** Compact urlset (German-only site, one URL per entry) for reliable GSC parsing. */
 export function buildUrlsetXml(
   baseUrl: string,
   entries: TSitemapEntry[],
@@ -41,20 +36,13 @@ export function buildUrlsetXml(
 ): string {
   const urls = entries
     .map((entry) => {
+      const loc = absoluteUrl(baseUrl, entry.path)
       const lastmod = lastmodDate(entry.lastmod)
-      return LANGS.map((lang) => {
-        const loc = absoluteUrl(baseUrl, lang, entry.path)
-        const alternates = LANGS.map(
-          (l) =>
-            `<xhtml:link rel="alternate" hreflang="${l}" href="${escapeXml(absoluteUrl(baseUrl, l, entry.path))}"/>`,
-        ).join("")
-        const xDefault = `<xhtml:link rel="alternate" hreflang="x-default" href="${escapeXml(absoluteUrl(baseUrl, "en", entry.path))}"/>`
-        return `<url><loc>${escapeXml(loc)}</loc><lastmod>${lastmod}</lastmod>${alternates}${xDefault}</url>`
-      }).join("")
+      return `<url><loc>${escapeXml(loc)}</loc><lastmod>${lastmod}</lastmod></url>`
     })
     .join("")
 
-  return `<?xml version="1.0" encoding="UTF-8"?>\n<?xml-stylesheet type="text/xsl" href="${stylesheetHref}"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">${urls}</urlset>\n`
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<?xml-stylesheet type="text/xsl" href="${stylesheetHref}"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls}</urlset>\n`
 }
 
 export function buildSitemapIndexXml(

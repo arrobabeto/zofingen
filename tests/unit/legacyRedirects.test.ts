@@ -40,11 +40,29 @@ describe("resolveLegacyRedirect", () => {
     assert.equal(resolveLegacyRedirect("/feed/"), "/artikel")
   })
 
-  it("maps de-prefixed legacy paths", () => {
+  it("maps de-prefixed legacy paths to the unprefixed target in one hop", () => {
     assert.equal(
       resolveLegacyRedirect("/de/dienstleistungen/firmengruendung/"),
-      "/de/firmengruendung",
+      "/firmengruendung",
     )
+    assert.equal(
+      resolveLegacyRedirect("/de/auslandsimmobilien-steuern-schweiz-deutschland/"),
+      "/posts/1kA8cC/immobilie-in-deutschland-wohnsitz-schweiz-steuern-richtig-verstehen",
+    )
+  })
+
+  it("strips the /de prefix from current pages and posts", () => {
+    assert.equal(resolveLegacyRedirect("/de"), "/")
+    assert.equal(resolveLegacyRedirect("/de/"), "/")
+    assert.equal(resolveLegacyRedirect("/de/kontakt/"), "/kontakt")
+    assert.equal(
+      resolveLegacyRedirect("/de/posts/1kA8cC/x"),
+      "/posts/1kA8cC/x",
+    )
+  })
+
+  it("keeps legacy /de sitemaps serving XML", () => {
+    assert.equal(resolveLegacyRedirect("/de/sitemaps.xml"), null)
   })
 
   it("returns null for current valid pages", () => {

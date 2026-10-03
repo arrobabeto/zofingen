@@ -23,14 +23,17 @@ describe("sitemapXml", () => {
     )
   })
 
-  it("builds compact urlset with en/de and x-default", () => {
+  it("builds compact single-language urlset without /de or hreflang", () => {
     const xml = buildUrlsetXml("https://www.zofingen-treuhand.ch", [
+      { path: "", lastmod: "2026-09-06T12:00:00.000Z" },
       { path: "kontakt", lastmod: "2026-09-06T12:00:00.000Z" },
     ])
     assert.match(xml, /xml-stylesheet/)
+    assert.match(xml, /<loc>https:\/\/www\.zofingen-treuhand\.ch<\/loc>/)
     assert.match(xml, /<loc>https:\/\/www\.zofingen-treuhand\.ch\/kontakt<\/loc>/)
-    assert.match(xml, /<loc>https:\/\/www\.zofingen-treuhand\.ch\/de\/kontakt<\/loc>/)
-    assert.match(xml, /hreflang="x-default"/)
+    assert.equal(xml.match(/<url>/g)?.length, 2)
+    assert.doesNotMatch(xml, /\/de\//)
+    assert.doesNotMatch(xml, /hreflang/)
     assert.doesNotMatch(xml, /localhost/)
   })
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { navigateTo, showError, useSeoMeta } from "#app"
-  import { useHead, useI18n, useRoute, useRuntimeConfig } from "#imports"
+  import { useHead, useRoute, useRuntimeConfig } from "#imports"
   import slug from "slug"
   import { computed } from "vue"
   import { useTranslate } from "~/composables/useTranslate"
@@ -17,7 +17,6 @@
   import { generateOGImageUrl } from "~/utils/ogImageGenerator"
 
   const t = useTranslate()
-  const { locale } = useI18n()
   const config = useRuntimeConfig()
 
   const route = useRoute()
@@ -32,10 +31,7 @@
 
   const title = t(post.title)
   const canonicalSlug = slug(title)
-  const isGermanPage = route.path === "/de" || route.path.startsWith("/de/")
-  const enPath = `/posts/${post.id}/${canonicalSlug}`
-  const dePath = `/de${enPath}`
-  const canonicalPath = isGermanPage ? dePath : enPath
+  const canonicalPath = `/posts/${post.id}/${canonicalSlug}`
 
   if (routeSlug && routeSlug !== canonicalSlug) {
     await navigateTo(canonicalPath, { redirectCode: 301, replace: true })
@@ -102,12 +98,7 @@
   })
 
   useHead({
-    link: useCanonicalLinks({
-      canonicalPath,
-      enPath,
-      dePath,
-      xDefaultPath: enPath,
-    }),
+    link: useCanonicalLinks(canonicalPath),
     script: [
       {
         type: "application/ld+json",
@@ -118,7 +109,7 @@
           description,
           datePublished: post.created_at,
           dateModified: post.updated_at,
-          inLanguage: locale.value === "de" ? "de" : "en",
+          inLanguage: "de",
           url: canonicalUrl,
           image: {
             "@type": "ImageObject",

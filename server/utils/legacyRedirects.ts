@@ -84,25 +84,21 @@ export function normalizePath(pathname: string): string {
 
 /**
  * Resolve a legacy request path to a 301 target.
- * Also matches /de-prefixed variants when the unprefixed path is mapped.
+ * The site is German-only without locale prefix: /de and /de/* redirect to the
+ * unprefixed path (legacy paths resolve to their final target in one hop).
+ * Legacy /de/*.xml sitemaps keep serving XML for GSC.
  */
 export function resolveLegacyRedirect(pathname: string): string | null {
   const path = normalizePath(pathname)
   if (path === "/") return null
+  if (path === "/de") return "/"
 
-  const direct = LEGACY_REDIRECTS[path]
-  if (direct) return direct
+  const hasLocalePrefix = path.startsWith("/de/")
+  if (hasLocalePrefix && path.endsWith(".xml")) return null
 
-  if (path.startsWith("/de/")) {
-    const withoutLocale = path.slice(3)
-    const target = LEGACY_REDIRECTS[withoutLocale]
-    if (target) {
-      if (target.startsWith("/posts/") || target.startsWith("/downloads/")) {
-        return `/de${target}`
-      }
-      return `/de${target}`
-    }
-  }
+  const withoutLocale = hasLocalePrefix ? path.slice(3) : path
+  const target = LEGACY_REDIRECTS[withoutLocale]
+  if (target) return target
 
-  return null
+  return hasLocalePrefix ? withoutLocale : null
 }

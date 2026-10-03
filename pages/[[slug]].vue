@@ -1,12 +1,6 @@
 <script setup lang="ts">
   import { showError, useSeoMeta } from "#app"
-  import {
-    useHead,
-    useI18n,
-    useRoute,
-    useRuntimeConfig,
-    useTranslate,
-  } from "#imports"
+  import { useHead, useRoute, useRuntimeConfig, useTranslate } from "#imports"
   import AnySection from "~/components/sections/AnySection.vue"
   import { useCanonicalLinks } from "~/composables/useCanonicalLinks"
   import { fn } from "~/functions/fn"
@@ -14,16 +8,13 @@
   import { generateOGImageUrl } from "~/utils/ogImageGenerator"
 
   const t = useTranslate()
-  const { locale } = useI18n()
   const config = useRuntimeConfig()
 
   const route = useRoute()
   const routeSlug = route.params["slug"]
-  const currentSlug = Array.isArray(routeSlug)
+  const slug = Array.isArray(routeSlug)
     ? routeSlug[0] || "home"
     : routeSlug || "home"
-  const slug =
-    route.path === "/de" && currentSlug === "de" ? "home" : currentSlug
 
   const page: IPage = await $fetch("/api/pages", { query: { slug } })
   if (!page)
@@ -32,10 +23,7 @@
   const title = fn.truncateText(t(page.title), 60)
   const description = fn.truncateText(fn.removeHtml(t(page.lead)), 160)
   const keywords = Array.isArray(page.keywords) ? page.keywords.join(", ") : ""
-  const isGermanPage = route.path === "/de" || route.path.startsWith("/de/")
-  const enPath = page.slug === "home" ? "/" : `/${page.slug}`
-  const dePath = page.slug === "home" ? "/de" : `/de/${page.slug}`
-  const canonicalPath = isGermanPage ? dePath : enPath
+  const canonicalPath = page.slug === "home" ? "/" : `/${page.slug}`
   const canonicalUrl = `${config.public.siteUrl}${canonicalPath}`
   const ogImage = config.public.ogImageEnabled
     ? generateOGImageUrl({
@@ -65,12 +53,7 @@
   })
 
   useHead({
-    link: useCanonicalLinks({
-      canonicalPath,
-      enPath,
-      dePath,
-      xDefaultPath: enPath,
-    }),
+    link: useCanonicalLinks(canonicalPath),
     script: [
       {
         type: "application/ld+json",
@@ -82,7 +65,7 @@
           description,
           datePublished: page.created_at,
           dateModified: page.updated_at,
-          inLanguage: locale.value === "de" ? "de" : "en",
+          inLanguage: "de",
           url: canonicalUrl,
           image: {
             "@type": "ImageObject",

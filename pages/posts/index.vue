@@ -1,27 +1,21 @@
 <script setup lang="ts">
-  import { computed, ref, watch } from "vue"
+  import { ref, watch } from "vue"
   import type { IPost } from "~/types/dto/IPost"
   import ButtonV from "~/components/common/ButtonV.vue"
   import { dt } from "~/functions/dt"
   import { useHead } from "#imports"
   import { useTranslate } from "~/composables/useTranslate"
   import slug from "slug"
-  import { useI18n } from "#i18n"
   import { Store } from "~/services/Store"
   import Widget from "./_Widget.vue"
 
   const t = useTranslate()
-
-  const { locale, locales, setLocale } = useI18n()
 
   const posts = ref<IPost[]>([])
   const pagination = ref(0)
   const postsPerPage = 2
   const hasMore = ref(false)
   const isLoading = ref(false)
-  const localeCodes = computed(() =>
-    locales.value.map((x) => (typeof x === "string" ? x : x.code)),
-  )
 
   async function load() {
     isLoading.value = true
@@ -49,10 +43,6 @@
   function goNext() {
     if (!hasMore.value) return
     pagination.value += 1
-  }
-
-  async function switchLocale(code: string) {
-    await setLocale(code)
   }
 
   await load()
@@ -98,18 +88,6 @@
       </ButtonV>
       <ButtonV @click="pagination = 0">{{ pagination }}</ButtonV>
       <ButtonV :disabled="!hasMore || isLoading" @click="goNext">next</ButtonV>
-    </div>
-
-    <!-- example lang switcher -->
-    <div class="flex justify-center divide-x px-2 children:px-2">
-      <button
-        v-for="l of localeCodes"
-        :key="l"
-        @click="switchLocale(l)"
-        :class="locale === l ? 'font-bold' : ''"
-      >
-        {{ l.toUpperCase() }}
-      </button>
     </div>
 
     <!-- other examples -->
