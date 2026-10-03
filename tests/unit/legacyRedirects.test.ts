@@ -21,6 +21,13 @@ describe("resolveLegacyRedirect", () => {
     )
   })
 
+  it("maps 2025-generation article URL with and without trailing slash", () => {
+    const target =
+      "/posts/DTFmb1/mitarbeiterbeteiligung-und-steuern-in-der-schweiz-der-vollstandige-leitfaden-fur-kmu"
+    assert.equal(resolveLegacyRedirect("/mitarbeiterbeteiligung-steuern/"), target)
+    assert.equal(resolveLegacyRedirect("/mitarbeiterbeteiligung-steuern"), target)
+  })
+
   it("maps dienstleistungen service pages", () => {
     assert.equal(
       resolveLegacyRedirect("/dienstleistungen/firmengruendung/"),
