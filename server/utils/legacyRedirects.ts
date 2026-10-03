@@ -65,7 +65,8 @@ export const LEGACY_REDIRECTS: Record<string, string> = {
   "/tag/steuererklarung": "/artikel",
   "/tag/sozialversicherung": "/artikel",
   "/feed": "/artikel",
-  "/rechner": "/jahresabschluss",
+  "/rechner":
+    "/posts/rjzqhh/grundstuckgewinnsteuer-aargau-schweiz-berechnen-einfach-erklart",
   "/agbs": "/agb",
   "/teamleiter-treuhand-pensum-80-100": "/ueber-uns",
 }
@@ -101,4 +102,26 @@ export function resolveLegacyRedirect(pathname: string): string | null {
   if (target) return target
 
   return hasLocalePrefix ? withoutLocale : null
+}
+
+/**
+ * Resolve the absolute 301 location for a request, or null to serve it.
+ * Apex host (non-www) and legacy paths are combined into a single hop.
+ * Other hosts (previews, localhost) only get legacy-path redirects.
+ */
+export function resolveRequestRedirect(
+  host: string,
+  pathname: string,
+  search: string,
+  siteUrl: string,
+): string | null {
+  const baseUrl = siteUrl.endsWith("/") ? siteUrl.slice(0, -1) : siteUrl
+  const canonicalHost = new URL(baseUrl).host
+  const apexHost = canonicalHost.replace(/^www\./, "")
+  const isApexRequest = apexHost !== canonicalHost && host === apexHost
+
+  const target = resolveLegacyRedirect(pathname)
+  if (target) return `${baseUrl}${target}`
+  if (isApexRequest) return `${baseUrl}${pathname || "/"}${search}`
+  return null
 }

@@ -3,7 +3,12 @@ import { describe, it } from "node:test"
 import {
   normalizePath,
   resolveLegacyRedirect,
+  resolveRequestRedirect,
 } from "../../server/utils/legacyRedirects.ts"
+
+const SITE_URL = "https://www.zofingen-treuhand.ch"
+const GRUNDSTUECK_POST =
+  "/posts/rjzqhh/grundstuckgewinnsteuer-aargau-schweiz-berechnen-einfach-erklart"
 
 describe("normalizePath", () => {
   it("strips trailing slash and query", () => {
@@ -63,6 +68,45 @@ describe("resolveLegacyRedirect", () => {
 
   it("keeps legacy /de sitemaps serving XML", () => {
     assert.equal(resolveLegacyRedirect("/de/sitemaps.xml"), null)
+  })
+
+  it("maps /rechner to the Grundstückgewinnsteuer article", () => {
+    assert.equal(resolveLegacyRedirect("/rechner/"), GRUNDSTUECK_POST)
+  })
+})
+
+describe("resolveRequestRedirect", () => {
+  const apex = "zofingen-treuhand.ch"
+  const www = "www.zofingen-treuhand.ch"
+
+  it("sends apex legacy paths to the final www URL in one hop", () => {
+    assert.equal(
+      resolveRequestRedirect(apex, "/rechner/", "", SITE_URL),
+      `${SITE_URL}${GRUNDSTUECK_POST}`,
+    )
+  })
+
+  it("sends apex pages to www keeping the query string", () => {
+    assert.equal(
+      resolveRequestRedirect(apex, "/kontakt", "?x=1", SITE_URL),
+      `${SITE_URL}/kontakt?x=1`,
+    )
+    assert.equal(resolveRequestRedirect(apex, "/", "", SITE_URL), `${SITE_URL}/`)
+  })
+
+  it("serves canonical www and preview hosts without redirect", () => {
+    assert.equal(resolveRequestRedirect(www, "/kontakt", "", SITE_URL), null)
+    assert.equal(
+      resolveRequestRedirect("foo.vercel.app", "/kontakt", "", SITE_URL),
+      null,
+    )
+  })
+
+  it("uses an absolute location for legacy paths on www", () => {
+    assert.equal(
+      resolveRequestRedirect(www, "/rechner", "", SITE_URL),
+      `${SITE_URL}${GRUNDSTUECK_POST}`,
+    )
   })
 
   it("returns null for current valid pages", () => {
