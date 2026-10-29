@@ -97,6 +97,22 @@
     background-color: rgb(1 32 104 / 0.06);
   }
 
+  .article-body :deep(blockquote) {
+    margin: 2rem 0 2.25rem;
+    padding: 1.35rem 1.5rem 1.35rem 1.4rem;
+    border-left: 4px solid currentColor;
+    border-radius: 0 10px 10px 0;
+    background-color: rgb(1 32 104 / 0.06);
+  }
+
+  .article-body :deep(blockquote p) {
+    margin: 0;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: 500;
+    line-height: 28px;
+  }
+
   /* Sources block: title-sized heading with clear separation from previous section */
   .article-body :deep(h2#quellen) {
     margin-top: 4.5rem;
