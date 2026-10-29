@@ -18,18 +18,27 @@
 </template>
 
 <style scoped>
+  .article-body :deep(.table-scroll),
   .article-body :deep(figure) {
+    display: block;
+    width: 100%;
+    max-width: 100%;
     margin: 1.5rem 0;
     overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    touch-action: pan-x pan-y;
   }
 
   .article-body :deep(table) {
-    width: 100%;
-    min-width: 28rem;
+    width: max-content;
+    min-width: 100%;
+    max-width: none;
     border-collapse: collapse;
     font: inherit;
     color: inherit;
-    margin-bottom: 15px;
+    margin-bottom: 0;
   }
 
   .article-body :deep(td),

@@ -78,11 +78,44 @@
   }
 
   /* ── 3. Heroes ───────────────────────────────────────────────── */
-  main section.relative.overflow-hidden.bg-brand-card [class*="min-h-[600px]"],
-  main section.relative.overflow-hidden.bg-brand-card [class*="min-h-[430px]"],
-  main section.relative.overflow-hidden.bg-brand-card [class*="min-h-[634px]"],
-  main section.relative.overflow-hidden.bg-brand-card [class*="min-h-[507px]"] {
+  main section.relative.overflow-hidden.bg-brand-card:not(.page-hero--compact)
+    [class*="min-h-[600px]"],
+  main section.relative.overflow-hidden.bg-brand-card:not(.page-hero--compact)
+    [class*="min-h-[430px]"],
+  main section.relative.overflow-hidden.bg-brand-card:not(.page-hero--compact)
+    [class*="min-h-[634px]"],
+  main section.relative.overflow-hidden.bg-brand-card:not(.page-hero--compact)
+    [class*="min-h-[507px]"] {
     min-height: 26rem !important;
+  }
+
+  /* Blog heroes only: cap height on mobile */
+  main section.page-hero--compact {
+    max-height: 400px !important;
+  }
+
+  main section.page-hero--compact > .relative {
+    height: 400px !important;
+    max-height: 400px !important;
+    min-height: 0 !important;
+    display: flex !important;
+    align-items: flex-end !important;
+    padding-top: 5rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+
+  main section.page-hero--compact .hero-layout {
+    min-height: 0 !important;
+    width: 100% !important;
+  }
+
+  main section.page-hero--compact .hero-content {
+    gap: 1rem !important;
+  }
+
+  main section.page-hero--compact h1 {
+    font-size: 2rem !important;
+    line-height: 2.5rem !important;
   }
 
   main section.relative.overflow-hidden.bg-brand-card > [class*="bg-gradient"] {
@@ -189,10 +222,32 @@
     height: auto;
   }
 
-  .article-body table {
+  .article-body .table-scroll,
+  .article-body figure {
     display: block;
+    width: 100%;
+    max-width: 100%;
     overflow-x: auto;
+    overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    touch-action: pan-x pan-y;
+  }
+
+  .article-body table {
+    display: table;
+    width: max-content;
+    min-width: 100%;
+    max-width: none;
+    font-size: 14px !important;
+    line-height: 22px !important;
+  }
+
+  .article-body td,
+  .article-body th {
+    padding: 8px 14px !important;
+    font-size: 14px !important;
+    line-height: 22px !important;
   }
 
   .article-body [class*="text-[32px]"] {

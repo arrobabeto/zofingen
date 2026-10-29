@@ -6,13 +6,18 @@
       body?: string
       align?: "left" | "center"
       large?: boolean
+      /** Marks blog heroes for mobile-only height cap (see mobile.css) */
+      compact?: boolean
     }>(),
-    { align: "center" },
+    { align: "center", compact: false },
   )
 </script>
 
 <template>
-  <section class="relative w-full overflow-hidden bg-brand-card">
+  <section
+    class="relative w-full overflow-hidden bg-brand-card"
+    :class="compact && 'page-hero--compact'"
+  >
     <img
       :src="image"
       alt=""

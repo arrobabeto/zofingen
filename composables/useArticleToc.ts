@@ -27,6 +27,18 @@ export function normalizeArticleQuellen(html: string): string {
   )
 }
 
+/**
+ * Wrap bare tables in a horizontal scroll container for touch / narrow viewports.
+ * Skips tables already inside `.table-scroll`.
+ */
+export function wrapArticleTables(html: string): string {
+  return html.replace(/<table\b[\s\S]*?<\/table>/gi, (table, offset, full) => {
+    const before = full.slice(Math.max(0, offset - 80), offset)
+    if (/table-scroll[^>]*>\s*$/i.test(before)) return table
+    return `<div class="table-scroll">${table}</div>`
+  })
+}
+
 /** Strip manual "1. " / "9a. " prefixes so TOC numbering is not doubled. */
 export function tocDisplayText(text: string): string {
   return text.replace(LEADING_SECTION_NUMBER, "").trim() || text
@@ -82,7 +94,8 @@ export function injectArticleHeadingIds(html: string): string {
 
 export function useArticleToc(html: string) {
   const withQuellen = normalizeArticleQuellen(html)
-  const enrichedHtml = injectArticleHeadingIds(withQuellen)
+  const withTables = wrapArticleTables(withQuellen)
+  const enrichedHtml = injectArticleHeadingIds(withTables)
   const items = parseArticleToc(enrichedHtml)
   return { enrichedHtml, items }
 }
