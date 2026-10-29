@@ -6,7 +6,7 @@
 
 <template>
   <div
-    class="flex min-h-[100dvh] flex-col bg-white font-serif text-brand-blue"
+    class="flex min-h-[100svh] flex-col bg-white font-serif text-brand-blue"
   >
     <Navigation />
     <div class="flex-grow">

@@ -13,7 +13,7 @@
         class="flex w-[376px] max-w-full flex-col"
       >
         <div class="h-[210px] overflow-hidden rounded-t-[10px]">
-          <img :src="s.image" alt="" class="h-full w-full object-cover" />
+          <img :src="s.image" alt="" class="img-fill h-full w-full object-cover" />
         </div>
         <div
           class="flex flex-1 flex-col items-center gap-8 rounded-b-[10px] bg-brand-card px-4 py-8 text-center text-brand-blue"
