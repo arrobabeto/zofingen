@@ -3,18 +3,31 @@
   /* ── 1. Foundation ───────────────────────────────────────────── */
   html,
   body {
-    overflow-x: clip;
+    /* hidden is more stable than clip on mobile browsers (avoids scroll jumps) */
+    overflow-x: hidden;
   }
 
   main {
-    overflow-x: clip;
+    overflow-x: hidden;
   }
 
-  main img:not([class*="absolute"]):not(.partner-logo),
+  main img:not([class*="absolute"]):not(.partner-logo):not(.img-fill),
   main video:not([class*="absolute"]),
   main iframe {
     max-width: 100%;
     height: auto;
+  }
+
+  /*
+   * Only images explicitly marked .img-fill (inside sized aspect/fixed boxes).
+   * Do NOT set height:100% on all object-cover imgs — that can expand the page
+   * and cause runaway scroll on mobile Safari/Chrome.
+   */
+  main img.img-fill {
+    max-width: none;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   main section.relative.overflow-hidden > video[class*="absolute"],

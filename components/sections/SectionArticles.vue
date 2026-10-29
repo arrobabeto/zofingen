@@ -37,8 +37,14 @@
           :to="a.href"
           class="flex w-[376px] max-w-full flex-col transition hover:opacity-90"
         >
-          <div class="h-[210px] overflow-hidden rounded-t-[10px]">
-            <img :src="a.image" alt="" class="h-full w-full object-cover" />
+          <div
+            class="aspect-[16/10] overflow-hidden rounded-t-[10px] lg:aspect-auto lg:h-[210px]"
+          >
+            <img
+              :src="a.image"
+              alt=""
+              class="img-fill h-full w-full object-cover object-center"
+            />
           </div>
           <div
             class="flex flex-1 items-center justify-center rounded-b-[10px] bg-brand-blue px-4 py-8"
