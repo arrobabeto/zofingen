@@ -6,7 +6,7 @@
       body?: string
       align?: "left" | "center"
       large?: boolean
-      /** Marks blog heroes for mobile-only height cap (see mobile.css) */
+      /** Shorter hero on mobile (blog / artikel pages) */
       compact?: boolean
     }>(),
     { align: "center", compact: false },
@@ -16,7 +16,7 @@
 <template>
   <section
     class="relative w-full overflow-hidden bg-brand-card"
-    :class="compact && 'page-hero--compact'"
+    :class="compact && 'page-hero--compact max-h-[400px] lg:max-h-none'"
   >
     <img
       :src="image"
@@ -31,24 +31,40 @@
           : 'bg-gradient-to-b from-white via-white/80 to-white/50'
       "
     />
-    <div class="relative w-full px-6 pb-16 pt-28 lg:px-[100px] lg:pt-32">
+    <div
+      class="relative w-full px-6 lg:px-[100px]"
+      :class="
+        compact
+          ? 'flex h-[400px] max-h-[400px] items-end pb-10 pt-20 lg:h-auto lg:max-h-none lg:pb-16 lg:pt-32'
+          : 'pb-16 pt-28 lg:pt-32'
+      "
+    >
       <div
         class="hero-layout relative mx-auto flex max-w-[1200px]"
         :class="[
-          body ? 'min-h-[634px] items-end' : 'min-h-[507px] items-end',
+          compact
+            ? 'min-h-0 w-full items-end lg:min-h-[507px]'
+            : body
+              ? 'min-h-[634px] items-end'
+              : 'min-h-[507px] items-end',
           align === 'left' ? 'justify-start' : 'justify-center',
         ]"
       >
         <div
-          class="hero-content flex max-w-[620px] flex-col gap-8"
-          :class="align === 'left' ? 'items-start text-left' : 'items-center text-center'"
+          class="hero-content flex max-w-[620px] flex-col"
+          :class="[
+            compact ? 'gap-4 lg:gap-8' : 'gap-8',
+            align === 'left' ? 'items-start text-left' : 'items-center text-center',
+          ]"
         >
           <h1
             class="font-serif font-bold text-brand-blue"
             :class="
-              large
-                ? 'text-[48px] leading-[58px]'
-                : 'text-[42px] leading-[58px]'
+              compact
+                ? 'text-[32px] leading-[40px] lg:text-[42px] lg:leading-[58px]'
+                : large
+                  ? 'text-[48px] leading-[58px]'
+                  : 'text-[42px] leading-[58px]'
             "
           >
             {{ title }}

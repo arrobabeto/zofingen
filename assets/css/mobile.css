@@ -102,7 +102,7 @@
     min-height: 26rem !important;
   }
 
-  /* Blog heroes only: cap height on mobile */
+  /* Blog / artikel heroes: shorter on mobile (matches SectionPageHero compact) */
   main section.page-hero--compact {
     max-height: 400px !important;
   }
@@ -252,15 +252,44 @@
     width: max-content;
     min-width: 100%;
     max-width: none;
-    font-size: 14px !important;
-    line-height: 22px !important;
   }
 
+  /*
+   * Table body cells: 14px on mobile (12px was too small / hard to read).
+   * Nested p/strong/span must inherit — WP tables often wrap cell text.
+   */
   .article-body td,
   .article-body th {
-    padding: 8px 14px !important;
+    padding: 10px 12px !important;
     font-size: 14px !important;
-    line-height: 22px !important;
+    line-height: 1.35 !important;
+  }
+
+  .article-body td *,
+  .article-body th * {
+    font-size: inherit !important;
+    line-height: inherit !important;
+  }
+
+  /* Header row only — keep 16px */
+  .article-body thead th,
+  .article-body thead td,
+  .article-body table:not(:has(thead)) > tbody > tr:first-child > td,
+  .article-body table:not(:has(thead)) > tbody > tr:first-child > th,
+  .article-body table:not(:has(thead)) > tr:first-child > td,
+  .article-body table:not(:has(thead)) > tr:first-child > th {
+    font-size: 16px !important;
+    line-height: 1.35 !important;
+  }
+
+  .article-body thead th *,
+  .article-body thead td *,
+  .article-body table:not(:has(thead)) > tbody > tr:first-child > td *,
+  .article-body table:not(:has(thead)) > tbody > tr:first-child > th *,
+  .article-body table:not(:has(thead)) > tr:first-child > td *,
+  .article-body table:not(:has(thead)) > tr:first-child > th * {
+    font-size: inherit !important;
+    line-height: inherit !important;
   }
 
   .article-body [class*="text-[32px]"] {
