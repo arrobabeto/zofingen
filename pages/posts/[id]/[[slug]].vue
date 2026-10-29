@@ -138,7 +138,7 @@
 
 <template>
   <main>
-    <SectionPageHero title="Artikel" :image="heroImage" />
+    <SectionPageHero title="Artikel" :image="heroImage" compact />
     <SectionArtikelHeader :title="post.title" :date="post.created_at" />
     <SectionArtikelToc :items="tocItems" />
     <SectionArtikelContent :html="enrichedHtml" />
