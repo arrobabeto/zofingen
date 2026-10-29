@@ -45,13 +45,54 @@
   .article-body :deep(th) {
     border: 1px solid rgb(1 32 104 / 0.22);
     padding: 0.625rem 1rem;
-    vertical-align: top;
+    vertical-align: middle;
     text-align: left;
+    /* Body rows: 14px. Header row overridden below to 16px. */
+    font-size: 14px;
+    line-height: 1.35;
   }
 
-  .article-body :deep(tbody tr:first-child td),
-  .article-body :deep(tbody tr:first-child th),
-  .article-body :deep(thead th) {
+  .article-body :deep(td *),
+  .article-body :deep(th *) {
+    font-size: inherit;
+    line-height: inherit;
+  }
+
+  /* Kill article paragraph margins inside cells (extra space below text) */
+  .article-body :deep(td > *:first-child),
+  .article-body :deep(th > *:first-child) {
+    margin-top: 0;
+  }
+
+  .article-body :deep(td > *:last-child),
+  .article-body :deep(th > *:last-child) {
+    margin-bottom: 0;
+  }
+
+  .article-body :deep(td p),
+  .article-body :deep(th p),
+  .article-body :deep(td ul),
+  .article-body :deep(th ul) {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  /* Only the real header row — never thead AND first tbody row together */
+  .article-body :deep(thead th),
+  .article-body :deep(thead td) {
+    font-size: 16px;
+    line-height: 1.35;
+    font-weight: 700;
+    background-color: rgb(1 32 104 / 0.06);
+  }
+
+  /* Tables without <thead>: first body row is the header */
+  .article-body :deep(table:not(:has(thead)) > tbody > tr:first-child > td),
+  .article-body :deep(table:not(:has(thead)) > tbody > tr:first-child > th),
+  .article-body :deep(table:not(:has(thead)) > tr:first-child > td),
+  .article-body :deep(table:not(:has(thead)) > tr:first-child > th) {
+    font-size: 16px;
+    line-height: 1.35;
     font-weight: 700;
     background-color: rgb(1 32 104 / 0.06);
   }

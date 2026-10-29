@@ -42,6 +42,7 @@ async function run() {
     {
       title: "Artikel",
       image: HERO_IMAGE,
+      compact: true,
       _orbi: { component: "SectionPageHero" },
     },
     {

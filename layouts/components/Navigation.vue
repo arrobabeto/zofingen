@@ -65,6 +65,10 @@
     mobileOpen.value = false
     mobileSection.value = null
     closeMenu()
+    // Reset scroll when leaving via mobile menu (Safari keeps old Y position)
+    if (typeof window !== "undefined" && window.matchMedia("(max-width: 1023px)").matches) {
+      window.scrollTo(0, 0)
+    }
   }
 </script>
 
