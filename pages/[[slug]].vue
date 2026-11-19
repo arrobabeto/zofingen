@@ -2,6 +2,7 @@
   import { showError, useSeoMeta } from "#app"
   import { useHead, useRoute, useRuntimeConfig, useTranslate } from "#imports"
   import AnySection from "~/components/sections/AnySection.vue"
+  import PhishingWarningPopup from "~/components/PhishingWarningPopup.vue"
   import { useCanonicalLinks } from "~/composables/useCanonicalLinks"
   import { fn } from "~/functions/fn"
   import type { IPage } from "~/types/dto/IPage"
@@ -112,5 +113,6 @@
       :key="i"
       :data="section"
     />
+    <PhishingWarningPopup v-if="page.slug === 'home'" />
   </main>
 </template>
