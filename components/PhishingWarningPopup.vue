@@ -55,7 +55,7 @@
             role="dialog"
             aria-modal="true"
             aria-labelledby="phishing-warning-title"
-            class="relative my-auto w-full max-w-[793px] overflow-hidden rounded-[16px] bg-white shadow-[2px_2px_5px_0px_rgba(0,0,0,0.15)]"
+            class="relative my-auto w-full max-w-[min(793px,100%)] rounded-[16px] bg-white shadow-[2px_2px_5px_0px_rgba(0,0,0,0.15)]"
             @click.stop
           >
             <button
@@ -68,10 +68,10 @@
             </button>
 
             <div
-              class="flex flex-col items-center gap-6 px-5 py-10 sm:px-8 lg:flex-row lg:items-center lg:gap-[15px] lg:px-10 lg:py-8"
+              class="flex flex-col items-center gap-5 px-5 py-10 pr-12 sm:gap-6 sm:px-8 sm:pr-14 lg:flex-row lg:items-center lg:gap-6 lg:px-10 lg:py-8 lg:pr-10"
             >
               <div
-                class="w-full font-serif text-[16px] leading-[24px] text-[#1b426b] lg:w-[502px] lg:shrink-0 lg:text-[18px] lg:leading-[25px]"
+                class="min-w-0 flex-1 font-serif text-[16px] leading-[24px] text-[#1b426b] lg:text-[18px] lg:leading-[25px]"
               >
                 <h2
                   id="phishing-warning-title"
@@ -115,7 +115,7 @@
               <img
                 src="/img/home/phishing-warning.svg"
                 alt=""
-                class="block h-auto w-[180px] max-w-full shrink-0 object-contain sm:w-[220px] lg:w-[277px]"
+                class="block h-auto w-[140px] shrink-0 object-contain sm:w-[170px] lg:w-[200px]"
                 width="277"
                 height="235"
               />
