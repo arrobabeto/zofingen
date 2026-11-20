@@ -349,13 +349,42 @@ const sections = [
   },
   {
     title: "Unser Netzwerk & Partner",
-    logos: [
-      img("partner-1.png"),
-      img("partner-2.png"),
-      img("partner-3.png"),
-      img("partner-4a.png"),
-      img("partner-5.png"),
-      img("partner-6.png"),
+    partners: [
+      {
+        src: img("partner-1.png"),
+        href: "https://cashctrl.com/de",
+        alt: "CashCtrl",
+      },
+      {
+        src: img("partner-2.png"),
+        href: "https://www.luxina.ch/",
+        alt: "Luxina Immobilien",
+      },
+      {
+        src: img("partner-3.png"),
+        href: "https://www.treuhandsuisse.ch/",
+        alt: "Treuhand Suisse",
+      },
+      {
+        src: img("partner-4.png"),
+        href: "https://www.bexolutions.ch/",
+        alt: "Bexolutions",
+      },
+      {
+        src: img("partner-5.png"),
+        href: "https://www.treuhandvergleich.ch/",
+        alt: "treuhandvergleich.ch",
+      },
+      {
+        src: img("partner-6.png"),
+        href: "https://treuhand-suche.ch/",
+        alt: "treuhand-suche.ch",
+      },
+      {
+        src: img("partner-7.png"),
+        href: "https://firmen-start.ch/",
+        alt: "firmen-start.ch",
+      },
     ],
     _orbi: { component: "SectionPartners" },
   },

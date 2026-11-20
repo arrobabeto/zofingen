@@ -1,9 +1,7 @@
 <script setup lang="ts">
-  import SectionHeading from "./_SectionHeading.vue"
-
   defineProps<{
     title: string
-    logos: string[]
+    partners: { src: string; href: string; alt: string }[]
   }>()
 </script>
 
@@ -18,14 +16,24 @@
         </h2>
         <span class="block h-[4px] w-[67px] bg-brand-blue" />
       </div>
-      <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-6 lg:gap-x-11">
-        <img
-          v-for="(src, i) of logos"
+      <div
+        class="flex w-full max-w-[1100px] flex-wrap items-center justify-center gap-x-10 gap-y-10 lg:gap-x-11"
+      >
+        <a
+          v-for="(p, i) of partners"
           :key="i"
-          :src="src"
-          alt=""
-          class="partner-logo h-8 w-auto max-w-[100px] object-contain opacity-70 grayscale lg:h-9"
-        />
+          :href="p.href"
+          :aria-label="p.alt"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex h-14 w-[150px] items-center justify-center sm:h-16 sm:w-[170px] lg:h-[64px] lg:w-[180px]"
+        >
+          <img
+            :src="p.src"
+            :alt="p.alt"
+            class="partner-logo max-h-full max-w-full object-contain opacity-80 grayscale"
+          />
+        </a>
       </div>
     </div>
   </section>
